@@ -1,5 +1,5 @@
 # Welcome
-You are welcome to this website. If you're here, probably you want to learn something about programming. Well, you are in the right place :simple_smile:. Here, as I can, I'll post materials about C/C++ programming, assembly language, PIC microcontrollers and topics about digital systems. Here, you can also discover some tutorials about istalling some program or library, etc. So, I hope that you enjoy these materials and contribute to increase somebody's knowledge. 
+You are welcome to this website. If you're here, probably you want to learn something about programming. Well, you are in the right place :simple_smile: . Here, as I can, I'll post materials about C/C++ programming, assembly language, PIC microcontrollers and topics about digital systems. Here, you can also discover some tutorials about istalling some program or library, etc. So, I hope that you enjoy these materials and contribute to increase somebody's knowledge. 
 
 # Tutorials
 Under development...
