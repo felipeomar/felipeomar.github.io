@@ -5,7 +5,7 @@ You are welcome to this website. If you're here, probably you want to learn some
 Under development...
 
 # Projects
-Under development...
+[OpenCV Instalation](tutorials/tutorial_install_opencv.md)
 
 # About the author
 Student of Electrical Engineering at UFRN, he always liked about topics of physics, science and electronics. After get in the university, he discovered a new knowledge field: programming languages. Since then, he take more contact with the main languages like C/C++. He also have more affinity with digital systems, hardware description languages (like VHDL) and PIC microcontrollers (here includes assembly language).
