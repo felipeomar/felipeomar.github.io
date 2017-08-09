@@ -1,37 +1,13 @@
-## Welcome to GitHub Pages
+# Welcome
+You are welcome to this website. If you're here, probably you want to learn something about programming. Well, you are in the right place :simple_smile:. Here, as I can, I'll post materials about C/C++ programming, assembly language, PIC microcontrollers and topics about digital systems. Here, you can also discover some tutorials about istalling some program or library, etc. So, I hope that you enjoy these materials and contribute to increase somebody's knowledge. 
 
-You can use the [editor on GitHub](https://github.com/felipeomar/felipeomar.github.io/edit/master/index.md) to maintain and preview the content for your website in Markdown files.
+# Tutorials
+Under development...
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+# Projects
+Under development...
 
-### Markdown
+# About the author
+Student of Electrical Engineering at UFRN, he always liked about topics of physics, science and electronics. After get in the university, he discovered a new knowledge field: programming languages. Since then, he take more contact with the main languages like C/C++. He also have more affinity with digital systems, hardware description languages (like VHDL) and PIC microcontrollers (here includes assembly language).
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
-```
-
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
-
-### Jekyll Themes
-
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/felipeomar/felipeomar.github.io/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+Among your hobbies, there are series, films, musics (who don't like this?) and play guitar. Your objective is always work with things that make he feel well and, in same way, contribute to society.
