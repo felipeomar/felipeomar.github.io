@@ -1,5 +1,4 @@
 theme: jekyll-theme-cayman
 title: Felipe Omar Projects
 description: A personal page about projects with shell script, C/C++ and PIC microcontrollers... Have fun!
-gems:
-  - jemoji
+gems:- jemoji
