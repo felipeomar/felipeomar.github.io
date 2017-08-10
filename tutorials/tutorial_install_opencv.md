@@ -30,3 +30,22 @@ Now, you have to go to folder where you downloaded the archive and descompact it
 ```
 unzip opencv-3.3.0.zip
 ```
+
+## Install OpenCV Library
+
+After you download and descompact the OpenCV source file, you will install it. So, you must to change to descompacted folder and create a *build* folder:
+```
+cd opencv-3.3.0/
+mkdir build
+cd build
+```
+After this, the OpenCV installation is realized by the next commands:
+```
+sudo cmake -D CMAKE_BUILD_TYPE=Release -D CMAKE_INSTALL_PREFIX=/usr/local ..
+sudo make -j7 # runs 7 jobs in parallel
+sudo make install
+```
+According these commands, the files of OpenCV are installed on path **/usr/local**. Thus, for the correct operation, you have to define a ambient variable with this path:
+```
+export OpenCV_DIR=/usr/local/
+```
