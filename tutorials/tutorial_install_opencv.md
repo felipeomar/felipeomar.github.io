@@ -1,6 +1,6 @@
 # OpenCV Installation
 
-OpenCV (Open Source Computer Vision Library) is an open source computer vision and machine learning software library. It can be used in the mainly plattaforms and languages, making it portable with the commercial systems. The main objective of this library is work with digital image processing without worry with details about codecs, archives structures and anothers complex topics. Thus, we can build an application easily and fast.
+OpenCV (Open Source Computer Vision Library) is an open source computer vision and machine learning software library. It can be used in the mainly plattaforms and languages, making it portable with the commercial systems. The main objective of this library is work with digital image processing without worrying about codecs, archives structures and anothers complex topics. Thus, we can build an application easily and fast.
 
 This tutorial will show how you can install the OpenCV Library on Linux Ubuntu based distributions, and execute a simple C++ program to test the installation.
 
