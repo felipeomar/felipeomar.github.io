@@ -1,5 +1,5 @@
 # Welcome
-You are welcome to this website. If you're here, probably you want to learn something about programming. Well, you are in the right place :-). Here, as I can, I'll post materials about C/C++ programming, assembly language, PIC microcontrollers and topics about digital systems. Here, you can also discover some tutorials about installing some programs or libraries... So, I hope that you enjoy these materials and contribute to increase somebody's knowledge. 
+You are welcome to this website. If you're here, probably you want to learn something about programming . Well, you are in the right place :-). I'll post material about C/C++ programming, assembly, PIC microcontrollers and topics about digital systems. Here, you can also find some tutorials about installing some programs or libraries... So, I hope that you enjoy these material and contribute to increase your knowledge. 
 
 # Tutorials
 [OpenCV Installation](tutorials/tutorial_install_opencv.md)
@@ -8,6 +8,6 @@ You are welcome to this website. If you're here, probably you want to learn some
 Under development...
 
 # About the author
-Student of Electrical Engineering at UFRN, he always liked about topics of physics, science and electronics. After get in the university, he discovered a new knowledge field: programming languages. Since then, he take more contact with the main languages like C/C++. He also have more affinity with digital systems, hardware description languages (like VHDL) and PIC microcontrollers (here includes assembly language).
+Felipe Omar is a student of Electrical Engineering at UFRN, he always liked about topics of physics, science and electronics. After he got into the university, he discovered a new knowledge field: programming languages. Since then, he take more contact with the main languages like C/C++. He also have more affinity with digital systems, hardware description languages (like VHDL) and PIC microcontrollers.
 
 Among your hobbies, there are series, films, musics (who don't like this?) and play guitar. Your objective is always work with things that make he feel well and, in same way, contribute to society.
