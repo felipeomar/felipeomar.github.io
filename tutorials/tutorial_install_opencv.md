@@ -49,3 +49,7 @@ According these commands, the files of OpenCV are installed on folder **/usr/loc
 ```
 export OpenCV_DIR=/usr/local/
 ```
+
+## Test the installation
+
+To test if your OpenCV installation was sucessful, you need to make a simple code and execute it. In this example, I will show how to do this with the C++ language. In this case, is necessary at least two files: ***CMakeLists.txt*** and a ***.cpp file***. The *.cpp file* will contain your code program, and the file *CMakeLists.txt* will contain some commands to compile and build your program. Let's see an example:
