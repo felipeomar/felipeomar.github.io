@@ -18,14 +18,14 @@ After install the necessary packages, you must to download the library and insta
 
 ## Download an OpenCV version
 
-To download an OpenCV version, you need to go to [OpenCV page](https://sourceforge.net/projects/opencvlibrary/files/opencv-unix/) on sourceforge.net and get your favorite version. If you prefer, you can also put the command ***wget*** on your terminal:
+To download an OpenCV version, you need to go to [OpenCV page](https://sourceforge.net/projects/opencvlibrary/files/opencv-unix/) and get your favorite version. If you prefer, you can also put the command ***wget*** on your terminal:
 
 ```
 wget https://sourceforge.net/projects/opencvlibrary/files/opencv-unix/3.3.0/opencv-3.3.0.zip
 ```
 For anothers versions, just modify the version numbers on the website link.
 
-Now, you have to go to folder where you downloaded the archive and descompact it. On terminal:
+Now, you have to go to the folder where you downloaded the archive and descompact it. On terminal:
 
 ```
 unzip opencv-3.3.0.zip
@@ -45,7 +45,7 @@ sudo cmake -D CMAKE_BUILD_TYPE=Release -D CMAKE_INSTALL_PREFIX=/usr/local ..
 sudo make -j7 # runs 7 jobs in parallel
 sudo make install
 ```
-According these commands, the files of OpenCV are installed on path **/usr/local**. Thus, for the correct operation, you have to define a ambient variable with this path:
+According these commands, the files of OpenCV are installed on folder **/usr/local**. Thus, for the correct operation, you have to define a ambient variable with this path:
 ```
 export OpenCV_DIR=/usr/local/
 ```
