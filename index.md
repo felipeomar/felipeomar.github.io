@@ -1,5 +1,5 @@
 # Welcome
-You are welcome to this website. If you're here, probably you want to learn something about programming . Well, you are in the right place :simple_smile: . I'll post material about C/C++ programming, assembly, PIC microcontrollers and topics about digital systems. Here, you can also find some tutorials about installing some programs or libraries... So, I hope that you enjoy these material and contribute to increase your knowledge. 
+You are welcome to this website. If you're here, probably you want to learn something about programming . Well, you are in the right place :simple\_smile: . I'll post material about C/C++ programming, assembly, PIC microcontrollers and topics about digital systems. Here, you can also find some tutorials about installing some programs or libraries... So, I hope that you enjoy these material and contribute to increase your knowledge. 
 
 # Tutorials
 [OpenCV Installation](tutorials/tutorial_install_opencv.md)
