@@ -1,0 +1,46 @@
+/* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
+
+@import url(https://fonts.googleapis.com/css?family=Ubuntu);
+@import "asciidoctor.css"; /* Default asciidoc style framework - important */
+
+/* CUSTOMISATIONS */
+/* Change the values in root for quick customisation. If you want even more fine grain... venture further. */
+
+:root{
+--maincolor:#FFFFFF;
+--primarycolor:#159957;
+--secondarycolor:#333333;
+--tertiarycolor: #159957;
+--sidebarbackground:#CCC;
+--highlightcolor:#00c171;
+--linkcolor:#159957;
+--linkcoloralternate:#159957;
+--white:#FFFFFF;
+--black:#606c71;
+}
+
+/* Text styles */
+body{font-family: "Ubuntu",sans-serif;color:var(--black);}
+h1,h2,h3,h4,h5,h6{color:var(--primarycolor) !important;font-family:"Ubuntu",sans-serif;}
+.title{color:(--primarycolor) !important;font-family:"Ubuntu",sans-serif;font-style: normal; font-weight: normal;}
+p{font-family: "Ubuntu",sans-serif ! important}
+#toc.toc2 a:link{color:white;}
+code{background-color:#f7f7f8 !important;color:var(--black)}
+blockquote{color:#000000 !important}
+.quoteblock blockquote:before{color:var(--linkcoloralternate)}
+mark{background-color: var(--highlightcolor)} /* Text highlighting color */
+.subheader,.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{line-height:1.45;color:#159957;font-weight:400;margin-top:0;margin-bottom:.25em}
+/* Table styles */
+th{background-color: var(--tertiarycolor);color:var(--white) !important;}
+#toc.toc2{background-color:#FFFFFF;background-color: #159957;background-image: linear-gradient(120deg, #155799, #159957);color:white;}
+#toc.toc2.a{color:white;}
+#toctitle{color:white;}
+/* Responsiveness fixes */
+video {
+  max-width: 100%;
+}
+@media all and (max-width: 600px) {
+table {
+  width: 55vw!important;
+  font-size: 3vw;
+}
