@@ -148,7 +148,7 @@ table {
 <h2 id="_opencv_installation">OpenCV Installation</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>OpenCV (Open Source Computer Vision Library) is an open source computer vision and machine learning software library. It can be used in the mainly plattaforms and languages, making it portable with the commercial systems. The main objective of this library is work with digital image processing without worrying about codecs, archives structures and anothers complex topics. Thus, we can build an application easily and fast.</p>
+<p>OpenCV (Open Source Computer Vision Library) is an open source computer vision and machine learning software library. It can be used in the main plattaforms and languages, making it portable with the commercial systems. The main objective of this library is work with digital image processing without worrying about codecs, archives structures and anothers complex topics. Thus, we can build an application easily and fast.</p>
 </div>
 <div class="paragraph">
 <p>This tutorial will show how you can install the OpenCV Library on Linux Ubuntu based distributions, and execute a simple C++ program to test the installation.</p>
@@ -228,7 +228,7 @@ sudo make install</code></pre>
 <h2 id="_test_the_opencv_installation">Test the OpenCV installation</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>To test if your OpenCV installation was sucessful, you need to make a simple code and execute it. In this example, will be showed how to do this with the C language. In this case, is necessary at least two files: CMakeLists.txt and a main.cpp file. The main.cpp file will contain your code program, and the file CMakeLists.txt will contain some commands to compile and build your C code. Let’s see an example:</p>
+<p>To test if your OpenCV installation was sucessful, you need to make a simple code and execute it. In this example, will be showed how to do this with the C++ language. In this case, is necessary at least two files: <strong>CMakeLists.txt</strong> and a <strong>main.cpp</strong> file. The main.cpp file will contain your code program, and the file CMakeLists.txt will contain some commands to compile and build your C++ code. Let’s see an example:</p>
 </div>
 <div id="ex_displayimage" class="listingblock">
 <div class="title">DisplayImage.cpp</div>
@@ -284,7 +284,7 @@ make</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>For any project, you just need to adjust the project&#8217;s name into CMakeLists.txt file, according the name of .cpp file. For example, let&#8217;s see how the CMakeLists.txt file can be set for a project called "NegativeImage", with a program in a file called "main.cpp":</p>
+<p>For any project, you just need to adjust the project&#8217;s name into CMakeLists.txt file, according the name of .cpp file. For example, let&#8217;s see how the CMakeLists.txt file can be set for a project called "NegativeImage", with the C++ code in a file called "main.cpp":</p>
 </div>
 <div id="ex_cmakelists2" class="listingblock">
 <div class="title">CMakeLists.txt</div>
@@ -298,12 +298,15 @@ make</code></pre>
 <span class="tok-nb">target_link_libraries</span><span class="tok-p">(</span> <span class="tok-s">NegativeImage</span> <span class="tok-o">${</span><span class="tok-nv">OpenCV_LIBS</span><span class="tok-o">}</span> <span class="tok-p">)</span></code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p>For any suggestion or correction, please contact-me: <a href="mailto:felipeomar.c@gmail.com">felipeomar.c@gmail.com</a></p>
+</div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-08-14 00:10:53 BRT
+Last updated 2017-08-14 10:15:34 BRT
 </div>
 </div>
 </body>

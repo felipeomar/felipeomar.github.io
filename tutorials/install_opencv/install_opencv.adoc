@@ -5,9 +5,9 @@
 
 == OpenCV Installation
 
-OpenCV (Open Source Computer Vision Library) is an open source computer vision and machine learning software library. It can be used in the mainly plattaforms and languages, making it portable with the commercial systems. The main objective of this library is work with digital image processing without worrying about codecs, archives structures and anothers complex topics. Thus, we can build an application easily and fast.
+OpenCV (Open Source Computer Vision Library) is an open source computer vision and machine learning software library. It can be used in the main plattaforms and languages, making it portable with the commercial systems. The main objective of this library is work with digital image processing without worrying about codecs, archives structures and anothers complex topics. Thus, we can build an application easily and fast.
 
-This tutorial will show how you can install the OpenCV Library on Linux Ubuntu based distributions, and execute a simple {C++} program to test the installation.
+This tutorial will show how you can install the OpenCV Library on Linux Ubuntu based distributions, and execute a simple C++ program to test the installation.
 
 === Download and install the prerequisites
 
@@ -70,7 +70,7 @@ export OpenCV_DIR=/usr/local/
 
 == Test the OpenCV installation
 
-To test if your OpenCV installation was sucessful, you need to make a simple code and execute it. In this example, will be showed how to do this with the {C++} language. In this case, is necessary at least two files: CMakeLists.txt and a main.cpp file. The main.cpp file will contain your code program, and the file CMakeLists.txt will contain some commands to compile and build your {C++} code. Let’s see an example:
+To test if your OpenCV installation was sucessful, you need to make a simple code and execute it. In this example, will be showed how to do this with the C\++ language. In this case, is necessary at least two files: *CMakeLists.txt* and a *main.cpp* file. The main.cpp file will contain your code program, and the file CMakeLists.txt will contain some commands to compile and build your C++ code. Let’s see an example:
 
 [[ex_displayimage, DisplayImage.cpp]]
 .DisplayImage.cpp
@@ -103,7 +103,7 @@ After this, if there wasn't any error in your program, a executable file is crea
 ./DisplayImage
 ----
 
-For any project, you just need to adjust the project's name into CMakeLists.txt file, according the name of .cpp file. For example, let's see how the CMakeLists.txt file can be set for a project called "NegativeImage", with the {C++} code in a file called "main.cpp":
+For any project, you just need to adjust the project's name into CMakeLists.txt file, according the name of .cpp file. For example, let's see how the CMakeLists.txt file can be set for a project called "NegativeImage", with the C++ code in a file called "main.cpp":
 
 [[ex_cmakelists2, CMakeLists2.txt]]
 .CMakeLists.txt
@@ -111,4 +111,6 @@ For any project, you just need to adjust the project's name into CMakeLists.txt 
 ----
 include::examples/CMakeLists_2.txt[]
 ----
+
+For any suggestion or correction, please contact-me: felipeomar.c@gmail.com
 
