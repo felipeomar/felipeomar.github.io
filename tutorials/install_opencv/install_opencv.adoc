@@ -112,5 +112,5 @@ For any project, you just need to adjust the project's name into CMakeLists.txt 
 include::examples/CMakeLists_2.txt[]
 ----
 
-For any suggestion or correction, please contact-me: felipeomar.c@gmail.com
+For any suggestion or correction, please contact me: felipeomar.c@gmail.com
 
