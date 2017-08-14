@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 1.5.6.1">
+<title>OpenCV Installation</title>
+<style>
+/* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
+
+@import url(https://fonts.googleapis.com/css?family=Ubuntu);
+@import "asciidoctor.css"; /* Default asciidoc style framework - important */
+
+/* CUSTOMISATIONS */
+/* Change the values in root for quick customisation. If you want even more fine grain... venture further. */
+
+:root{
+--maincolor:#FFFFFF;
+--primarycolor:#159957;
+--secondarycolor:#333333;
+--tertiarycolor: #159957;
+--sidebarbackground:#CCC;
+--highlightcolor:#00c171;
+--linkcolor:#159957;
+--linkcoloralternate:#159957;
+--white:#FFFFFF;
+--black:#606c71;
+}
+
+/* Text styles */
+body{font-family: "Ubuntu",sans-serif;color:var(--black);}
+h1,h2,h3,h4,h5,h6{color:var(--primarycolor) !important;font-family:"Ubuntu",sans-serif;}
+.title{color:(--primarycolor) !important;font-family:"Ubuntu",sans-serif;font-style: normal; font-weight: normal;}
+p{font-family: "Ubuntu",sans-serif ! important}
+#toc.toc2 a:link{color:#31e3d6;}
+code{background-color:#f7f7f8 !important;color:var(--black)}
+blockquote{color:#000000 !important}
+.quoteblock blockquote:before{color:var(--linkcoloralternate)}
+mark{background-color: var(--highlightcolor)} /* Text highlighting color */
+.subheader,.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{line-height:1.45;color:#159957;font-weight:400;margin-top:0;margin-bottom:.25em}
+/* Table styles */
+th{background-color: var(--tertiarycolor);color:var(--white) !important;}
+#toc.toc2{background-color:#31e3d6;background-color: #159957;background-image: linear-gradient(120deg, #155799, #159957);color:white;}
+#toc.toc2.a{color:#31e3d6;}
+#toctitle{color:#31e3d6;}
+/* Responsiveness fixes */
+video {
+  max-width: 100%;
+}
+@media all and (max-width: 600px) {
+table {
+  width: 55vw!important;
+  font-size: 3vw;
+}
+
+</style>
+<style>
+.listingblock .pygments .hll { background-color: #ffffcc }
+.listingblock .pygments, .listingblock .pygments code { background: #f8f8f8; }
+.listingblock .pygments .tok-c { color: #408080; font-style: italic } /* Comment */
+.listingblock .pygments .tok-err { border: 1px solid #FF0000 } /* Error */
+.listingblock .pygments .tok-k { color: #008000; font-weight: bold } /* Keyword */
+.listingblock .pygments .tok-o { color: #666666 } /* Operator */
+.listingblock .pygments .tok-ch { color: #408080; font-style: italic } /* Comment.Hashbang */
+.listingblock .pygments .tok-cm { color: #408080; font-style: italic } /* Comment.Multiline */
+.listingblock .pygments .tok-cp { color: #BC7A00 } /* Comment.Preproc */
+.listingblock .pygments .tok-cpf { color: #408080; font-style: italic } /* Comment.PreprocFile */
+.listingblock .pygments .tok-c1 { color: #408080; font-style: italic } /* Comment.Single */
+.listingblock .pygments .tok-cs { color: #408080; font-style: italic } /* Comment.Special */
+.listingblock .pygments .tok-gd { color: #A00000 } /* Generic.Deleted */
+.listingblock .pygments .tok-ge { font-style: italic } /* Generic.Emph */
+.listingblock .pygments .tok-gr { color: #FF0000 } /* Generic.Error */
+.listingblock .pygments .tok-gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.listingblock .pygments .tok-gi { color: #00A000 } /* Generic.Inserted */
+.listingblock .pygments .tok-go { color: #888888 } /* Generic.Output */
+.listingblock .pygments .tok-gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.listingblock .pygments .tok-gs { font-weight: bold } /* Generic.Strong */
+.listingblock .pygments .tok-gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.listingblock .pygments .tok-gt { color: #0044DD } /* Generic.Traceback */
+.listingblock .pygments .tok-kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.listingblock .pygments .tok-kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.listingblock .pygments .tok-kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.listingblock .pygments .tok-kp { color: #008000 } /* Keyword.Pseudo */
+.listingblock .pygments .tok-kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.listingblock .pygments .tok-kt { color: #B00040 } /* Keyword.Type */
+.listingblock .pygments .tok-m { color: #666666 } /* Literal.Number */
+.listingblock .pygments .tok-s { color: #BA2121 } /* Literal.String */
+.listingblock .pygments .tok-na { color: #7D9029 } /* Name.Attribute */
+.listingblock .pygments .tok-nb { color: #008000 } /* Name.Builtin */
+.listingblock .pygments .tok-nc { color: #0000FF; font-weight: bold } /* Name.Class */
+.listingblock .pygments .tok-no { color: #880000 } /* Name.Constant */
+.listingblock .pygments .tok-nd { color: #AA22FF } /* Name.Decorator */
+.listingblock .pygments .tok-ni { color: #999999; font-weight: bold } /* Name.Entity */
+.listingblock .pygments .tok-ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+.listingblock .pygments .tok-nf { color: #0000FF } /* Name.Function */
+.listingblock .pygments .tok-nl { color: #A0A000 } /* Name.Label */
+.listingblock .pygments .tok-nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+.listingblock .pygments .tok-nt { color: #008000; font-weight: bold } /* Name.Tag */
+.listingblock .pygments .tok-nv { color: #19177C } /* Name.Variable */
+.listingblock .pygments .tok-ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+.listingblock .pygments .tok-w { color: #bbbbbb } /* Text.Whitespace */
+.listingblock .pygments .tok-mb { color: #666666 } /* Literal.Number.Bin */
+.listingblock .pygments .tok-mf { color: #666666 } /* Literal.Number.Float */
+.listingblock .pygments .tok-mh { color: #666666 } /* Literal.Number.Hex */
+.listingblock .pygments .tok-mi { color: #666666 } /* Literal.Number.Integer */
+.listingblock .pygments .tok-mo { color: #666666 } /* Literal.Number.Oct */
+.listingblock .pygments .tok-sa { color: #BA2121 } /* Literal.String.Affix */
+.listingblock .pygments .tok-sb { color: #BA2121 } /* Literal.String.Backtick */
+.listingblock .pygments .tok-sc { color: #BA2121 } /* Literal.String.Char */
+.listingblock .pygments .tok-dl { color: #BA2121 } /* Literal.String.Delimiter */
+.listingblock .pygments .tok-sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.listingblock .pygments .tok-s2 { color: #BA2121 } /* Literal.String.Double */
+.listingblock .pygments .tok-se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+.listingblock .pygments .tok-sh { color: #BA2121 } /* Literal.String.Heredoc */
+.listingblock .pygments .tok-si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+.listingblock .pygments .tok-sx { color: #008000 } /* Literal.String.Other */
+.listingblock .pygments .tok-sr { color: #BB6688 } /* Literal.String.Regex */
+.listingblock .pygments .tok-s1 { color: #BA2121 } /* Literal.String.Single */
+.listingblock .pygments .tok-ss { color: #19177C } /* Literal.String.Symbol */
+.listingblock .pygments .tok-bp { color: #008000 } /* Name.Builtin.Pseudo */
+.listingblock .pygments .tok-fm { color: #0000FF } /* Name.Function.Magic */
+.listingblock .pygments .tok-vc { color: #19177C } /* Name.Variable.Class */
+.listingblock .pygments .tok-vg { color: #19177C } /* Name.Variable.Global */
+.listingblock .pygments .tok-vi { color: #19177C } /* Name.Variable.Instance */
+.listingblock .pygments .tok-vm { color: #19177C } /* Name.Variable.Magic */
+.listingblock .pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
+</style>
+</head>
+<body class="article toc2 toc-left">
+<div id="header">
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_opencv_installation">OpenCV Installation</a>
+<ul class="sectlevel2">
+<li><a href="#_download_and_install_the_prerequisites">Download and install the prerequisites</a></li>
+<li><a href="#_download_an_opencv_version">Download an OpenCV version</a></li>
+<li><a href="#_install_opencv_library">Install OpenCV Library</a></li>
+</ul>
+</li>
+<li><a href="#_test_the_opencv_installation">Test the OpenCV installation</a></li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="_opencv_installation">OpenCV Installation</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>OpenCV (Open Source Computer Vision Library) is an open source computer vision and machine learning software library. It can be used in the mainly plattaforms and languages, making it portable with the commercial systems. The main objective of this library is work with digital image processing without worrying about codecs, archives structures and anothers complex topics. Thus, we can build an application easily and fast.</p>
+</div>
+<div class="paragraph">
+<p>This tutorial will show how you can install the OpenCV Library on Linux Ubuntu based distributions, and execute a simple C++ program to test the installation.</p>
+</div>
+<div class="sect2">
+<h3 id="_download_and_install_the_prerequisites">Download and install the prerequisites</h3>
+<div class="paragraph">
+<p>OpenCV require some packages installed on your computer. To install these packages, open your terminal and execute:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight nowrap"><code>sudo apt-get install build-essential
+sudo apt-get install cmake git libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev
+sudo apt-get install python-dev python-numpy libtbb2 libtbb-dev libjpeg-dev libpng-dev libtiff-dev libjasper-dev libdc1394-22-dev</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>After install the necessary packages, you must to download the library and install it in your system. The next steps will show how to do this.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_download_an_opencv_version">Download an OpenCV version</h3>
+<div class="paragraph">
+<p>To download an OpenCV version, you need to go to <a href="https://sourceforge.net/projects/opencvlibrary/files/opencv-unix/" target="_blank" rel="noopener">OpenCV page</a> and get your favorite version. If you prefer, you can also put the command <strong>wget</strong> on your terminal:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight nowrap"><code>wget https://sourceforge.net/projects/opencvlibrary/files/opencv-unix/3.3.0/opencv-3.3.0.zip</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For anothers versions, just modify the version numbers on the website link.</p>
+</div>
+<div class="paragraph">
+<p>Now, you have to go to the folder where you downloaded the archive and descompact it. On terminal:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight nowrap"><code>unzip opencv-3.3.0.zip</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_install_opencv_library">Install OpenCV Library</h3>
+<div class="paragraph">
+<p>After you download and descompact the OpenCV source file, you will install it. So, you must to change to descompacted folder and create a build folder:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight nowrap"><code>cd opencv-3.3.0/
+mkdir build
+cd build</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>After this, the OpenCV installation is realized by the next commands:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight nowrap"><code>sudo cmake -D CMAKE_BUILD_TYPE=Release -D CMAKE_INSTALL_PREFIX=/usr/local ..
+sudo make -j7 # runs 7 jobs in parallel
+sudo make install</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>With these commands, the files of OpenCV are installed on folder /usr/local. Thus, for the correct operation, you have to define a ambient variable with this path:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight nowrap"><code>export OpenCV_DIR=/usr/local/</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_test_the_opencv_installation">Test the OpenCV installation</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To test if your OpenCV installation was sucessful, you need to make a simple code and execute it. In this example, will be showed how to do this with the C language. In this case, is necessary at least two files: CMakeLists.txt and a main.cpp file. The main.cpp file will contain your code program, and the file CMakeLists.txt will contain some commands to compile and build your C code. Let’s see an example:</p>
+</div>
+<div id="ex_displayimage" class="listingblock">
+<div class="title">DisplayImage.cpp</div>
+<div class="content">
+<pre class="pygments highlight nowrap"><code data-lang="cpp"><span></span><span class="tok-cp">#include</span> <span class="tok-cpf">&lt;iostream&gt;</span><span class="tok-cp"></span>
+<span class="tok-cp">#include</span> <span class="tok-cpf">&lt;opencv2/opencv.hpp&gt;</span><span class="tok-cp"></span>
+
+<span class="tok-k">using</span> <span class="tok-k">namespace</span> <span class="tok-n">std</span><span class="tok-p">;</span>
+<span class="tok-k">using</span> <span class="tok-k">namespace</span> <span class="tok-n">cv</span><span class="tok-p">;</span>
+
+<span class="tok-kt">int</span> <span class="tok-nf">main</span><span class="tok-p">(){</span>
+	<span class="tok-n">Mat</span> <span class="tok-n">image</span><span class="tok-p">;</span>
+
+	<span class="tok-n">image</span> <span class="tok-o">=</span> <span class="tok-n">imread</span><span class="tok-p">(</span><span class="tok-s">&quot;eiffel.jpg&quot;</span><span class="tok-p">,</span><span class="tok-n">CV_LOAD_IMAGE_COLOR</span><span class="tok-p">);</span>
+	<span class="tok-n">namedWindow</span><span class="tok-p">(</span><span class="tok-s">&quot;Eiffel Tower&quot;</span><span class="tok-p">,</span><span class="tok-n">WINDOW_AUTOSIZE</span><span class="tok-p">);</span>
+	<span class="tok-n">imshow</span><span class="tok-p">(</span><span class="tok-s">&quot;Eiffel Tower&quot;</span><span class="tok-p">,</span> <span class="tok-n">image</span><span class="tok-p">);</span>
+	<span class="tok-n">waitKey</span><span class="tok-p">();</span>
+
+  	<span class="tok-k">return</span> <span class="tok-mi">0</span><span class="tok-p">;</span>
+<span class="tok-p">}</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In the program <a href="#ex_displayimage">DisplayImage.cpp</a>, a image file will be read and showed on the screen. The image <a href="./images/eiffel.jpg" target="_blank" rel="noopener">eiffel.jpg</a> must be in the same directory of your program. Now, to compile this program, we use the <a href="#ex_cmakelists">CMakeLists.txt</a> file:</p>
+</div>
+<div id="ex_cmakelists" class="listingblock">
+<div class="title">CMakeLists.txt</div>
+<div class="content">
+<pre class="pygments highlight nowrap"><code data-lang="cmake"><span></span><span class="tok-nb">cmake_minimum_required</span><span class="tok-p">(</span><span class="tok-s">VERSION</span> <span class="tok-s">2.8</span><span class="tok-p">)</span>
+<span class="tok-nb">project</span><span class="tok-p">(</span> <span class="tok-s">DisplayImage</span> <span class="tok-p">)</span>
+<span class="tok-nb">set</span><span class="tok-p">(</span><span class="tok-s">OpenCV_DIR</span> <span class="tok-s2">&quot;/usr/local/share/OpenCV&quot;</span><span class="tok-p">)</span>
+<span class="tok-nb">find_package</span><span class="tok-p">(</span> <span class="tok-s">OpenCV</span> <span class="tok-s">REQUIRED</span> <span class="tok-p">)</span>
+<span class="tok-nb">include_directories</span><span class="tok-p">(</span> <span class="tok-o">${</span><span class="tok-nv">OpenCV_INCLUDE_DIRS</span><span class="tok-o">}</span> <span class="tok-p">)</span>
+<span class="tok-nb">add_executable</span><span class="tok-p">(</span> <span class="tok-s">DisplayImage</span> <span class="tok-s">DisplayImage.cpp</span> <span class="tok-p">)</span>
+<span class="tok-nb">target_link_libraries</span><span class="tok-p">(</span> <span class="tok-s">DisplayImage</span> <span class="tok-o">${</span><span class="tok-nv">OpenCV_LIBS</span><span class="tok-o">}</span> <span class="tok-p">)</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>With this three files in your work directory, just put this commands to build your program:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight nowrap"><code>cmake .
+make</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>After this, if there wasn&#8217;t any error in your program, a executable file is created in your work directory. Thus, just execute your program:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight nowrap"><code>./DisplayImage</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For any project, you just need to adjust the project&#8217;s name into CMakeLists.txt file, according the name of .cpp file. For example, let&#8217;s see how the CMakeLists.txt file can be set for a project called "NegativeImage", with a program in a file called "main.cpp":</p>
+</div>
+<div id="ex_cmakelists2" class="listingblock">
+<div class="title">CMakeLists.txt</div>
+<div class="content">
+<pre class="pygments highlight nowrap"><code data-lang="cmake"><span></span><span class="tok-nb">cmake_minimum_required</span><span class="tok-p">(</span><span class="tok-s">VERSION</span> <span class="tok-s">2.8</span><span class="tok-p">)</span>
+<span class="tok-nb">project</span><span class="tok-p">(</span> <span class="tok-s">NegativeImage</span> <span class="tok-p">)</span>
+<span class="tok-nb">set</span><span class="tok-p">(</span><span class="tok-s">OpenCV_DIR</span> <span class="tok-s2">&quot;/usr/local/share/OpenCV&quot;</span><span class="tok-p">)</span>
+<span class="tok-nb">find_package</span><span class="tok-p">(</span> <span class="tok-s">OpenCV</span> <span class="tok-s">REQUIRED</span> <span class="tok-p">)</span>
+<span class="tok-nb">include_directories</span><span class="tok-p">(</span> <span class="tok-o">${</span><span class="tok-nv">OpenCV_INCLUDE_DIRS</span><span class="tok-o">}</span> <span class="tok-p">)</span>
+<span class="tok-nb">add_executable</span><span class="tok-p">(</span> <span class="tok-s">NegativeImage</span> <span class="tok-s">main.cpp</span> <span class="tok-p">)</span>
+<span class="tok-nb">target_link_libraries</span><span class="tok-p">(</span> <span class="tok-s">NegativeImage</span> <span class="tok-o">${</span><span class="tok-nv">OpenCV_LIBS</span><span class="tok-o">}</span> <span class="tok-p">)</span></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2017-08-14 00:10:53 BRT
+</div>
+</div>
+</body>
+</html>

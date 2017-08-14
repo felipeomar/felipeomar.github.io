@@ -1,5 +1,7 @@
 :toc: left
 :stylesheet: ubuntu.css
+:linkattrs:
+:source-highlighter: pygments
 
 == OpenCV Installation
 
@@ -18,11 +20,11 @@ sudo apt-get install cmake git libgtk2.0-dev pkg-config libavcodec-dev libavform
 sudo apt-get install python-dev python-numpy libtbb2 libtbb-dev libjpeg-dev libpng-dev libtiff-dev libjasper-dev libdc1394-22-dev
 ----
 
-After install the necessary packages, you must to download the library and install in your system. The next steps will show how to do this.
+After install the necessary packages, you must to download the library and install it in your system. The next steps will show how to do this.
 
 === Download an OpenCV version
 
-To download an OpenCV version, you need to go to OpenCV page and get your favorite version. If you prefer, you can also put the command wget on your terminal:
+To download an OpenCV version, you need to go to https://sourceforge.net/projects/opencvlibrary/files/opencv-unix/["OpenCV page^"] and get your favorite version. If you prefer, you can also put the command *wget* on your terminal:
 
 [source, options="nowrap"]
 ----
@@ -66,7 +68,47 @@ With these commands, the files of OpenCV are installed on folder /usr/local. Thu
 export OpenCV_DIR=/usr/local/
 ----
 
-=== Test the installation
+== Test the OpenCV installation
 
-To test if your OpenCV installation was sucessful, you need to make a simple code and execute it. In this example, I will show how to do this with the C++ language. In this case, is necessary at least two files: CMakeLists.txt and a .cpp file. The .cpp file will contain your code program, and the file CMakeLists.txt will contain some commands to compile and build your program. Let’s see an example:
+To test if your OpenCV installation was sucessful, you need to make a simple code and execute it. In this example, will be showed how to do this with the C++ language. In this case, is necessary at least two files: CMakeLists.txt and a main.cpp file. The main.cpp file will contain your code program, and the file CMakeLists.txt will contain some commands to compile and build your C++ code. Let’s see an example:
+
+[[ex_displayimage, DisplayImage.cpp]]
+.DisplayImage.cpp
+[source,cpp,options="nowrap"]
+----
+include::examples/DisplayImage.cpp[]
+----
+
+In the program <<ex_displayimage>>, a image file will be read and showed on the screen. The image link:./images/eiffel.jpg["eiffel.jpg^"] must be in the same directory of your program. Now, to compile this program, we use the <<ex_cmakelists>> file:
+
+[[ex_cmakelists, CMakeLists.txt]]
+.CMakeLists.txt
+[source,cmake,options="nowrap"]
+----
+include::examples/CMakeLists.txt[]
+----
+
+With this three files in your work directory, just put this commands to build your program:
+
+[source, options="nowrap"]
+----
+cmake .
+make
+----
+
+After this, if there wasn't any error in your program, a executable file is created in your work directory. Thus, just execute your program:
+
+[source, options="nowrap"]
+----
+./DisplayImage
+----
+
+For any project, you just need to adjust the project's name into CMakeLists.txt file, according the name of .cpp file. For example, let's see how the CMakeLists.txt file can be set for a project called "NegativeImage", with the C++ code in a file called "main.cpp":
+
+[[ex_cmakelists2, CMakeLists2.txt]]
+.CMakeLists.txt
+[source,cmake,options="nowrap"]
+----
+include::examples/CMakeLists_2.txt[]
+----
 
