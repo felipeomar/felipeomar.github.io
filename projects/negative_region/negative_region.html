@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 1.5.6.1">
+<title>Negative Region With OpenCV</title>
+<style>
+/* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
+
+@import url(https://fonts.googleapis.com/css?family=Ubuntu);
+@import "asciidoctor.css"; /* Default asciidoc style framework - important */
+
+/* CUSTOMISATIONS */
+/* Change the values in root for quick customisation. If you want even more fine grain... venture further. */
+
+:root{
+--maincolor:#FFFFFF;
+--primarycolor:#159957;
+--secondarycolor:#333333;
+--tertiarycolor: #159957;
+--sidebarbackground:#CCC;
+--highlightcolor:#00c171;
+--linkcolor:#159957;
+--linkcoloralternate:#159957;
+--white:#FFFFFF;
+--black:#606c71;
+}
+
+/* Text styles */
+body{font-family: "Ubuntu",sans-serif;color:var(--black);}
+h1,h2,h3,h4,h5,h6{color:var(--primarycolor) !important;font-family:"Ubuntu",sans-serif;}
+.title{color:(--primarycolor) !important;font-family:"Ubuntu",sans-serif;font-style: normal; font-weight: normal;}
+p{font-family: "Ubuntu",sans-serif ! important}
+#toc.toc2 a:link{color:#31e3d6;}
+code{background-color:#f7f7f8 !important;color:var(--black)}
+blockquote{color:#000000 !important}
+.quoteblock blockquote:before{color:var(--linkcoloralternate)}
+mark{background-color: var(--highlightcolor)} /* Text highlighting color */
+.subheader,.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{line-height:1.45;color:#159957;font-weight:400;margin-top:0;margin-bottom:.25em}
+/* Table styles */
+th{background-color: var(--tertiarycolor);color:var(--white) !important;}
+#toc.toc2{background-color:#31e3d6;background-color: #159957;background-image: linear-gradient(120deg, #155799, #159957);color:white;}
+#toc.toc2.a{color:#31e3d6;}
+#toctitle{color:#31e3d6;}
+/* Responsiveness fixes */
+video {
+  max-width: 100%;
+}
+@media all and (max-width: 600px) {
+table {
+  width: 55vw!important;
+  font-size: 3vw;
+}
+
+</style>
+<style>
+.listingblock .pygments .hll { background-color: #ffffcc }
+.listingblock .pygments, .listingblock .pygments code { background: #f8f8f8; }
+.listingblock .pygments .tok-c { color: #408080; font-style: italic } /* Comment */
+.listingblock .pygments .tok-err { border: 1px solid #FF0000 } /* Error */
+.listingblock .pygments .tok-k { color: #008000; font-weight: bold } /* Keyword */
+.listingblock .pygments .tok-o { color: #666666 } /* Operator */
+.listingblock .pygments .tok-ch { color: #408080; font-style: italic } /* Comment.Hashbang */
+.listingblock .pygments .tok-cm { color: #408080; font-style: italic } /* Comment.Multiline */
+.listingblock .pygments .tok-cp { color: #BC7A00 } /* Comment.Preproc */
+.listingblock .pygments .tok-cpf { color: #408080; font-style: italic } /* Comment.PreprocFile */
+.listingblock .pygments .tok-c1 { color: #408080; font-style: italic } /* Comment.Single */
+.listingblock .pygments .tok-cs { color: #408080; font-style: italic } /* Comment.Special */
+.listingblock .pygments .tok-gd { color: #A00000 } /* Generic.Deleted */
+.listingblock .pygments .tok-ge { font-style: italic } /* Generic.Emph */
+.listingblock .pygments .tok-gr { color: #FF0000 } /* Generic.Error */
+.listingblock .pygments .tok-gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.listingblock .pygments .tok-gi { color: #00A000 } /* Generic.Inserted */
+.listingblock .pygments .tok-go { color: #888888 } /* Generic.Output */
+.listingblock .pygments .tok-gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.listingblock .pygments .tok-gs { font-weight: bold } /* Generic.Strong */
+.listingblock .pygments .tok-gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.listingblock .pygments .tok-gt { color: #0044DD } /* Generic.Traceback */
+.listingblock .pygments .tok-kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.listingblock .pygments .tok-kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.listingblock .pygments .tok-kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.listingblock .pygments .tok-kp { color: #008000 } /* Keyword.Pseudo */
+.listingblock .pygments .tok-kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.listingblock .pygments .tok-kt { color: #B00040 } /* Keyword.Type */
+.listingblock .pygments .tok-m { color: #666666 } /* Literal.Number */
+.listingblock .pygments .tok-s { color: #BA2121 } /* Literal.String */
+.listingblock .pygments .tok-na { color: #7D9029 } /* Name.Attribute */
+.listingblock .pygments .tok-nb { color: #008000 } /* Name.Builtin */
+.listingblock .pygments .tok-nc { color: #0000FF; font-weight: bold } /* Name.Class */
+.listingblock .pygments .tok-no { color: #880000 } /* Name.Constant */
+.listingblock .pygments .tok-nd { color: #AA22FF } /* Name.Decorator */
+.listingblock .pygments .tok-ni { color: #999999; font-weight: bold } /* Name.Entity */
+.listingblock .pygments .tok-ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+.listingblock .pygments .tok-nf { color: #0000FF } /* Name.Function */
+.listingblock .pygments .tok-nl { color: #A0A000 } /* Name.Label */
+.listingblock .pygments .tok-nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+.listingblock .pygments .tok-nt { color: #008000; font-weight: bold } /* Name.Tag */
+.listingblock .pygments .tok-nv { color: #19177C } /* Name.Variable */
+.listingblock .pygments .tok-ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+.listingblock .pygments .tok-w { color: #bbbbbb } /* Text.Whitespace */
+.listingblock .pygments .tok-mb { color: #666666 } /* Literal.Number.Bin */
+.listingblock .pygments .tok-mf { color: #666666 } /* Literal.Number.Float */
+.listingblock .pygments .tok-mh { color: #666666 } /* Literal.Number.Hex */
+.listingblock .pygments .tok-mi { color: #666666 } /* Literal.Number.Integer */
+.listingblock .pygments .tok-mo { color: #666666 } /* Literal.Number.Oct */
+.listingblock .pygments .tok-sa { color: #BA2121 } /* Literal.String.Affix */
+.listingblock .pygments .tok-sb { color: #BA2121 } /* Literal.String.Backtick */
+.listingblock .pygments .tok-sc { color: #BA2121 } /* Literal.String.Char */
+.listingblock .pygments .tok-dl { color: #BA2121 } /* Literal.String.Delimiter */
+.listingblock .pygments .tok-sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.listingblock .pygments .tok-s2 { color: #BA2121 } /* Literal.String.Double */
+.listingblock .pygments .tok-se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+.listingblock .pygments .tok-sh { color: #BA2121 } /* Literal.String.Heredoc */
+.listingblock .pygments .tok-si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+.listingblock .pygments .tok-sx { color: #008000 } /* Literal.String.Other */
+.listingblock .pygments .tok-sr { color: #BB6688 } /* Literal.String.Regex */
+.listingblock .pygments .tok-s1 { color: #BA2121 } /* Literal.String.Single */
+.listingblock .pygments .tok-ss { color: #19177C } /* Literal.String.Symbol */
+.listingblock .pygments .tok-bp { color: #008000 } /* Name.Builtin.Pseudo */
+.listingblock .pygments .tok-fm { color: #0000FF } /* Name.Function.Magic */
+.listingblock .pygments .tok-vc { color: #19177C } /* Name.Variable.Class */
+.listingblock .pygments .tok-vg { color: #19177C } /* Name.Variable.Global */
+.listingblock .pygments .tok-vi { color: #19177C } /* Name.Variable.Instance */
+.listingblock .pygments .tok-vm { color: #19177C } /* Name.Variable.Magic */
+.listingblock .pygments .tok-il { color: #666666 } /* Literal.Number.Integer.Long */
+</style>
+</head>
+<body class="article toc2 toc-left">
+<div id="header">
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_negative_region_with_opencv">Negative Region With OpenCV</a></li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="_negative_region_with_opencv">Negative Region With OpenCV</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In the old times, when the cameras used an analogic technology, it was common to see some films wich contained negatives images of a picture. In this images, the dark points turn bright, and the bright points turn dark, as you can see in the <a href="#negative_figure">Eiffel Tower Negative</a> figure. This effect occour due chemical processes in the film. But today, with digital cameras, this effect isn&#8217;t commonly seen. However, there are some cases where is intended to have a negative image, like in medicine applications.</p>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="imageblock" style="text-align: center">
+<div class="content">
+<img src="./images/eiffel.jpg" alt="320" width="320">
+</div>
+<div class="title">Figure 1. Eiffel Tower</div>
+</div>
+<div id="negative_figure" class="imageblock" style="text-align: center">
+<div class="content">
+<img src="./images/negative_eiffel.jpg" alt="320" width="320">
+</div>
+<div class="title">Figure 2. Eiffel Tower Negative</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>This project will show a simple program that takes an image file and convert it in a negative image. Moreover, there will be the possibility of choose the region that the program will apply the modification. For this, the user must give the image file name and two points. These points will define a rectangular region, and this region will be processed to have the negative effect.</p>
+</div>
+<div class="paragraph">
+<p>For any suggestion or correction, please contact me: <a href="mailto:felipeomar.c@gmail.com">felipeomar.c@gmail.com</a></p>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2017-08-14 23:03:16 BRT
+</div>
+</div>
+</body>
+</html>
