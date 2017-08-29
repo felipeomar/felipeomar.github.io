@@ -1,0 +1,3 @@
+/home/felipe/github/felipeomar.github.io/projects/negative_image/codes/CMakeFiles/edit_cache.dir
+/home/felipe/github/felipeomar.github.io/projects/negative_image/codes/CMakeFiles/rebuild_cache.dir
+/home/felipe/github/felipeomar.github.io/projects/negative_image/codes/CMakeFiles/negative_image.dir

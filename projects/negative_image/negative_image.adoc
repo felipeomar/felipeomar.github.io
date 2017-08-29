@@ -5,6 +5,8 @@
 
 == Negative Region With OpenCV
 
+=== Introduction
+
 In the old times, when the cameras used an analogic technology, it was common to see some films wich contained negatives images of a picture. In this images, the dark points turn bright, and the bright points turn dark, as you can see in the <<negative_figure>> figure. This effect occour due chemical processes in the film. But today, with digital cameras, this effect isn't commonly seen. However, there are some cases where is intended to have a negative image, like in medicine applications.
 
 --
@@ -12,13 +14,23 @@ In the old times, when the cameras used an analogic technology, it was common to
 image::./images/eiffel.jpg[320,320,align="center",text-align="center"]
 .Eiffel Tower Negative
 [[negative_figure,Eiffel Tower Negative]]
-image::./images/negative_eiffel.jpg[320,320,align="center",text-align="center"]
+image::./images/entire_negative_eiffel.jpg[320,320,align="center",text-align="center"]
 --
 
 This project will show a simple program that takes an image file and convert it in a negative image. Moreover, there will be the possibility of choose the region that the program will apply the modification. For this, the user must give the image file name and two points. These points will define a rectangular region, and this region will be processed to have the negative effect.
 
+=== Implemetation with OpenCV C++
 
+We will work with two types of images: A grayscale and a colour image. We can implement a code that takes an grayscale image and change the pixels to form a negative image. In this case, each pixel is represented by a byte, wich the value 0 (0b00000000) represent no bright (black colour) and the value 255 (0b11111111) represents the high level of brightness (white color). Observing the binary representation, if you want to turn a white pixel in black, just apply the logical operation *not*, bit by bit. In the same way, if you apply the operation _not_ in a black pixel, it will be white. This rule can be applicate for any value in a pixel.  In case of colour image, the same rule is valid for each _R_, _G_ and _B_ pixel: apply the _not_ operation, and you will take a negative value.
+
+The next C++ code show one way to have a negative from a colour image:
+
+[[negative_image_code, negative_image.cpp]]
+.negative_image.cpp
+[source,cpp,options="nowrap"]
+----
+include::codes/negative_image.cpp[]
+----
 
 
 For any suggestion or correction, please contact me: felipeomar.c@gmail.com
-

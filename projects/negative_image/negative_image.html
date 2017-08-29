@@ -132,7 +132,12 @@ table {
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_negative_region_with_opencv">Negative Region With OpenCV</a></li>
+<li><a href="#_negative_region_with_opencv">Negative Region With OpenCV</a>
+<ul class="sectlevel2">
+<li><a href="#_introduction">Introduction</a></li>
+<li><a href="#_implemetation_with_opencv_c">Implemetation with OpenCV C++</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -140,6 +145,8 @@ table {
 <div class="sect1">
 <h2 id="_negative_region_with_opencv">Negative Region With OpenCV</h2>
 <div class="sectionbody">
+<div class="sect2">
+<h3 id="_introduction">Introduction</h3>
 <div class="paragraph">
 <p>In the old times, when the cameras used an analogic technology, it was common to see some films wich contained negatives images of a picture. In this images, the dark points turn bright, and the bright points turn dark, as you can see in the <a href="#negative_figure">Eiffel Tower Negative</a> figure. This effect occour due chemical processes in the film. But today, with digital cameras, this effect isn&#8217;t commonly seen. However, there are some cases where is intended to have a negative image, like in medicine applications.</p>
 </div>
@@ -153,7 +160,7 @@ table {
 </div>
 <div id="negative_figure" class="imageblock" style="text-align: center">
 <div class="content">
-<img src="./images/negative_eiffel.jpg" alt="320" width="320">
+<img src="./images/entire_negative_eiffel.jpg" alt="320" width="320">
 </div>
 <div class="title">Figure 2. Eiffel Tower Negative</div>
 </div>
@@ -162,15 +169,97 @@ table {
 <div class="paragraph">
 <p>This project will show a simple program that takes an image file and convert it in a negative image. Moreover, there will be the possibility of choose the region that the program will apply the modification. For this, the user must give the image file name and two points. These points will define a rectangular region, and this region will be processed to have the negative effect.</p>
 </div>
+</div>
+<div class="sect2">
+<h3 id="_implemetation_with_opencv_c">Implemetation with OpenCV C++</h3>
+<div class="paragraph">
+<p>We will work with two types of images: A grayscale and a colour image. We can implement a code that takes an grayscale image and change the pixels to form a negative image. In this case, each pixel is represented by a byte, wich the value 0 (0b00000000) represent no bright (black colour) and the value 255 (0b11111111) represents the high level of brightness (white color). Observing the binary representation, if you want to turn a white pixel in black, just apply the logical operation <strong>not</strong>, bit by bit. In the same way, if you apply the operation <em>not</em> in a black pixel, it will be white. This rule can be applicate for any value in a pixel.  In case of colour image, the same rule is valid for each <em>R</em>, <em>G</em> and <em>B</em> pixel: apply the <em>not</em> operation, and you will take a negative value.</p>
+</div>
+<div class="paragraph">
+<p>The next C++ code show one way to have a negative from a colour image:</p>
+</div>
+<div id="negative_image_code" class="listingblock">
+<div class="title">negative_image.cpp</div>
+<div class="content">
+<pre class="pygments highlight nowrap"><code data-lang="cpp"><span></span><span class="tok-cp">#include</span> <span class="tok-cpf">&lt;iostream&gt;</span><span class="tok-cp"></span>
+<span class="tok-cp">#include</span> <span class="tok-cpf">&lt;opencv2/highgui.hpp&gt;</span><span class="tok-cp"></span>
+
+<span class="tok-k">using</span> <span class="tok-k">namespace</span> <span class="tok-n">cv</span><span class="tok-p">;</span>
+<span class="tok-k">using</span> <span class="tok-k">namespace</span> <span class="tok-n">std</span><span class="tok-p">;</span>
+
+<span class="tok-kt">int</span> <span class="tok-nf">getx</span><span class="tok-p">(</span><span class="tok-n">Mat</span> <span class="tok-n">image</span><span class="tok-p">);</span>
+<span class="tok-kt">int</span> <span class="tok-nf">gety</span><span class="tok-p">(</span><span class="tok-n">Mat</span> <span class="tok-n">image</span><span class="tok-p">);</span>
+
+<span class="tok-kt">int</span> <span class="tok-nf">main</span><span class="tok-p">(</span><span class="tok-kt">int</span><span class="tok-p">,</span> <span class="tok-kt">char</span><span class="tok-o">**</span><span class="tok-p">){</span>
+	<span class="tok-n">Mat</span> 	<span class="tok-n">image</span><span class="tok-p">;</span>
+	<span class="tok-n">string</span> 	<span class="tok-n">archive</span><span class="tok-p">;</span>
+	<span class="tok-kt">int</span> 	<span class="tok-n">x1</span><span class="tok-p">,</span><span class="tok-n">y1</span><span class="tok-p">,</span><span class="tok-n">x2</span><span class="tok-p">,</span><span class="tok-n">y2</span><span class="tok-p">;</span>
+
+	<span class="tok-n">cout</span> <span class="tok-o">&lt;&lt;</span> <span class="tok-s">&quot;Insert the image&#39;s name: &quot;</span><span class="tok-p">;</span>
+	<span class="tok-n">cin</span>  <span class="tok-o">&gt;&gt;</span> <span class="tok-n">archive</span><span class="tok-p">;</span>
+
+	<span class="tok-n">image</span> <span class="tok-o">=</span> <span class="tok-n">imread</span><span class="tok-p">(</span><span class="tok-s">&quot;../images/&quot;</span> <span class="tok-o">+</span> <span class="tok-n">archive</span><span class="tok-p">,</span><span class="tok-n">CV_LOAD_IMAGE_COLOR</span><span class="tok-p">);</span>
+	<span class="tok-k">if</span><span class="tok-p">(</span><span class="tok-o">!</span><span class="tok-n">image</span><span class="tok-p">.</span><span class="tok-n">data</span><span class="tok-p">){</span><span class="tok-n">cout</span> <span class="tok-o">&lt;&lt;</span> <span class="tok-s">&quot;Reading Error of &quot;</span> <span class="tok-o">&lt;&lt;</span> <span class="tok-n">archive</span> <span class="tok-o">&lt;&lt;</span> <span class="tok-n">endl</span><span class="tok-p">;</span> <span class="tok-k">return</span> <span class="tok-mi">0</span><span class="tok-p">;}</span>
+
+	<span class="tok-n">cout</span> <span class="tok-o">&lt;&lt;</span> <span class="tok-s">&quot;Image size: &quot;</span> <span class="tok-o">&lt;&lt;</span> <span class="tok-n">image</span><span class="tok-p">.</span><span class="tok-n">rows</span> <span class="tok-o">&lt;&lt;</span> <span class="tok-s">&quot; x &quot;</span> <span class="tok-o">&lt;&lt;</span> <span class="tok-n">image</span><span class="tok-p">.</span><span class="tok-n">cols</span> <span class="tok-o">&lt;&lt;</span> <span class="tok-n">endl</span><span class="tok-p">;</span>
+
+	<span class="tok-n">cout</span> <span class="tok-o">&lt;&lt;</span> <span class="tok-s">&quot;Please, insert the coordenates X and Y of point P1:&quot;</span> <span class="tok-o">&lt;&lt;</span> <span class="tok-n">endl</span><span class="tok-p">;</span>
+	<span class="tok-n">x1</span> <span class="tok-o">=</span> <span class="tok-n">getx</span><span class="tok-p">(</span><span class="tok-n">image</span><span class="tok-p">);</span>
+	<span class="tok-n">y1</span> <span class="tok-o">=</span> <span class="tok-n">gety</span><span class="tok-p">(</span><span class="tok-n">image</span><span class="tok-p">);</span>
+
+	<span class="tok-n">cout</span> <span class="tok-o">&lt;&lt;</span> <span class="tok-s">&quot;Please, insert the coordenates X and Y of point P2:&quot;</span> <span class="tok-o">&lt;&lt;</span> <span class="tok-n">endl</span><span class="tok-p">;</span>
+	<span class="tok-n">x2</span> <span class="tok-o">=</span> <span class="tok-n">getx</span><span class="tok-p">(</span><span class="tok-n">image</span><span class="tok-p">);</span>
+	<span class="tok-n">y2</span> <span class="tok-o">=</span> <span class="tok-n">gety</span><span class="tok-p">(</span><span class="tok-n">image</span><span class="tok-p">);</span>
+
+	<span class="tok-k">for</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">i</span><span class="tok-o">=</span><span class="tok-n">x1</span><span class="tok-p">;</span> <span class="tok-n">i</span><span class="tok-o">&lt;=</span><span class="tok-n">x2</span><span class="tok-p">;</span> <span class="tok-n">i</span><span class="tok-o">++</span><span class="tok-p">){</span>
+		<span class="tok-k">for</span><span class="tok-p">(</span><span class="tok-kt">int</span> <span class="tok-n">j</span><span class="tok-o">=</span><span class="tok-n">y1</span><span class="tok-p">;</span> <span class="tok-n">j</span><span class="tok-o">&lt;=</span><span class="tok-n">y2</span><span class="tok-p">;</span> <span class="tok-n">j</span><span class="tok-o">++</span><span class="tok-p">){</span>
+			<span class="tok-n">image</span><span class="tok-p">.</span><span class="tok-n">at</span><span class="tok-o">&lt;</span><span class="tok-n">Vec3b</span><span class="tok-o">&gt;</span><span class="tok-p">(</span><span class="tok-n">i</span><span class="tok-p">,</span><span class="tok-n">j</span><span class="tok-p">)[</span><span class="tok-mi">0</span><span class="tok-p">]</span> <span class="tok-o">=</span> <span class="tok-o">~</span><span class="tok-p">(</span><span class="tok-n">image</span><span class="tok-p">.</span><span class="tok-n">at</span><span class="tok-o">&lt;</span><span class="tok-n">Vec3b</span><span class="tok-o">&gt;</span><span class="tok-p">(</span><span class="tok-n">i</span><span class="tok-p">,</span><span class="tok-n">j</span><span class="tok-p">)[</span><span class="tok-mi">0</span><span class="tok-p">]);</span>
+			<span class="tok-n">image</span><span class="tok-p">.</span><span class="tok-n">at</span><span class="tok-o">&lt;</span><span class="tok-n">Vec3b</span><span class="tok-o">&gt;</span><span class="tok-p">(</span><span class="tok-n">i</span><span class="tok-p">,</span><span class="tok-n">j</span><span class="tok-p">)[</span><span class="tok-mi">1</span><span class="tok-p">]</span> <span class="tok-o">=</span> <span class="tok-o">~</span><span class="tok-p">(</span><span class="tok-n">image</span><span class="tok-p">.</span><span class="tok-n">at</span><span class="tok-o">&lt;</span><span class="tok-n">Vec3b</span><span class="tok-o">&gt;</span><span class="tok-p">(</span><span class="tok-n">i</span><span class="tok-p">,</span><span class="tok-n">j</span><span class="tok-p">)[</span><span class="tok-mi">1</span><span class="tok-p">]);</span>
+			<span class="tok-n">image</span><span class="tok-p">.</span><span class="tok-n">at</span><span class="tok-o">&lt;</span><span class="tok-n">Vec3b</span><span class="tok-o">&gt;</span><span class="tok-p">(</span><span class="tok-n">i</span><span class="tok-p">,</span><span class="tok-n">j</span><span class="tok-p">)[</span><span class="tok-mi">2</span><span class="tok-p">]</span> <span class="tok-o">=</span> <span class="tok-o">~</span><span class="tok-p">(</span><span class="tok-n">image</span><span class="tok-p">.</span><span class="tok-n">at</span><span class="tok-o">&lt;</span><span class="tok-n">Vec3b</span><span class="tok-o">&gt;</span><span class="tok-p">(</span><span class="tok-n">i</span><span class="tok-p">,</span><span class="tok-n">j</span><span class="tok-p">)[</span><span class="tok-mi">2</span><span class="tok-p">]);</span>
+		<span class="tok-p">}</span>
+	<span class="tok-p">}</span>
+
+
+	<span class="tok-n">imwrite</span><span class="tok-p">(</span><span class="tok-s">&quot;../images/negative_&quot;</span> <span class="tok-o">+</span> <span class="tok-n">archive</span><span class="tok-p">,</span> <span class="tok-n">image</span><span class="tok-p">);</span>
+	<span class="tok-n">namedWindow</span><span class="tok-p">(</span><span class="tok-s">&quot;janela&quot;</span><span class="tok-p">,</span><span class="tok-n">CV_WINDOW_KEEPRATIO</span><span class="tok-p">);</span>
+	<span class="tok-n">imshow</span><span class="tok-p">(</span><span class="tok-s">&quot;janela&quot;</span><span class="tok-p">,</span> <span class="tok-n">image</span><span class="tok-p">);</span>
+	<span class="tok-n">waitKey</span><span class="tok-p">();</span>
+
+	<span class="tok-k">return</span> <span class="tok-mi">0</span><span class="tok-p">;</span>
+<span class="tok-p">}</span>
+
+
+<span class="tok-kt">int</span> <span class="tok-nf">getx</span><span class="tok-p">(</span><span class="tok-n">Mat</span> <span class="tok-n">image</span><span class="tok-p">){</span>
+	<span class="tok-kt">int</span> <span class="tok-n">x</span><span class="tok-p">;</span>
+	<span class="tok-k">do</span><span class="tok-p">{</span>
+	<span class="tok-n">cout</span> <span class="tok-o">&lt;&lt;</span> <span class="tok-s">&quot;X: &quot;</span><span class="tok-p">;</span>
+	<span class="tok-n">cin</span>  <span class="tok-o">&gt;&gt;</span> <span class="tok-n">x</span><span class="tok-p">;</span>
+	<span class="tok-k">if</span><span class="tok-p">(</span><span class="tok-n">x</span> <span class="tok-o">&gt;</span> <span class="tok-n">image</span><span class="tok-p">.</span><span class="tok-n">rows</span> <span class="tok-o">||</span> <span class="tok-n">x</span> <span class="tok-o">&lt;=</span> <span class="tok-mi">0</span><span class="tok-p">)</span> <span class="tok-n">cout</span> <span class="tok-o">&lt;&lt;</span> <span class="tok-s">&quot;Invalid position.&quot;</span> <span class="tok-o">&lt;&lt;</span> <span class="tok-n">endl</span><span class="tok-p">;</span>
+	<span class="tok-p">}</span><span class="tok-k">while</span><span class="tok-p">(</span><span class="tok-n">x</span> <span class="tok-o">&gt;</span> <span class="tok-n">image</span><span class="tok-p">.</span><span class="tok-n">rows</span> <span class="tok-o">||</span> <span class="tok-n">x</span> <span class="tok-o">&lt;=</span> <span class="tok-mi">0</span><span class="tok-p">);</span>
+	<span class="tok-k">return</span> <span class="tok-n">x</span> <span class="tok-o">-</span> <span class="tok-mi">1</span><span class="tok-p">;</span>
+<span class="tok-p">}</span>
+
+<span class="tok-kt">int</span> <span class="tok-nf">gety</span><span class="tok-p">(</span><span class="tok-n">Mat</span> <span class="tok-n">image</span><span class="tok-p">){</span>
+	<span class="tok-kt">int</span> <span class="tok-n">y</span><span class="tok-p">;</span>
+	<span class="tok-k">do</span><span class="tok-p">{</span>
+	<span class="tok-n">cout</span> <span class="tok-o">&lt;&lt;</span> <span class="tok-s">&quot;Y: &quot;</span><span class="tok-p">;</span>
+	<span class="tok-n">cin</span>  <span class="tok-o">&gt;&gt;</span> <span class="tok-n">y</span><span class="tok-p">;</span>
+	<span class="tok-k">if</span><span class="tok-p">(</span><span class="tok-n">y</span> <span class="tok-o">&gt;</span> <span class="tok-n">image</span><span class="tok-p">.</span><span class="tok-n">cols</span> <span class="tok-o">||</span> <span class="tok-n">y</span> <span class="tok-o">&lt;=</span> <span class="tok-mi">0</span><span class="tok-p">)</span> <span class="tok-n">cout</span> <span class="tok-o">&lt;&lt;</span> <span class="tok-s">&quot;Invalid position.&quot;</span> <span class="tok-o">&lt;&lt;</span> <span class="tok-n">endl</span><span class="tok-p">;</span>
+	<span class="tok-p">}</span><span class="tok-k">while</span><span class="tok-p">(</span><span class="tok-n">y</span> <span class="tok-o">&gt;</span> <span class="tok-n">image</span><span class="tok-p">.</span><span class="tok-n">cols</span> <span class="tok-o">||</span> <span class="tok-n">y</span> <span class="tok-o">&lt;=</span> <span class="tok-mi">0</span><span class="tok-p">);</span>
+	<span class="tok-k">return</span> <span class="tok-n">y</span><span class="tok-p">;</span>
+<span class="tok-p">}</span></code></pre>
+</div>
+</div>
 <div class="paragraph">
 <p>For any suggestion or correction, please contact me: <a href="mailto:felipeomar.c@gmail.com">felipeomar.c@gmail.com</a></p>
 </div>
 </div>
 </div>
 </div>
+</div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-08-14 23:03:16 BRT
+Last updated 2017-08-24 15:13:12 BRT
 </div>
 </div>
 </body>
