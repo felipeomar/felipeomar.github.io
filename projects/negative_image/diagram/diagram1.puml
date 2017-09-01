@@ -1,0 +1,22 @@
+@startuml
+start
+: Input the \nArchive File;
+if (     Is it a \n Valid archive?) then (yes)
+	if (Any Reading \n    Error?) then (yes)
+		stop
+	else (no)
+	    :Take rectangle \n Limit points \n (P1 and P2);
+            while( Is it valid \n   Points?) is  (no)
+                : Take Limits \npoints again;
+            endwhile (yes);
+            :     Apply the negative effect,\nsave and show the result image.;
+            : Wait any key pressing;
+	endif;
+
+
+else (no)
+	stop
+
+endif;
+stop
+@enduml

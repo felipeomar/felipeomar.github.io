@@ -1,0 +1,70 @@
+:toc: left
+:stylesheet: ubuntu.css
+:linkattrs:
+:source-highlighter: pygments
+[.text-justify]
+
+== AND Port With SystemVerilog
+
+This tutorial will show how to describe a component which has the behavior of an AND port. The objective is show some initial points about the SystemVerilog language. For this, an _And_device_ and an _And_testbench_ will be developed, and tested in a modelsim environment.
+
+=== Module Declaration
+
+Hardware languages has the objective to describe a digital component, telling us everything about your behavior, interconnections and relationship with another components. So, we can define a component by its inputs/outputs and the relantioship between them. To declare a digital component, we can start with a *module* directive:
+
+[source,systemverilog,options="nowrap"]
+----
+module module_name(inputs, outputs);
+	//Description goes here
+endmodule
+----
+
+=== Defining Inputs/Outputs
+
+After to declarate the module, we have to define which ports are inputs, or outputs. For this, we use the [.underline]_input_ and [.underline]_output_ statement. In the case of a component that have two inputs (_a_ and _b_) and one output (_s_), we can define like this:
+
+[source,systemverilog,options="nowrap"]
+----
+module and_device(a, b, s);
+	input  a;
+	input  b;
+	output s;
+
+	//Description goes here
+endmodule
+----
+
+=== Defining the behavior
+
+After to define the inputs/outputs, we have to describe the relantionship between them. In this moment, there are many ways to do this, from a structural descriptions (with logic elements) until behavorial descriptions. One way to do this with the _And_device_ is:
+
+[source,systemverilog,options="nowrap"]
+----
+module and_device(a, b, s);
+	input  a;
+	input  b;
+	output s;
+
+	assign s = a & b;
+endmodule
+----
+
+The [.underline]_assign_ statement is known like _continuous assigment_, because any change in the right-hand side, imply in the modificatioon of left-hand side, at same time. So, it is used when we are developing a combinational logic. The bit-wise operators in SystemVerilog are the same of C language. We can see more options in the table:
+
+.Bit-Wise Operators
+[.center, cols="^1,^1",width=50%, .text-center]
+|===
+|Operator | Description
+
+|		~			|	Negation
+|		&			| And
+|		\|		| Inclusive Or
+|		^			| Exclusive Or
+|		~^		|	Exclusive Nor
+|===
+
+
+
+
+
+

@@ -2,6 +2,7 @@
 :stylesheet: ubuntu.css
 :linkattrs:
 :source-highlighter: pygments
+[.text-justify]
 
 == OpenCV Installation
 

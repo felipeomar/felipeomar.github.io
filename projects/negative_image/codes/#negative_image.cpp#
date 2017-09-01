@@ -4,32 +4,12 @@
 using namespace cv;
 using namespace std;
 
-
-int getx(Mat image){
-	int x;
-	do{
-	cout << "X: ";
-	cin  >> x;
-	if(x > image.rows || x <= 0) cout << "Invalid position." << endl;
-	}while(x > image.rows || x <= 0);
-	return x - 1;
-}
-
-int gety(Mat image){
-	int y;
-	do{
-	cout << "Y: ";
-	cin  >> y;
-	if(y > image.cols || y <= 0) cout << "Invalid position." << endl;
-	}while(y > image.cols || y <= 0);
-	return y;
-}
-
-
+int getx(Mat image);
+int gety(Mat image);
 
 int main(int, char**){
-	Mat 	image;
-	string 	archive, archive_out;
+   Mat 	image;
+	string 	archive;
 	int 	x1,y1,x2,y2;
 
 	cout << "Insert the image's name: ";
@@ -56,12 +36,34 @@ int main(int, char**){
 		}
 	}
 	
-	archive_out = "./negative_" + archive; 	
-	imwrite(archive_out, image);
+	
+	imwrite("../images/negative_" + archive, image);
 	namedWindow("janela",CV_WINDOW_KEEPRATIO);
 	imshow("janela", image);
 	waitKey();
 
 	return 0;
 }
+
+
+int getx(Mat image){
+	int x;
+	do{
+	cout << "X: ";
+	cin  >> x;
+	if(x > image.rows || x <= 0) cout << "Invalid position." << endl;
+	}while(x > image.rows || x <= 0);
+	return x - 1;
+}
+
+int gety(Mat image){
+	int y;
+	do{
+	cout << "Y: ";
+	cin  >> y;
+	if(y > image.cols || y <= 0) cout << "Invalid position." << endl;
+	}while(y > image.cols || y <= 0);
+	return y;
+}
+
 
