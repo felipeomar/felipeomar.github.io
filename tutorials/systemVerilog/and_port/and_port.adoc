@@ -6,7 +6,17 @@
 
 == AND Port With SystemVerilog
 
-This tutorial will show how to describe a component which has the behavior of an AND port. The objective is show some initial points about the SystemVerilog language. For this, an _And_device_ and an _And_testbench_ will be developed, and tested in a modelsim environment.
+This tutorial will show how to describe a component which has the behavior of an AND port. The objective is show some initial points about the SystemVerilog language. For this, an _And_device_ and an _And_testbench_ will be developed, and tested in a modelsim environment. The topics in this tutorial are:
+
+[%noninteractive]
+* [x] Module
+* [x] Inputs/outputs
+* [x] Assign statement
+* [x] Bit-wise operators
+* [x] Logic type
+* [x] Module instantiation
+* [x] Initial block
+* [x] # token
 
 === Module Declaration
 
@@ -34,7 +44,7 @@ module and_device(a, b, s);
 endmodule
 ----
 
-=== Defining the behavior
+=== Defining the device's behavior
 
 After to define the inputs/outputs, we have to describe the relantionship between them. In this moment, there are many ways to do this, from a structural descriptions (with logic elements) until behavorial descriptions. One way to do this with the _And_device_ is:
 
@@ -49,7 +59,7 @@ module and_device(a, b, s);
 endmodule
 ----
 
-The [.underline]_assign_ statement is known like _continuous assigment_, because any change in the right-hand side, imply in the modificatioon of left-hand side, at same time. So, it is used when we are developing a combinational logic. The bit-wise operators in SystemVerilog are the same of C language. We can see more options in the table:
+The [.underline]_assign_ statement is known like _continuous assigment_, because any change in the right-hand side, implies in the modification of left-hand side, at same time. So, it is used when we are developing a combinational logic. The _And_ behavior is given by "&" operator. The bit-wise operators in SystemVerilog are the same of C language. We can see more options in the table:
 
 .Bit-Wise Operators
 [.center, cols="^1,^1",width=50%, .text-center]
@@ -63,8 +73,75 @@ The [.underline]_assign_ statement is known like _continuous assigment_, because
 |		~^		|	Exclusive Nor
 |===
 
+So, with this assigment, we are describing the relationship between the output and inputs.
 
+=== A Simple Testbench Model
 
+After design the device model, we need to simulate its behavior. To do this, we can describe a top-level design, which will contain a device that we need to test. With this top-level design, we can describe a sequence of signals to be applied in the device.
 
+First, we instantiate the _and_device_ in our testbench model:
 
+[source,systemverilog,options="nowrap"]
+----
+module and_testbench();
+	logic a, b, s;
+	
+	and_device and_device0(a, b, s);
+
+endmodule
+----
+
+Another way to do this, is given by:
+
+[source,systemverilog,options="nowrap"]
+----
+module and_testbench();
+	logic a, b, s;
+	
+	and_device and_device0(.a(a), .b(b), .s(s));
+
+endmodule
+----
+
+In the first case, the signals _a_, _b_ and _s_ must be in the same order of the _and_device_ description. In the second case, the signals are explicitly described by [.underline]_.port_name(signal_name)_.
+
+The signals created in this testbench are *_logic_* type. The _logic_ is a 4-state type, what means that there are four possible values to be assigned: '0', '1', 'Z'(high impedance) and 'X'(unknown). SystemVerilog also have 2-state types, like: _bit_, _byte_ and _int_. _Logic_ type, in SystemVerilog, is equivalent to _reg_ type in Verilog.
+
+Now, the inputs must be changed to verify the _and_device_'s behavior. This can be implemented in this way:
+
+[source,systemverilog,options="nowrap"]
+----
+module and_testbench();
+	logic a, b, s;
+	
+	and_device and_device0(a, b, s);
+
+	//Waveform
+  initial begin
+    a = 0;
+    b = 0;
+    #100;
+  
+    a = 0;
+    b = 1;
+    #100;
+  
+    a = 1;
+    b = 0;
+    #100;
+  
+    a = 1;
+    b = 1;
+    #100;
+  end
+
+endmodule
+----
+
+The initial block execute the commands only once, and starts at time 0. The *#* token means a time delay. So, with this description, we can observe the responses of _and_device_ executing the simulation on  modelsim. The result is showed in the next figure:
+
+--
+.Testbench Simulation
+image::./images/result_and_device.png[align="center",text-align="center"]
+--
 

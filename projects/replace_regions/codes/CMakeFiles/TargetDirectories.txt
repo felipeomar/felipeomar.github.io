@@ -1,0 +1,3 @@
+/home/felipe/github/felipeomar.github.io/projects/replace_regions/codes/CMakeFiles/edit_cache.dir
+/home/felipe/github/felipeomar.github.io/projects/replace_regions/codes/CMakeFiles/rebuild_cache.dir
+/home/felipe/github/felipeomar.github.io/projects/replace_regions/codes/CMakeFiles/replace_regions.dir

@@ -136,7 +136,8 @@ table {
 <ul class="sectlevel2">
 <li><a href="#_module_declaration">Module Declaration</a></li>
 <li><a href="#_defining_inputs_outputs">Defining Inputs/Outputs</a></li>
-<li><a href="#_defining_the_behavior">Defining the behavior</a></li>
+<li><a href="#_defining_the_device_s_behavior">Defining the device&#8217;s behavior</a></li>
+<li><a href="#_a_simple_testbench_model">A Simple Testbench Model</a></li>
 </ul>
 </li>
 </ul>
@@ -147,7 +148,35 @@ table {
 <h2 id="_and_port_with_systemverilog">AND Port With SystemVerilog</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This tutorial will show how to describe a component which has the behavior of an AND port. The objective is show some initial points about the SystemVerilog language. For this, an <em>And_device</em> and an <em>And_testbench</em> will be developed, and tested in a modelsim environment.</p>
+<p>This tutorial will show how to describe a component which has the behavior of an AND port. The objective is show some initial points about the SystemVerilog language. For this, an <em>And_device</em> and an <em>And_testbench</em> will be developed, and tested in a modelsim environment. The topics in this tutorial are:</p>
+</div>
+<div class="ulist checklist">
+<ul class="checklist">
+<li>
+<p>&#10003; Module</p>
+</li>
+<li>
+<p>&#10003; Inputs/outputs</p>
+</li>
+<li>
+<p>&#10003; Assign statement</p>
+</li>
+<li>
+<p>&#10003; Bit-wise operators</p>
+</li>
+<li>
+<p>&#10003; Logic type</p>
+</li>
+<li>
+<p>&#10003; Module instantiation</p>
+</li>
+<li>
+<p>&#10003; Initial block</p>
+</li>
+<li>
+<p>&#10003; # token</p>
+</li>
+</ul>
 </div>
 <div class="sect2">
 <h3 id="_module_declaration">Module Declaration</h3>
@@ -180,7 +209,7 @@ table {
 </div>
 </div>
 <div class="sect2">
-<h3 id="_defining_the_behavior">Defining the behavior</h3>
+<h3 id="_defining_the_device_s_behavior">Defining the device&#8217;s behavior</h3>
 <div class="paragraph">
 <p>After to define the inputs/outputs, we have to describe the relantionship between them. In this moment, there are many ways to do this, from a structural descriptions (with logic elements) until behavorial descriptions. One way to do this with the <em>And_device</em> is:</p>
 </div>
@@ -196,7 +225,7 @@ table {
 </div>
 </div>
 <div class="paragraph">
-<p>The <em class="underline">assign</em> statement is known like <em>continuous assigment</em>, because any change in the right-hand side, imply in the modificatioon of left-hand side, at same time. So, it is used when we are developing a combinational logic. The bit-wise operators in SystemVerilog are the same of C language. We can see more options in the table:</p>
+<p>The <em class="underline">assign</em> statement is known like <em>continuous assigment</em>, because any change in the right-hand side, implies in the modification of left-hand side, at same time. So, it is used when we are developing a combinational logic. The <em>And</em> behavior is given by "&amp;" operator. The bit-wise operators in SystemVerilog are the same of C language. We can see more options in the table:</p>
 </div>
 <table class="tableblock frame-all grid-all center" style="width: 50%;">
 <caption class="title">Table 1. Bit-Wise Operators</caption>
@@ -233,13 +262,99 @@ table {
 </tr>
 </tbody>
 </table>
+<div class="paragraph">
+<p>So, with this assigment, we are describing the relationship between the output and inputs.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_a_simple_testbench_model">A Simple Testbench Model</h3>
+<div class="paragraph">
+<p>After design the device model, we need to simulate its behavior. To do this, we can describe a top-level design, which will contain a device that we need to test. With this top-level design, we can describe a sequence of signals to be applied in the device.</p>
+</div>
+<div class="paragraph">
+<p>First, we instantiate the <em>and_device</em> in our testbench model:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight nowrap"><code data-lang="systemverilog"><span></span><span class="tok-k">module</span> <span class="tok-n">and_testbench</span><span class="tok-p">();</span>
+	<span class="tok-k">logic</span> <span class="tok-n">a</span><span class="tok-p">,</span> <span class="tok-n">b</span><span class="tok-p">,</span> <span class="tok-n">s</span><span class="tok-p">;</span>
+
+	<span class="tok-n">and_device</span> <span class="tok-n">and_device0</span><span class="tok-p">(</span><span class="tok-n">a</span><span class="tok-p">,</span> <span class="tok-n">b</span><span class="tok-p">,</span> <span class="tok-n">s</span><span class="tok-p">);</span>
+
+<span class="tok-k">endmodule</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Another way to do this, is given by:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight nowrap"><code data-lang="systemverilog"><span></span><span class="tok-k">module</span> <span class="tok-n">and_testbench</span><span class="tok-p">();</span>
+	<span class="tok-k">logic</span> <span class="tok-n">a</span><span class="tok-p">,</span> <span class="tok-n">b</span><span class="tok-p">,</span> <span class="tok-n">s</span><span class="tok-p">;</span>
+
+	<span class="tok-n">and_device</span> <span class="tok-n">and_device0</span><span class="tok-p">(.</span><span class="tok-n">a</span><span class="tok-p">(</span><span class="tok-n">a</span><span class="tok-p">),</span> <span class="tok-p">.</span><span class="tok-n">b</span><span class="tok-p">(</span><span class="tok-n">b</span><span class="tok-p">),</span> <span class="tok-p">.</span><span class="tok-n">s</span><span class="tok-p">(</span><span class="tok-n">s</span><span class="tok-p">));</span>
+
+<span class="tok-k">endmodule</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In the first case, the signals <em>a</em>, <em>b</em> and <em>s</em> must be in the same order of the <em>and_device</em> description. In the second case, the signals are explicitly described by <em class="underline">.port_name(signal_name)</em>.</p>
+</div>
+<div class="paragraph">
+<p>The signals created in this testbench are <strong><em>logic</em></strong> type. The <em>logic</em> is a 4-state type, what means that there are four possible values to be assigned: '0', '1', 'Z'(high impedance) and 'X'(unknown). SystemVerilog also have 2-state types, like: <em>bit</em>, <em>byte</em> and <em>int</em>. <em>Logic</em> type, in SystemVerilog, is equivalent to <em>reg</em> type in Verilog.</p>
+</div>
+<div class="paragraph">
+<p>Now, the inputs must be changed to verify the <em>and_device</em>'s behavior. This can be implemented in this way:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight nowrap"><code data-lang="systemverilog"><span></span><span class="tok-k">module</span> <span class="tok-n">and_testbench</span><span class="tok-p">();</span>
+	<span class="tok-k">logic</span> <span class="tok-n">a</span><span class="tok-p">,</span> <span class="tok-n">b</span><span class="tok-p">,</span> <span class="tok-n">s</span><span class="tok-p">;</span>
+
+	<span class="tok-n">and_device</span> <span class="tok-n">and_device0</span><span class="tok-p">(</span><span class="tok-n">a</span><span class="tok-p">,</span> <span class="tok-n">b</span><span class="tok-p">,</span> <span class="tok-n">s</span><span class="tok-p">);</span>
+
+	<span class="tok-c1">//Waveform</span>
+  <span class="tok-k">initial</span> <span class="tok-k">begin</span>
+    <span class="tok-n">a</span> <span class="tok-o">=</span> <span class="tok-mh">0</span><span class="tok-p">;</span>
+    <span class="tok-n">b</span> <span class="tok-o">=</span> <span class="tok-mh">0</span><span class="tok-p">;</span>
+    <span class="tok-p">#</span><span class="tok-mh">100</span><span class="tok-p">;</span>
+
+    <span class="tok-n">a</span> <span class="tok-o">=</span> <span class="tok-mh">0</span><span class="tok-p">;</span>
+    <span class="tok-n">b</span> <span class="tok-o">=</span> <span class="tok-mh">1</span><span class="tok-p">;</span>
+    <span class="tok-p">#</span><span class="tok-mh">100</span><span class="tok-p">;</span>
+
+    <span class="tok-n">a</span> <span class="tok-o">=</span> <span class="tok-mh">1</span><span class="tok-p">;</span>
+    <span class="tok-n">b</span> <span class="tok-o">=</span> <span class="tok-mh">0</span><span class="tok-p">;</span>
+    <span class="tok-p">#</span><span class="tok-mh">100</span><span class="tok-p">;</span>
+
+    <span class="tok-n">a</span> <span class="tok-o">=</span> <span class="tok-mh">1</span><span class="tok-p">;</span>
+    <span class="tok-n">b</span> <span class="tok-o">=</span> <span class="tok-mh">1</span><span class="tok-p">;</span>
+    <span class="tok-p">#</span><span class="tok-mh">100</span><span class="tok-p">;</span>
+  <span class="tok-k">end</span>
+
+<span class="tok-k">endmodule</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The initial block execute the commands only once, and starts at time 0. The <strong>#</strong> token means a time delay. So, with this description, we can observe the responses of <em>and_device</em> executing the simulation on  modelsim. The result is showed in the next figure:</p>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="imageblock" style="text-align: center">
+<div class="content">
+<img src="./images/result_and_device.png" alt="result and device">
+</div>
+<div class="title">Figure 1. Testbench Simulation</div>
+</div>
+</div>
+</div>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-08-31 23:54:43 BRT
+Last updated 2017-09-07 17:55:26 BRT
 </div>
 </div>
 </body>
