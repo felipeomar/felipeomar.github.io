@@ -1,0 +1,7 @@
+cmake_minimum_required(VERSION 2.8)
+project( labelling_bubbles )
+set(OpenCV_DIR "/usr/local/opencv/share/OpenCV")
+find_package( OpenCV REQUIRED )
+include_directories( ${OpenCV_INCLUDE_DIRS} )
+add_executable( labelling_bubbles labelling_bubbles.cpp )
+target_link_libraries( labelling_bubbles ${OpenCV_LIBS} )

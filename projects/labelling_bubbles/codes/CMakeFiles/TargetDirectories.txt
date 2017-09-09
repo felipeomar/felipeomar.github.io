@@ -1,0 +1,3 @@
+/home/felipe/github/felipeomar.github.io/projects/labelling_bubbles/codes/CMakeFiles/rebuild_cache.dir
+/home/felipe/github/felipeomar.github.io/projects/labelling_bubbles/codes/CMakeFiles/edit_cache.dir
+/home/felipe/github/felipeomar.github.io/projects/labelling_bubbles/codes/CMakeFiles/labelling_bubbles.dir
