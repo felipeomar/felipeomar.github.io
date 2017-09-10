@@ -1,0 +1,3 @@
+/home/felipe/github/felipeomar.github.io/projects/spatial_filter/codes/CMakeFiles/rebuild_cache.dir
+/home/felipe/github/felipeomar.github.io/projects/spatial_filter/codes/CMakeFiles/edit_cache.dir
+/home/felipe/github/felipeomar.github.io/projects/spatial_filter/codes/CMakeFiles/spatial_filter.dir
