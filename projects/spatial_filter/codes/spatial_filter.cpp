@@ -21,7 +21,7 @@ void menu(){
     		"v - vertical\n"
 			"h - horizontal\n"
     		"l - laplaciano\n"
-    		"j - laplaciano do gaussiano"
+    		"j - laplaciano do gaussiano\n"
 			"esc - sair\n" << endl;
 }
 
@@ -100,7 +100,7 @@ int main(int argvc, char** argv){
   					
   					//Leitura do teclado
   					key = (char) waitKey(10);
-  					if(key == 32) break;
+  					if(key == 'g' || key == 'h' || key == 'v' || key == 'l' || key == 'j') break;
   					if(key == 27) return 0;
   					if(key == 'a')
   						absolut=!absolut;
@@ -132,7 +132,7 @@ int main(int argvc, char** argv){
   					
   					//Leitura do teclado
   					key = (char) waitKey(10);
-  					if(key == 32) break;
+  					if(key == 'm' || key == 'h' || key == 'v' || key == 'l' || key == 'j') break;
   					if(key == 27) return 0;
   					if(key == 'a')
   						absolut=!absolut;
@@ -162,7 +162,7 @@ int main(int argvc, char** argv){
   					
   					//Leitura do teclado
   					key = (char) waitKey(10);
-  					if(key == 32) break;
+  					if(key == 'm' || key == 'g' || key == 'v' || key == 'l' || key == 'j') break;
   					if(key == 27) return 0;
   					if(key == 'a')
   						absolut=!absolut;
@@ -192,7 +192,7 @@ int main(int argvc, char** argv){
   					
   					//Leitura do teclado
   					key = (char) waitKey(10);
-  					if(key == 32) break;
+  					if(key == 'm' || key == 'g' || key == 'h' || key == 'l' || key == 'j') break;
   					if(key == 27) return 0;
   					if(key == 'a')
   						absolut=!absolut;
@@ -225,7 +225,7 @@ int main(int argvc, char** argv){
   					
   					//Leitura do teclado
   					key = (char) waitKey(10);
-  					if(key == 32) break;
+  					if(key == 'm' || key == 'g' || key == 'h' || key == 'v' || key == 'j') break;
   					if(key == 27) return 0;
   					if(key == 'a')
   						absolut=!absolut;
@@ -264,7 +264,7 @@ int main(int argvc, char** argv){
   					
   					//Leitura do teclado
   					key = (char) waitKey(10);
-  					if(key == 32) break;
+  					if(key == 'm' || key == 'g' || key == 'h' || key == 'v' || key == 'l') break;
   					if(key == 27) return 0;
   					if(key == 'a')
   						absolut=!absolut;
