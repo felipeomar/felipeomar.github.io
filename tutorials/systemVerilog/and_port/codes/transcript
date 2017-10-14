@@ -1,0 +1,25 @@
+# do and_project.do
+# Model Technology ModelSim - Intel FPGA Edition vmap 10.5c Lib Mapping Utility 2017.01 Jan 23 2017
+# vmap work ./work 
+# Copying /opt/altera/modelsim_ase/linuxaloem/../modelsim.ini to modelsim.ini
+# Modifying modelsim.ini
+# Model Technology ModelSim - Intel FPGA Edition vlog 10.5c Compiler 2017.01 Jan 23 2017
+# Start time: 18:38:36 on Oct 14,2017
+# vlog -reportprogress 300 -work work and_device.sv and_tb.sv 
+# -- Compiling module and_device
+# -- Compiling module and_tb
+# 
+# Top level modules:
+# 	and_tb
+# End time: 18:38:36 on Oct 14,2017, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# vsim work.and_tb 
+# Start time: 18:38:36 on Oct 14,2017
+# Loading sv_std.std
+# Loading work.and_tb
+# Loading work.and_device
+# .main_pane.wave.interior.cs.body.pw.wf
+# Break key hit
+exit
+# End time: 18:42:41 on Oct 14,2017, Elapsed time: 0:04:05
+# Errors: 0, Warnings: 0

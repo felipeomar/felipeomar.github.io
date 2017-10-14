@@ -11,5 +11,6 @@ SystemVerilog is a Hardware Description and Verification Language (HDVL) that be
 So, this tutorial has the objective of show the main concepts and sintax of SystemVerilog, showing some examples with components of digital systems that are important to understand.
 
 == Examples
-
-link:and_port/and_port.html[AND port with SystemVerilog]
+[.text-justify]
+=== link:and_port/and_port.html[A simple component with SystemVerilog]
+In this example, we will see the fundamentals of SystemVerilog syntax. The easiest way to start to learn a new language is analyzing a simple component, with few ports. So, in this example is suggested to implement an and port, where we will design the component, make a testbench and observe the results in a modelsim enviroment.

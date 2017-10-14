@@ -8,8 +8,8 @@ int main(int argc, char** argv){
   Mat image;																					//Imagem a ser modificada
 	int width, height;																	//Largura e altura da imagem
 	int i,j;																						//Variáveis auxiliares para percorrer a imagem
-	CvPoint p;																					//Ponto da imagem a ser usado no floodfill	
-	unsigned long int contador_bolhas = 0;							//Variável para contagem de bolhas. A contagem é feita pela mudança RGB, 
+	CvPoint p;																					//Ponto da imagem a ser usado no floodfill
+	unsigned long int contador_bolhas = 0;							//Variável para contagem de bolhas. A contagem é feita pela mudança RGB,
 																											//sendo necessário ao menos 24 bits.
 	unsigned long int contador_bolhas_com_buracos = 0;	//Variável para contagem de bolhas com buracos.
 	unsigned long int contador_bolhas_sem_buracos = 0;	//Variável para contagem de bolhas sem buracos.
@@ -25,12 +25,12 @@ int main(int argc, char** argv){
     cout << "Imagem nao carregou corretamente.\n";
     return(-1);
 	}
-	
+
 	width=image.size().width;														//Largura da imagem
   height=image.size().height;													//Altura da imagem
-	
+
 	//============== Remoção de bolhas que tocam a borda da imagem ==============
-	
+
 	//Remoção na lateral esquerda: índice j = 0 para primeira coluna, e índice i varre todas as linhas
 	//Caso encontre um pixel branco, realiza o floodfill para a cor de fundo (preto)
 	i = 0; j = 0;

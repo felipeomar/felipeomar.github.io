@@ -5,7 +5,7 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.6.1">
-<title>AND Port With SystemVerilog</title>
+<title>A simple component with SystemVerilog</title>
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
 
@@ -129,71 +129,68 @@ table {
 </head>
 <body class="article toc2 toc-left">
 <div id="header">
+<h1>A simple component with SystemVerilog</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_and_port_with_systemverilog">AND Port With SystemVerilog</a>
+<li><a href="#_the_and_port_design">The And Port Design</a>
 <ul class="sectlevel2">
-<li><a href="#_module_declaration">Module Declaration</a></li>
 <li><a href="#_defining_inputs_outputs">Defining Inputs/Outputs</a></li>
 <li><a href="#_defining_the_device_s_behavior">Defining the device&#8217;s behavior</a></li>
-<li><a href="#_a_simple_testbench_model">A Simple Testbench Model</a></li>
 </ul>
 </li>
+<li><a href="#_a_simple_testbench_model">A Simple Testbench Model</a>
+<ul class="sectlevel2">
+<li><a href="#_component_instantiation">Component Instantiation</a></li>
+<li><a href="#_inputs_behavior">Inputs Behavior</a></li>
+</ul>
+</li>
+<li><a href="#_modelsim_simulation">Modelsim Simulation</a></li>
 </ul>
 </div>
 </div>
 <div id="content">
-<div class="sect1 text-justify">
-<h2 id="_and_port_with_systemverilog">AND Port With SystemVerilog</h2>
+<div id="preamble">
 <div class="sectionbody">
-<div class="paragraph">
-<p>This tutorial will show how to describe a component which has the behavior of an AND port. The objective is show some initial points about the SystemVerilog language. For this, an <em>And_device</em> and an <em>And_testbench</em> will be developed, and tested in a modelsim environment. The topics in this tutorial are:</p>
+<div class="paragraph text-justify">
+<p>This tutorial will show how to describe a component which has the behavior of an AND port. The objective is show some initial points about the SystemVerilog language and the modelsim enviroment. For this, an <em>and_device</em> and an <em>and_testbench</em> will be developed, and tested in a modelsim environment.</p>
 </div>
-<div class="ulist checklist">
-<ul class="checklist">
-<li>
-<p>&#10003; Module</p>
-</li>
-<li>
-<p>&#10003; Inputs/outputs</p>
-</li>
-<li>
-<p>&#10003; Assign statement</p>
-</li>
-<li>
-<p>&#10003; Bit-wise operators</p>
-</li>
-<li>
-<p>&#10003; Logic type</p>
-</li>
-<li>
-<p>&#10003; Module instantiation</p>
-</li>
-<li>
-<p>&#10003; Initial block</p>
-</li>
-<li>
-<p>&#10003; # token</p>
-</li>
-</ul>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_the_and_port_design">The And Port Design</h2>
+<div class="sectionbody">
+<div class="paragraph text-justify">
+<p>A way to describe a and port in SystemVerilog is given by the next code:</p>
+</div>
+<div class="listingblock">
+<div class="title">and_device.sv</div>
+<div class="content">
+<pre class="pygments highlight nowrap"><code data-lang="systemverilog"><span></span><span class="tok-k">module</span> <span class="tok-n">and_device</span> <span class="tok-p">(</span><span class="tok-n">a</span><span class="tok-p">,</span> <span class="tok-n">b</span><span class="tok-p">,</span> <span class="tok-n">s</span><span class="tok-p">);</span>
+	<span class="tok-k">input</span>  <span class="tok-n">a</span><span class="tok-p">;</span>
+	<span class="tok-k">input</span>  <span class="tok-n">b</span><span class="tok-p">;</span>
+	<span class="tok-k">output</span> <span class="tok-n">s</span><span class="tok-p">;</span>
+
+	<span class="tok-k">assign</span> <span class="tok-n">s</span> <span class="tok-o">=</span> <span class="tok-n">a</span> <span class="tok-o">&amp;</span> <span class="tok-n">b</span><span class="tok-p">;</span>
+<span class="tok-k">endmodule</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Any device can be implemented with the information about its inputs/outputs and behavior. The nexts paragraphs will show how to do this in SystemVerilog, while the code above is explained.</p>
 </div>
 <div class="sect2">
-<h3 id="_module_declaration">Module Declaration</h3>
-<div class="paragraph">
+<h3 id="_defining_inputs_outputs">Defining Inputs/Outputs</h3>
+<div class="paragraph text-justify">
 <p>Hardware languages has the objective to describe a digital component, telling us everything about your behavior, interconnections and relationship with another components. So, we can define a component by its inputs/outputs and the relantioship between them. To declare a digital component, we can start with a <strong>module</strong> directive:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="pygments highlight nowrap"><code data-lang="systemverilog"><span></span><span class="tok-k">module</span> <span class="tok-n">module_name</span><span class="tok-p">(</span><span class="tok-n">inputs</span><span class="tok-p">,</span> <span class="tok-n">outputs</span><span class="tok-p">);</span>
+<pre class="pygments highlight nowrap"><code data-lang="systemverilog"><span></span><span class="tok-k">module</span> <span class="tok-n">module_name</span><span class="tok-p">();</span> <span class="tok-c1">//inputs and outputs goes here</span>
 	<span class="tok-c1">//Description goes here</span>
 <span class="tok-k">endmodule</span></code></pre>
 </div>
 </div>
-</div>
-<div class="sect2">
-<h3 id="_defining_inputs_outputs">Defining Inputs/Outputs</h3>
-<div class="paragraph">
+<div class="paragraph text-justify">
 <p>After to declarate the module, we have to define which ports are inputs, or outputs. For this, we use the <em class="underline">input</em> and <em class="underline">output</em> statement. In the case of a component that have two inputs (<em>a</em> and <em>b</em>) and one output (<em>s</em>), we can define like this:</p>
 </div>
 <div class="listingblock">
@@ -210,7 +207,7 @@ table {
 </div>
 <div class="sect2">
 <h3 id="_defining_the_device_s_behavior">Defining the device&#8217;s behavior</h3>
-<div class="paragraph">
+<div class="paragraph text-justify">
 <p>After to define the inputs/outputs, we have to describe the relantionship between them. In this moment, there are many ways to do this, from a structural descriptions (with logic elements) until behavorial descriptions. One way to do this with the <em>And_device</em> is:</p>
 </div>
 <div class="listingblock">
@@ -224,7 +221,7 @@ table {
 <span class="tok-k">endmodule</span></code></pre>
 </div>
 </div>
-<div class="paragraph">
+<div class="paragraph text-justify">
 <p>The <em class="underline">assign</em> statement is known like <em>continuous assigment</em>, because any change in the right-hand side, implies in the modification of left-hand side, at same time. So, it is used when we are developing a combinational logic. The <em>And</em> behavior is given by "&amp;" operator. The bit-wise operators in SystemVerilog are the same of C language. We can see more options in the table:</p>
 </div>
 <table class="tableblock frame-all grid-all center" style="width: 50%;">
@@ -262,16 +259,21 @@ table {
 </tr>
 </tbody>
 </table>
-<div class="paragraph">
+<div class="paragraph text-justify">
 <p>So, with this assigment, we are describing the relationship between the output and inputs.</p>
 </div>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_a_simple_testbench_model">A Simple Testbench Model</h2>
+<div class="sectionbody">
 <div class="sect2">
-<h3 id="_a_simple_testbench_model">A Simple Testbench Model</h3>
-<div class="paragraph">
+<h3 id="_component_instantiation">Component Instantiation</h3>
+<div class="paragraph text-justify">
 <p>After design the device model, we need to simulate its behavior. To do this, we can describe a top-level design, which will contain a device that we need to test. With this top-level design, we can describe a sequence of signals to be applied in the device.</p>
 </div>
-<div class="paragraph">
+<div class="paragraph text-justify">
 <p>First, we instantiate the <em>and_device</em> in our testbench model:</p>
 </div>
 <div class="listingblock">
@@ -297,46 +299,97 @@ table {
 <span class="tok-k">endmodule</span></code></pre>
 </div>
 </div>
-<div class="paragraph">
+<div class="paragraph text-justify">
 <p>In the first case, the signals <em>a</em>, <em>b</em> and <em>s</em> must be in the same order of the <em>and_device</em> description. In the second case, the signals are explicitly described by <em class="underline">.port_name(signal_name)</em>.</p>
 </div>
-<div class="paragraph">
-<p>The signals created in this testbench are <strong><em>logic</em></strong> type. The <em>logic</em> is a 4-state type, what means that there are four possible values to be assigned: '0', '1', 'Z'(high impedance) and 'X'(unknown). SystemVerilog also have 2-state types, like: <em>bit</em>, <em>byte</em> and <em>int</em>. <em>Logic</em> type, in SystemVerilog, is equivalent to <em>reg</em> type in Verilog.</p>
+<div class="paragraph text-justify">
+<p>The signals created in this testbench are <strong><em>logic</em></strong> type. The <em>logic</em> is a 4-state type, what means that there are four possible values to be assigned: '0', '1', 'Z'(high impedance) and 'X'(unknown). SystemVerilog also have 2-state types, like: <em>bit</em>, <em>byte</em> and <em>int</em>. The <em>Logic</em> type, in SystemVerilog, is equivalent to <em>reg</em> type in Verilog.</p>
 </div>
-<div class="paragraph">
+</div>
+<div class="sect2">
+<h3 id="_inputs_behavior">Inputs Behavior</h3>
+<div class="paragraph text-justify">
 <p>Now, the inputs must be changed to verify the <em>and_device</em>'s behavior. This can be implemented in this way:</p>
 </div>
 <div class="listingblock">
+<div class="title">and_tb.sv</div>
 <div class="content">
-<pre class="pygments highlight nowrap"><code data-lang="systemverilog"><span></span><span class="tok-k">module</span> <span class="tok-n">and_testbench</span><span class="tok-p">();</span>
+<pre class="pygments highlight nowrap"><code data-lang="systemverilog"><span></span><span class="tok-k">module</span> <span class="tok-n">and_tb</span> <span class="tok-p">();</span>
 	<span class="tok-k">logic</span> <span class="tok-n">a</span><span class="tok-p">,</span> <span class="tok-n">b</span><span class="tok-p">,</span> <span class="tok-n">s</span><span class="tok-p">;</span>
 
-	<span class="tok-n">and_device</span> <span class="tok-n">and_device0</span><span class="tok-p">(</span><span class="tok-n">a</span><span class="tok-p">,</span> <span class="tok-n">b</span><span class="tok-p">,</span> <span class="tok-n">s</span><span class="tok-p">);</span>
+	<span class="tok-n">and_device</span> <span class="tok-n">and0</span><span class="tok-p">(</span><span class="tok-n">a</span><span class="tok-p">,</span><span class="tok-n">b</span><span class="tok-p">,</span><span class="tok-n">s</span><span class="tok-p">);</span>
 
-	<span class="tok-c1">//Waveform</span>
-  <span class="tok-k">initial</span> <span class="tok-k">begin</span>
-    <span class="tok-n">a</span> <span class="tok-o">=</span> <span class="tok-mh">0</span><span class="tok-p">;</span>
-    <span class="tok-n">b</span> <span class="tok-o">=</span> <span class="tok-mh">0</span><span class="tok-p">;</span>
-    <span class="tok-p">#</span><span class="tok-mh">100</span><span class="tok-p">;</span>
+	<span class="tok-k">initial</span> <span class="tok-k">begin</span>
+		<span class="tok-n">a</span> <span class="tok-o">=</span> <span class="tok-mh">0</span><span class="tok-p">;</span>
+		<span class="tok-n">b</span> <span class="tok-o">=</span> <span class="tok-mh">0</span><span class="tok-p">;</span>
+		<span class="tok-p">#</span><span class="tok-mh">100</span><span class="tok-p">;</span>
 
-    <span class="tok-n">a</span> <span class="tok-o">=</span> <span class="tok-mh">0</span><span class="tok-p">;</span>
-    <span class="tok-n">b</span> <span class="tok-o">=</span> <span class="tok-mh">1</span><span class="tok-p">;</span>
-    <span class="tok-p">#</span><span class="tok-mh">100</span><span class="tok-p">;</span>
+		<span class="tok-n">a</span> <span class="tok-o">=</span> <span class="tok-mh">0</span><span class="tok-p">;</span>
+		<span class="tok-n">b</span> <span class="tok-o">=</span> <span class="tok-mh">1</span><span class="tok-p">;</span>
+		<span class="tok-p">#</span><span class="tok-mh">100</span><span class="tok-p">;</span>
 
-    <span class="tok-n">a</span> <span class="tok-o">=</span> <span class="tok-mh">1</span><span class="tok-p">;</span>
-    <span class="tok-n">b</span> <span class="tok-o">=</span> <span class="tok-mh">0</span><span class="tok-p">;</span>
-    <span class="tok-p">#</span><span class="tok-mh">100</span><span class="tok-p">;</span>
+		<span class="tok-n">a</span> <span class="tok-o">=</span> <span class="tok-mh">1</span><span class="tok-p">;</span>
+		<span class="tok-n">b</span> <span class="tok-o">=</span> <span class="tok-mh">0</span><span class="tok-p">;</span>
+		<span class="tok-p">#</span><span class="tok-mh">100</span><span class="tok-p">;</span>
 
-    <span class="tok-n">a</span> <span class="tok-o">=</span> <span class="tok-mh">1</span><span class="tok-p">;</span>
-    <span class="tok-n">b</span> <span class="tok-o">=</span> <span class="tok-mh">1</span><span class="tok-p">;</span>
-    <span class="tok-p">#</span><span class="tok-mh">100</span><span class="tok-p">;</span>
-  <span class="tok-k">end</span>
+		<span class="tok-n">a</span> <span class="tok-o">=</span> <span class="tok-mh">1</span><span class="tok-p">;</span>
+		<span class="tok-n">b</span> <span class="tok-o">=</span> <span class="tok-mh">1</span><span class="tok-p">;</span>
+		<span class="tok-p">#</span><span class="tok-mh">100</span><span class="tok-p">;</span>
+	<span class="tok-k">end</span>
 
 <span class="tok-k">endmodule</span></code></pre>
 </div>
 </div>
+<div class="paragraph text-justify">
+<p>The initial block execute the commands only once, and starts at time 0. The # token means a time delay. So, with this description, we can observe the responses of <em>and_device</em> executing the simulation on  modelsim.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_modelsim_simulation">Modelsim Simulation</h2>
+<div class="sectionbody">
+<div class="paragraph text-justify">
+<p>A modelsim simulation can be implemented by a file with the extention <strong>.do</strong>. In this file, we have to put the modelsim commands for compile and simulate our design. For this project, a file named <em>and_project.do</em> was written, and can be seen bellow:</p>
+</div>
+<div class="listingblock">
+<div class="title">and_project.do</div>
+<div class="content">
+<pre class="pygments highlight nowrap"><code data-lang="tcl"><span></span><span class="tok-c">#create a logical library</span>
+<span class="tok-nv">vlib</span> work
+
+<span class="tok-c">#Mapping the logical work to the physical work directory</span>
+<span class="tok-nv">vmap</span> work .<span class="tok-o">/</span>work
+
+<span class="tok-c">#Compile all systemverilog files</span>
+<span class="tok-nv">vlog</span> <span class="tok-o">-</span>work work <span class="tok-o">*</span>.sv
+
+<span class="tok-c">#Load the design for simulation</span>
+<span class="tok-nv">vsim</span> work.and_tb
+
+<span class="tok-c">#Configure the waveform</span>
+<span class="tok-nv">view</span> wave
+<span class="tok-nv">add</span> wave <span class="tok-o">-</span>divider inputs
+<span class="tok-nv">add</span> wave <span class="tok-o">-</span>color <span class="tok-err">#</span><span class="tok-mo">00</span>FF00 <span class="tok-o">-</span>radix hex a
+<span class="tok-nv">add</span> wave <span class="tok-o">-</span>color <span class="tok-err">#</span><span class="tok-mo">00</span>FF00 <span class="tok-o">-</span>radix hex b
+
+<span class="tok-nv">add</span> wave <span class="tok-o">-</span>divider outputs
+<span class="tok-nv">add</span> wave <span class="tok-o">-</span>color <span class="tok-err">#</span><span class="tok-mo">0000</span>FF <span class="tok-o">-</span>radix hex s
+
+<span class="tok-c">#Run the simulation</span>
+<span class="tok-nv">run</span> <span class="tok-o">-</span>all</code></pre>
+</div>
+</div>
+<div class="paragraph text-justify">
+<p>Finally, to run the simulation, save these three files (and_port.sv, and_tb.sv, and_project.do) in the same directory and execute the next command in your terminal:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code>vsim -do and_project.do</code></pre>
+</div>
+</div>
 <div class="paragraph">
-<p>The initial block execute the commands only once, and starts at time 0. The <strong>#</strong> token means a time delay. So, with this description, we can observe the responses of <em>and_device</em> executing the simulation on  modelsim. The result is showed in the next figure:</p>
+<p>Then, the result is showed:</p>
 </div>
 <div class="openblock">
 <div class="content">
@@ -351,10 +404,9 @@ table {
 </div>
 </div>
 </div>
-</div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-09-07 17:55:26 BRT
+Last updated 2017-10-14 18:46:26 BRT
 </div>
 </div>
 </body>

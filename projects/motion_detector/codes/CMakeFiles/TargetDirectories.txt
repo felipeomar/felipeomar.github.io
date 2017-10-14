@@ -1,0 +1,3 @@
+/home/felipe/github/felipeomar.github.io/projects/motion_detector/codes/CMakeFiles/edit_cache.dir
+/home/felipe/github/felipeomar.github.io/projects/motion_detector/codes/CMakeFiles/rebuild_cache.dir
+/home/felipe/github/felipeomar.github.io/projects/motion_detector/codes/CMakeFiles/motion_detector.dir
