@@ -1,0 +1,58 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 d/home/felipe/github/felipeomar.github.io/tutorials/systemVerilog/mux_4x1/codes
+vmux_4x1_device
+Z1 DXx6 sv_std 3 std 0 22 AD7iAPLo6nTIKk<N0eo=D3
+Z2 !s110 1508097668
+!i10b 1
+!s100 LFSe2aB:2H=3z`8APgX643
+I4Wbd0o:XhheBgUb[m1C?j0
+Z3 VDg1SIo80bB@j0V0VzS_@n1
+!s105 mux_4x1_device_sv_unit
+S1
+R0
+w1508097641
+8mux_4x1_device.sv
+Fmux_4x1_device.sv
+L0 1
+Z4 OV;L;10.5c;63
+r1
+!s85 0
+31
+Z5 !s108 1508097667.000000
+Z6 !s107 mux_4x1_tb.sv|mux_4x1_device.sv|
+Z7 !s90 -reportprogress|300|-work|work|mux_4x1_device.sv|mux_4x1_tb.sv|
+!i113 1
+Z8 o-work work
+Z9 tCvgOpt 0
+vmux_4x1_tb
+R1
+R2
+!i10b 1
+!s100 n@WDdT=RGX63f<;AJcOk91
+IOD`STDanzc[0__jWBNlfz3
+R3
+!s105 mux_4x1_tb_sv_unit
+S1
+R0
+w1508023919
+8mux_4x1_tb.sv
+Fmux_4x1_tb.sv
+L0 1
+R4
+r1
+!s85 0
+31
+R5
+R6
+R7
+!i113 1
+R8
+R9

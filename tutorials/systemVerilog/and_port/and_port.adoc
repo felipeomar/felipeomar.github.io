@@ -6,7 +6,6 @@
 
 = A simple component with SystemVerilog
 
-[.text-justify]
 This tutorial will show how to describe a component which has the behavior of an AND port. The objective is show some initial points about the SystemVerilog language and the modelsim enviroment. For this, an _and_device_ and an _and_testbench_ will be developed, and tested in a modelsim environment.
 
 
@@ -65,6 +64,8 @@ endmodule
 
 [.text-justify]
 The [.underline]_assign_ statement is known like _continuous assigment_, because any change in the right-hand side, implies in the modification of left-hand side, at same time. So, it is used when we are developing a combinational logic. The _And_ behavior is given by "&" operator. The bit-wise operators in SystemVerilog are the same of C language. We can see more options in the table:
+
+[.text-center]
 
 .Bit-Wise Operators
 [.center, cols="^1,^1",width=50%, .text-center]

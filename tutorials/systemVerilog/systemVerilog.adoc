@@ -14,3 +14,7 @@ So, this tutorial has the objective of show the main concepts and sintax of Syst
 [.text-justify]
 === link:and_port/and_port.html[A simple component with SystemVerilog]
 In this example, we will see the fundamentals of SystemVerilog syntax. The easiest way to start to learn a new language is analyzing a simple component, with few ports. So, in this example is suggested to implement an and port, where we will design the component, make a testbench and observe the results in a modelsim enviroment.
+
+[.text-justify]
+=== link:mux_4x1/mux_4x1.html[Designing a Multiplexer Device]
+Multiplexers are one of the most used components in digital systems. So, it's important to know how a multiplexer can be implemented with SystemVerilog language. Here, the behavioral design will be introduced, and some topics about this kind of description will be discussed. So, we will develop a mux device, a testebench and a modelsim simulation to make sure that our description works well.
