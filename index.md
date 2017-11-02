@@ -1,15 +1,36 @@
-# Welcome
-You are welcome to this website. If you're here, probably you want to learn something about digital systems. Well, you are in the right place. I'll post material about C/C++ programming, assembly, PIC microcontrollers and topics about hardware description languages. Here, you can also find some tutorials about installing some programs or libraries... So, I hope that you enjoy this material and contribute to increase your knowledge.
+# Bem-Vindo!
+Essa página dedica-se à compreensão e realização de alguns projetos na área de Sistemas Digitais e programação. Aqui você encontrará alguns tutoriais sobre instalação de alguns programas ou bibliotecas para linux, tópicos básicos sobre linguagens HDL's e projetos básicos com microcontroladores PIC.
 
-# Tutorials
-[OpenCV Installation](tutorials/install_opencv/install_opencv.html)
 
-[SystemVerilog](tutorials/systemVerilog/systemVerilog.html)
+# Verificação Funcional de modelos RTL
+##	[Instalação do ModelSim no Linux]()
+##	[Básico do SystemVerilog]()
+## 	[Projeto de um microcontrolador em SystemVerilog]()
+## 	[Introdução à Classes em SystemVerilog]()
+## 	[Projeto de Testbench de uma Memória]()
 
-# Projects
-[Negative Image](projects/negative_image/negative_image.html)
 
-# About the author
-Felipe Omar is a student of Electrical Engineering at UFRN. He always liked about topics of physics, science and electronics. After he got into the university, he discovered a new field of knowledge: programming languages. Since then, he take more contact with the main languages like C/C++. He also have more affinity with digital systems, hardware description languages (like VHDL) and PIC microcontrollers.
+# Processamento Digital de Imagens
+## 	[Instalação do OpenCV em ambiente Linux]()
+##	[Negativo de uma Imagem]()
+##	[Manipulação de Regiões]()
+##	[Identificando Bolhas]()
+##	[Equalizador de Histograma]()
+##	[Detector de Movimento]()
+##	[Filtragem Espacial]()
+##	[Tilt-Shift]()
 
-Among your hobbies, there are series, films, musics (who don't like this?) and play guitar. Your objective is always work with things that make he feel well and, in same way, contribute to society.
+
+
+# Microcontroladores PIC
+##	[Blink]()
+
+
+# Shell Script
+##	[Programa Para Visualizar Horários de Ônibus]()
+
+
+# Sobre o Autor
+Felipe Omar é um estudante de Engenharia Elétrica da UFRN. Ele sempre gostou de tópicos relacionados à ciência. Após entrar na universidade, ele descobriu um novo campo de conhecimento: linguagens de programação. Desde então, ele mantém contato com as principais linguagens, como C/C++. Ele também possui afinidade com tópicos relacionados à sistemas digitais, linguagens de descrição de hardware (como VHDL) e microcontroladores PIC.
+
+Dentre os seus hobbies, estão séries, música, filmes (quem não gosta disso?) e tocar violão. Seu objetivo é sempre trabalhar com coisas na qual gosta e, de alguma forma, contribuir para a sociedade.
