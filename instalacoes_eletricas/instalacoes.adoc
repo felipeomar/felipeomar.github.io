@@ -1,0 +1,48 @@
+:toc: left
+:stylesheet: ubuntu.css
+:author: Felipe Omar
+:email: felipeomar.c@gmail.com
+:imagesdir: ./imagens
+:source-highlighter: pygments
+:linkattrs:
+:sectanchors:
+:sectnums:
+:hide-uri-scheme:
+:stem:
+:icons: font
+:caution-caption: Cuidado
+:important-caption: Importante
+:note-caption: Nota
+:tip-caption: Dica
+:warning-caption: Aviso
+:appendix-caption: Apêndice
+:example-caption: Exemplo
+:figure-caption: Figura
+:listing-caption: Listagem
+:table-caption: Tabela
+:toc-title: Sumário
+:preface-title: Prefácio
+:version-label: Versão
+:last-update-label: Última atualização
+
+
+= Instalações Elétricas
+
+== Introdução
+
+O desenvolvimento de técnicas no campo da eletricidade foi um dos grandes prestígios da humanidade nos útimos séculos. Isso proporcionou uma larga ampliação quanto à invenção e fabricação de equipamentos elétricos, que logo se tornaram parte do dia a dia da população e indispensáveis à manutenção da qualidade de vida da sociedade. Dentro desse contexto, torna-se claro que a otimização e estipulação de regras para aplicações de cunho elétrico são necessárias. Assim, são estipuladas normas técnicas com o intuito de oferecer um padrão que garanta segurança e bem-estar à população. E isso é aplicado às diversas áreas que envolvem energia elétrica, inclusive nas próprias instalações elétricas, seja elas residenciais, industriais ou comerciais.
+
+No Brasil, a norma que trata sobre as instalações residenciais é a NBR 5410. Os assuntos tratados nesse site terão por objetivo explorar o tema de instalações elétricas residenciais, auxiliando no entendimento da norma e da elaboração de projetos. As devidas referências serão sempre citadas, para a verificação por parte do leitor. Sugestões e críticas nas quais o leitor julgar necessárias, basta comunicar ao email acima. Boa Leitura!
+
+
+== Conteúdo
+
+
+=== Definições
+
+
+
+== Projetos-Exemplo
+
+
+WARNING: Site em construção...
