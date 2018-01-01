@@ -1,0 +1,1232 @@
+:toc: left
+:stylesheet: ubuntu.css
+:author: Felipe Omar
+:email: felipeomar.c@gmail.com
+:imagesdir: ./imagens
+:source-highlighter: pygments
+:linkattrs:
+:sectanchors:
+:sectnums:
+:hide-uri-scheme:
+:stem:
+:icons: font
+:caution-caption: Cuidado
+:important-caption: Importante
+:note-caption: Nota
+:tip-caption: Dica
+:warning-caption: Aviso
+:appendix-caption: Apêndice
+:example-caption: Exemplo
+:figure-caption: Figura
+:listing-caption: Listagem
+:table-caption: Tabela
+:toc-title: Sumário
+:preface-title: Prefácio
+:version-label: Versão
+:last-update-label: Última atualização
+
+
+= Modelo Base Para Sites em Asciidoctor
+
+== Introdução
+
+
+O Asciidoctor é uma ferramenta bastante eficiente para a elaboração de sites footnoteref:[note1, Não apenas sites, mas também documentos PDF  e Manuais Unix.] sem a necessidade de conhecer linguagens para ambiente web como HTML e CSS. Sua funcionalidade é bastante extendida, englobando desde a formatação de textos e tabelas até a inserção de mídias de áudio e vídeo. Um amplo tutorial é fornecido no http://asciidoctor.org/docs/user-manual/[site oficial^]. No entanto, por abranger tantas informações, às vezes torna-se necessário um material mais conciso, com as funções mais utilizadas. Esse modelo tem o objetivo de fornecer isso, incluindo os elementos mais comuns no dia a dia de criação de sites com o Asciidoctor. 
+
+Dessa forma, caso uma dúvida simples aconteça, basta verificar esse modelo. Contudo, certamente haverá casos mais complexos que serão solucionados de maneira mais eficiente através da leitura do tutorial oferecido pela equipe do Asciidoctor. Assim como na linguagem Latex, o objetivo do Asciidoctor é trabalhar com conteúdo sem se preocupar com a apresentação, pois a mesma já está pronta para uso. Então, mãos à obra! icon:laptop[]
+
+
+== Formatação de Texto
+
+=== Atributos de Formatação
+
+Imagine que você deseja destacar alguma palavra no seu texto. O Asciidoctor fornece algumas opções para isso, como por exemplo: mudar o tipo de fonte, tamanho e cores. Veja abaixo um exemplo autoexplicativo dessas opções: 
+
+****
+Código::
+
+[source,asciidoctor]
+----
+[underline red]#Vermelho Sublinhado#									+ <1>
+[overline yellow-background small]#Letras Pequenas com Fundo Amarelo#	+
+[line-through green big]#Letras Grandes Verdes#							+
+----
+
+Resultado::
+[underline red]#Vermelho Sublinhado#                                  +
+[overline yellow-background small]#Letras Pequenas com Fundo Amarelo# +
+[line-through green big]#Letras Grandes Verdes#                       +
+
+****
+
+<1> O sinal `+` indica uma quebra de linha.
+
+As cores suportadas são definidas pelo padrão HTML. Veja mais http://en.wikipedia.org/wiki/Web_colors#HTML_color_names/[aqui^].
+
+Para diferentes fontes, como itálico e negrito, o Asciidoctor define a seguinte sintaxe:
+
+****
+Código::
+
+[source,asciidoctor]
+----
+_Texto em Itálico_.                   +
+*Texto em Negrito*.                   +
+__A__penas primeira letra em itálico. +
+**A**penas primeira letra em negrito. +
+----
+
+Resultado::
+
+_Texto em Itálico_.                   +
+*Texto em Negrito*.                   +
+__A__penas primeira letra em itálico. +
+**A**penas primeira letra em negrito. +
+****
+
+
+=== Sobrescritos e Subescritos
+
+Quando desejamos inserir Sobrescritos e Subescritos, sem usar os comandos _latex_, podemos escrever da seguinte forma:
+
+****
+Código::
+[source,asciidoctor]
+----
+1000 = 10^3^.                     + <1>
+e^&#960;i^.                       + <2>
+a^_x_^ * a^_y_^ = a^(_x_+_y_)^.   +
+Prof^a^ Maria.                    +
+                                  +
+H~2~O.                            + <3>
+X~k~ = X~k~ + X~k-1~.
+----
+
+Resultado::
+
+1000 = 10^3^.                     +
+e^&#960;i^.                       +
+a^_x_^ * a^_y_^ = a^(_x_+_y_)^.   +
+Prof^a^ Maria.                    +
+                                  +
+H~2~O.                            +
+X~k~ = X~k~ + X~k-1~.
+****
+
+<1> O conteúdo que deve estar no expoente é inserido entre `^ ^`.
+<2> É possível o uso de caracteres especiais do HTML http://www.lookuptables.com[icon:external-link[]^].
+<3> A inserção de subescrito é realizada da mesma forma, apenas trocando `^ ^` por `~ ~`.
+
+
+=== Símbolos
+
+Outro recurso oferecido pelo Asciidoctor é a inserção de símbolos e ícones, que pode ser realizada de diferentes formas. As principais são:
+
+==== Símbolos Predefinidos
+
+Alguns símbolos são reconhecidos automaticamente através do uso de uma sintaxe simples. Veja a seguir:
+****
+Código::
+[source,asciidoctor]
+----
+(C)  Copyright           +
+(TM) Trademark           +
+(R)  Registred Trademark +
+->                       +
+<-                       +
+=>                       +
+<=                       +
+----
+
+Resultado::
+
+(C)  Copyright           +
+(TM) Trademark           +
+(R)  Registred Trademark +
+->                       +
+<-                       +
+=>                       +
+<=                       +
+
+****
+
+==== Símbolos HTML
+
+Para inserir os símbolos de caracteres definidos na tabela de códigos HTML, a seguinte sintaxe pode ser feita:
+
+****
+Código::
+[source,asciidoctor]
+----
+&#36;  +
+&#62;  +
+&#64;  +
+&#182; +
+----
+
+Resultado::
+
+&#36;  +
+&#62;  +
+&#64;  +
+&#182; +
+****
+
+
+Uma tabela completa de símbolos HTML pode ser encontrada http://www.lookuptables.com[aqui^].
+
+
+==== Ícones
+
+É possível adicionar ícones do tipo _font_ nos sites feitos com Asciidoctor. Para isso, basta fazer:
+
+****
+Código::
+
+[source,asciidoctor]
+----
+:icons: font      <1>
+
+icon:laptop[]     +
+icon:leaf[]       +
+icon:home[]       +
+icon:heart[]      +
+icon:file-pdf-o[] +
+icon:gamepad[]    +
+
+----
+
+Resultado::
+
+icon:laptop[]     +
+icon:leaf[]       +
+icon:home[]       +
+icon:heart[]      +
+icon:file-pdf-o[] +
+icon:gamepad[]    +
+
+****
+
+<1> Este atributo deve ser adicionado no início do arquivo _.adoc_.
+
+
+
+Uma lista completa de ícones pode ser encontrada http://fontawesome.io/[aqui^].
+
+
+
+
+
+
+
+== Formatação de Parágrafos
+
+=== Parágrafo Normal
+
+Se você já produziu algum texto em _Latex_, irá reconhecer imediatamente a estratégia do Asciidoctor. Assim como no _Latex_, para iniciar um novo parágrafo, basta introduzir uma linha em branco antes de iniciar o texto. Simples icon:smile-o[].
+
+
+=== Versos
+
+Você está em um dia inspirado, contemplando a natureza e pensando sobre a beleza da vida. Então, decide fazer um poema e divulgar no seu site feito em Asciidoctor. Para isso, basta escrever seu poema da seguinte forma:
+
+****
+Código::
+[source,asciidoctor]
+----
+[verse, William Blake, from Auguries of Innocence]
+To see a world in a grain of sand,
+And a heaven in a wild flower, 
+Hold infinity in the palm of your hand, 
+And eternity in an hour.
+----
+
+Resultado::
+
+[verse, William Blake, from Auguries of Innocence]
+To see a world in a grain of sand,
+And a heaven in a wild flower, 
+Hold infinity in the palm of your hand, 
+And eternity in an hour.
+
+****
+
+=== Citações
+
+Para citar uma frase célebre, e destacá-la de um modo elegante, pode-se fazer:
+
+****
+Código::
+[source,asciidoctor]
+----
+[quote, Bertrand Russel, The World of Mathematics (1956)]
+A good notation has subtlety and suggestiveness wich at times makes it almost seem like a live teacher.
+----
+
+Resultado::
+
+[quote, Bertrand Russel, The World of Mathematics (1956)]
+A good notation has subtlety and suggestiveness wich at times makes it almost seem like a live teacher.
+
+****
+
+
+=== Advertências
+
+
+Advertências são uma boa forma de chamar atenção do leitor para algum detalhe específico. Podemos inserir advertências incluindo algumas palavras no início do parágrafo. As opções são:
+
+****
+Código::
+[source,asciidoctor]
+----
+TIP: Dica.
+
+NOTE: Nota.
+
+WARNING: Importante.
+
+CAUTION: Cuidado.
+
+----
+
+Resultado::
+&#32;
+
+TIP: Dica.
+
+NOTE: Nota.
+
+WARNING: Importante.
+
+CAUTION: Cuidado.
+
+****
+
+== Listas
+
+
+A utilização de listas no Asciidoctor é bastante simples. A seguir serão demonstrados exemplos de diversos tipos de listas, e você irá notar que o uso é bem trivial e são pequenas as diferenças entre elas.
+
+
+=== Listas Pontuadas
+
+
+****
+Código::
+[source,asciidoctor]
+----
+* Item 1
+** Item 2
+*** Item 3
+**** Item 4
+***** Item 5
+****** Item 6
+----
+
+Resultado::
+
+* Item 1
+** Item 2
+*** Item 3
+**** Item 4
+***** Item 5
+
+****
+
+=== Listas Numeradas
+
+
+****
+Código::
+
+[source,asciidoctor]
+----
+. Item 1
+.. Item 2
+... Item 3
+.... Item 4
+..... Item 5
+----
+
+Resultado::
+
+. Item 1
+.. Item 2
+... Item 3
+.... Item 4
+..... Item 5
+
+****
+
+Ainda podemos inserir _arabic_, _decimal_, _loweralpha_, _lowerroman_, _upperalpha_, _upperroman_ e _lowergreek_ para definir o estilo de numeração desejada:
+
+****
+Código::
+
+[source,asciidoctor]
+----
+[upperroman]
+. Item 1
+.. Item 2
+... Item 3
+.... Item 4
+[lowergreek]
+..... Item 5
+----
+
+Resultado::
+
+[upperroman]
+. Item 1
+.. Item 2
+... Item 3
+.... Item 4
+[lowergreek]
+..... Item 5
+
+****
+
+
+=== CheckLists
+
+****
+Código::
+
+[source,asciidoctor]
+----
+CheckList Não Interativa::
+
+* [*] Marcado
+* [ ] Não marcado
+
+CheckList Interativa::
+
+[%interactive]
+* [ ] Interativa
+----
+
+Resultado::
+
+CheckList Não Interativa::
+
+* [*] Marcado
+* [ ] Não marcado
+
+CheckList Interativa::
+
+[%interactive]
+* [ ] Interativa
+
+****
+
+
+=== Perguntas e Respostas
+
+
+****
+Código::
+[source,asciidoctor]
+----
+[qanda]
+
+Primeira pergunta::
+Essa é a resposta da primeira pergunta.
+
+Segunda pergunta::
+Resposta da segunda pergunta.
+----
+
+Resultado::
+
+[qanda]
+
+Primeira pergunta::
+Essa é a resposta da primeira pergunta.
+
+Segunda pergunta::
+Resposta da segunda pergunta.
+
+****
+
+
+=== Notas de Rodapé
+
+[.text-jutify]
+Há duas formas de inserir uma nota de rodapé. A primeira forma é usada quando precisamos citar a nota apenas uma vez:
+
+
+****
+Código::
+[source,asciidoctor]
+----
+Eis aqui um exemplo de nota de rodapé footnote:[Um exemplo muito bem feito, por sinal.].
+----
+
+Resultado::
+Eis aqui um exemplo de nota de rodapé footnote:[Um exemplo muito bem feito, por sinal.].
+
+****
+
+Quando imaginamos que a nota será citada mais de uma vez ao longo do texto, a sintaxe muda um pouco. Veja como fica:
+
+****
+Código::
+[source,asciidoctor]
+----
+Mais uma vez, preciso inserir uma nota de rodapé footnoteref:[note3, E o exemplo só melhora...].
+Como prometido, posso citar novamente a nota de rodapé footnoteref:[note3].
+----
+
+Resultado::
+
+Mais uma vez, preciso inserir uma nota de rodapé footnoteref:[note3, E o exemplo só melhora...].
+Como visto antes, posso citar novamente a nota de rodapé footnoteref:[note3].
+
+****
+
+
+
+=== Notas Explicativas
+
+
+Notas Explicativas footnote:[No site oficial do Asciidoctor, o nome dado é _Callout_. A melhor tradução que pensei foi essa... icon:smile-o[]] são muito úteis para demonstrar ao leitor detalhes de algum código, etc. Veja o exemplo a seguir:
+
+
+****
+Código::
+
+[source,asciidoctor]
+----
+                                                                                    +
+[source,c]                                                                          +
+----                                                                                +
+#include <stdio.h>                                                                  +
+                                                                                    +
+int main(){                     // <1>                                              +
+    printf("Hello World! \n");  // <2> <3>                                          +
+    return 0;                   // <4>                                              +
+}                                                                                   +
+----                                                                                +
+                                                                                    +
+<1> Definição do início do programa.                                                +
+<2> A função printf imprime uma mensagem no terminal.                               +
+<3> O caractere \n indica o fim da linha.                                           +
+<4> Se o programa for executado corretamente, sinaliza o fim retornando o valor 0.  +
+
+----
+
+Resultado::
+
+[source]
+----
+#include <stdio.h>
+
+int main(){                     // <1>
+    printf("Hello World! \n");  // <2> <3>
+    return 0;                   // <4>
+}
+----
+<1> Definição do início do programa.
+<2> A função printf imprime uma mensagem no terminal.
+<3> O caractere \n indica o fim da linha.
+<4> Se o programa for executado corretamente, sinaliza o fim retornando o valor 0.
+
+****
+
+
+Para ter notas explicativas dentro de códigos incluídos como arquivos, basta lembrar de adicionar os <n> identificadores dentro de comentários no código.
+
+=== Bibliografia
+
+A adição de referências bibliográficas também se mostra bastante simples. Veja o exemplo:
+
+****
+Código::
+
+[source,asciidoctor,options="nowrap"]
+----
+Temos a bibliografia <<taoup>> e <<walsh-muellner>>
+
+[bibliography]
+.Título Opcional
+- [[[taoup,1]]] Eric Steven Raymond. ’The Art of UNIX Programming’. Addison-Wesley. ISBN 0-13-142901-9.
+- [[[walsh-muellner,2]]] Norman Walsh & Leonard Muellner. ’DocBook - The Definitive Guide’. O’Reilly & Associates. 1999. ISBN 1-56592-580-7.
+----
+
+Resultado::
+
+Temos a bibliografia <<taoup>> e <<walsh-muellner>>
+
+[bibliography]
+.Título Opcional
+- [[[taoup,1]]] Eric Steven Raymond. ’The Art of UNIX Programming’. Addison-Wesley. ISBN 0-13-142901-9.
+- [[[walsh-muellner,2]]] Norman Walsh & Leonard Muellner. ’DocBook - The Definitive Guide’. O’Reilly & Associates. 1999. ISBN 1-56592-580-7.
+
+****
+
+
+
+== Links
+
+
+Quantas vezes nós precisamos inserir um link que faça referência a um site externo ou a outro tópico do nosso próprio texto não é mesmo? Tendo isso em vista, o Asciidoctor dispõe de maneiras bastante práticas para o trabalho com links e referências internas. Veremos aqui as formas mais simples de criar links, mas caso você deseje mais informações a respeito, basta visitar o http://asciidoctor.org/docs/user-manual/[manual^] do Asciidoctor.
+
+
+=== Sites
+
+
+O Asciidoctor possui suporte para a criação automática de links com domínio _http_, _ftp_, _irc_ e _emails_. Assim, basta adicionar o link no seu texto que ele será criado. No entanto, muitas vezes não queremos que o link seja o próprio nome do site, e sim que uma palavra ou figura seja o objeto clicável que encaminhará o usuário para um suposto site. A forma de realizar este tipo de modificação pode ser vista abaixo:
+
+****
+Código::
+
+[source,asciidoctor]
+----
+:linkattrs: <1>
+
+Para visitar a homepage do Asciidoctor, clique http://asciidoctor.org/[aqui].              +
+Para visitar a homepage do Asciidoctor em nova aba, clique http://asciidoctor.org/[aqui^]. +
+Para acessar o facebook: https://facebook.com/[icon:facebook[]]
+----
+
+Resultado::
+
+Para visitar a homepage do Asciidoctor, clique http://asciidoctor.org/[aqui].              +
+Para visitar a homepage do Asciidoctor em nova aba, clique http://asciidoctor.org/[aqui^]. +
+Para acessar o facebook: https://facebook.com/[icon:facebook[]^] +
+****
+
+<1> Devemos inserir esse atributo no início do documento para habilitar algumas funcionalidades como, por exemplo, abrir o link em nova aba.
+
+
+=== Referências Internas
+
+
+Referências internas interligam diferentes pontos dentro do texto. No caso de títulos de seções e subseções, os próprios títulos servem para fazer a referência. Já no caso de códigos, figuras, tabelas, fórmulas, etc., é necessário a criação de de uma referência. O procedimento a ser realizado é basicamente o seguinte:
+
+
+****
+Código::
+
+[source,asciidoc]
+----
+
+Link para <<Links>>.
+
+
+[[codigo_exemplo]] <1>
+.Código            <2>
+[source,c]         <3>
+----                                +
+#include <stdio.h>                  +
+                                    +
+int main(){                         +
+    printf("Hello World! \n");      +
+    return 0;                       +
+}                                   +
+----                                +
+
+Link para o <<codigo_exemplo,código>>. Outra forma: xref:codigo_exemplo[código] <4>
+
+----
+
+Resultado::
+
+Link para <<Links>>.
+
+
+[[codigo_exemplo]]
+.Código
+[source,c]
+----                                +
+#include <stdio.h>                  +
+                                    +
+int main(){                         +
+    printf("Hello World! \n");      +
+    return 0;                       +
+}                                   +
+----                                +
+
+Link para o <<codigo_exemplo,código>>. Outra forma: xref:codigo_exemplo[código]
+
+
+****
+
+<1> Definição do nome que será usado para a referência
+<2> Legenda do bloco.
+<3> Definição do bloco. Nesse caso é um bloco de código, mas também pode ser de imagem, vídeo, etc.
+<4> Observe como os links podem ser criados.
+
+
+Como sempre, mais informações podem ser encontradas no http://asciidoctor.org/docs/user-manual/[manual^] do Asciidoctor.
+
+
+
+== Códigos
+
+
+A inserção de códigos em um site pode ser realizado de maneira simplista, tratando-se apenas da configuração de um bloco. O código pode ser inserido manualmente, ou através da diretiva _include_. Veja o exemplo abaixo:
+
+****
+Código::
+
+[source,asciidoctor]
+----
+:source-highlighter: pygments  <1>
+
+[[codigo]]                     <2>
+[source,cpp,options="nowrap"]  <3>
+.Exemplo de código.
+----                           +
+include::./codigos/main.cpp[]  +
+----                           +
+----
+
+Resultado::
+
+[[codigo]]
+[source,cpp,options="nowrap"]
+.Exemplo de código.
+----
+include::./codigos/main.cpp[]
+----
+
+****
+
+<1> Inserindo esse atributo no início do arquivo _.adoc_, os códigos terão suas palavras chaves com cores diferentes.
+<2> Definição da palavra para referência interna.
+<3> A inclusão do atributo `options="nowrap"` permite que uma barra de rolagem seja criada no final do bloco de código para os casos em que uma linha de código é maior que a largura da tela do computador.
+
+
+== Imagens
+
+Imagens, assim como os código vistos na seção anterior, podem ser incluídas através de um simples bloco. Mas outras opçẽs de customização estão disponíveis, como veremos a seguir.
+
+=== Estrutura Padrão
+
+****
+Código::
+
+[source,asciidoctor]
+----
+:imagesdir: ./imagens                <1>
+
+[[eiffel]]                           <2>
+[.text-center]						 <3>
+.Torre Eiffel                        <4>
+[link=https://www.google.com/eiffel] <5>
+image::eiffel.jpg[]
+
+----
+
+Resultado::
+
+[[eiffel]]
+[.text-center]
+.Torre Eiffel
+[link=https://www.google.com/eiffel]
+image::eiffel.jpg[]
+
+
+****
+<1> A inserção desse atributo facilita a inserção de imagens, pois assim não é necessário oferecer o caminho completo na diretiva _include_.
+<2> Definição de um nome para uso em referências internas.
+<3> Atributo para definir a posição da imagem no conteúdo.
+<4> Título da imagem, que será usado como legenda.
+<5> Caso essa linha seja adicionada, a imagem se comportará como um link quando clicada.
+
+=== Controlando Tamanho e Posição
+
+
+No exemplo anterior, vimos que a imagem ocupa um espaço considerável. E se você quiser definir o tamanho exato da imagem? O Asciidoctor também oferece a possibilida de definir o tamanho de imagens. Veja:
+
+****
+Código::
+[source,asciidoctor]
+----
+
+[[eiffel2]]
+[.text-center]
+.Torre Eiffel
+image::eiffel.jpg[450,450] <1>
+
+
+[[eiffel3]]
+[.text-center]
+.Torre Eiffel
+image::eiffel.jpg[40%,40%] <2>
+
+----
+
+Resultado::
+
+[[eiffel2]]
+[.text-center]
+.Torre Eiffel
+image::eiffel.jpg[450,450]
+
+
+[[eiffel3]]
+[.text-center]
+.Torre Eiffel
+image::eiffel.jpg[40%,40%]
+
+****
+
+<1> Definindo o tamanho exato em pixels, na ordem: largura e altura.
+<2> Definindo o tamanho em relação ao tamanho da página, em %.
+
+
+=== Imagens Flutuantes
+
+Em todos os casos anteriores, quando a imagem é inserida no site, é reservado um espaço dedicado à imagem, sem a interferência de nenhum texto. Mas, quando for necessário inserir uma imagem como um objeto flutuante junto ao texot, a seguinte estrutura pode ser desenvolvida:
+
+****
+Código::
+
+[source,asciidoctor]
+----
+[[eiffel4]]
+[.right.text-center]
+.Torre Eiffel 
+image::eiffel.jpg[eiffel,200,200]
+
+Um texto qualquer repetido várias vezes.
+----
+
+Resultado::
+
+[[eiffel4]]
+[.right.text-center]
+.Torre Eiffel 
+image::eiffel.jpg[eiffel,200,200]
+
+Um texto qualquer repetido várias vezes. Um texto qualquer repetido várias vezes.Um texto qualquer repetido várias vezes.Um texto qualquer repetido várias vezes.Um texto qualquer repetido várias vezes.Um texto qualquer repetido várias vezes.Um texto qualquer repetido várias vezes.Um texto qualquer repetido várias vezes.Um texto qualquer repetido várias vezes.Um texto qualquer repetido várias vezes.Um texto qualquer repetido várias vezes.Um texto qualquer repetido várias vezes. Um texto qualquer repetido várias vezes. Um texto qualquer repetido várias vezes.Um texto qualquer repetido várias vezes.Um texto qualquer repetido várias vezes.Um texto qualquer repetido várias vezes.Um texto qualquer repetido várias vezes.Um texto qualquer repetido várias vezes.Um texto qualquer repetido várias vezes.Um texto qualquer repetido várias vezes.Um texto qualquer repetido várias vezes.Um texto qualquer repetido várias vezes.Um texto qualquer repetido várias vezes.
+
+****
+
+Com isso, as principais formas de inserção de imagens foram abordadas. Veremos agora outros tipos de mídia.
+
+
+== Vídeos
+
+Vídeos são elementos simples para inserir, e amplamente compatíveis com navegadores modernos. A estrutura é basicamente a seguinte:
+
+
+****
+Código::
+
+
+[source, asciidoctor, options="nowrap"]
+----
+[[video]]
+[center.text-center]
+.Um vídeo de Teste
+video::rPQoq7ThGAU[poster=eiffel.jpg,width=640,height=480]
+----
+
+Resultado::
+&#32;
+
+[[video]]
+[center.text-center]
+.Um vídeo de Teste
+video::/home/felipe/Vídeos/Palehound.mp4[poster=eiffel.jpg,width=640,height=480]
+
+
+
+****
+
+Ainda há outras opções que podem ser incluídas: "autoplay,loop,modest,start,end,theme", entre https://asciidoctor.org/docs/user-manual/#video/[outros^]...
+
+
+== Tabelas
+
+
+O uso de tabelas no Asciidoctor é um assunto relativamente amplo. Aqui, irei me restringir aos principais conceitos que são necessários para a criação de tabelas mais simples. Mais detalhes podem ser vistos no manual do Asciidoctor.
+
+=== Estrutura Padrão
+
+Veja a estrutura mais simples possível para a geração de tabelas:
+
+****
+Código::
+
+[source,asciidoctor]
+----
+
+[[tabela1]]
+.Tabela Simples
+|===
+| Primeira Coluna | Segunda Coluna <1> <2>
+                                   <3>
+| Nota 1          | 9.0
+
+| Nota 2          | 8.5
+
+| Nota 3          | 7.7
+|===
+----
+
+Resultado::
+&#32;
+
+[[tabela1]]
+.Tabela Simples
+|===
+| Primeira Coluna | Segunda Coluna
+
+| Nota 1          | 9.0
+
+| Nota 2          | 8.5
+
+| Nota 3          | 7.7
+|===
+
+****
+
+<1> Se não deixar uma linha em branco depois de `|===`, a primeira linha será tratada como cabeçalho.
+<2> Para delimitar colunas, usa-se `|`.
+<3> Para pular para outra linha da tabela, deixa-se uma linha em branco.  
+
+
+=== Formatação de Colunas
+
+Para definir algumas propriedades das colunas, usamos a diretiva `cols`. Veja alguns exemplos:
+
+==== Alinhamento
+****
+Código::
+
+[source,asciidoctor]
+----
+
+[[tabela2]]
+[cols="<,^,>"]
+.Alinhamento Horizontal
+|===
+| Primeira Coluna | Segunda Coluna | Terceira Coluna
+
+| Nota 1          | 9.0            | 10.0
+
+| Nota 2          | 8.5            | 5.5
+
+| Nota 3          | 7.7            | 9.8
+|===
+----
+
+Resultado::
+&#32;
+
+[[tabela2]]
+[cols="<,^,>"]
+.Alinhamento Horizontal
+|===
+| Primeira Coluna | Segunda Coluna | Terceira Coluna
+
+| Nota 1          | 9.0            | 10.0
+
+| Nota 2          | 8.5            | 5.5
+
+| Nota 3          | 7.7            | 9.8
+|===
+
+****
+
+
+==== Largura
+
+****
+Código::
+
+[source,asciidoctor]
+----
+[[tabela3]]
+[cols="<20,^30,>50"] <1>
+.Largura das Colunas
+|===
+| Primeira Coluna | Segunda Coluna | Terceira Coluna
+
+| Nota 1          | 9.0            | 10.0
+
+| Nota 2          | 8.5            | 5.5
+
+| Nota 3          | 7.7            | 9.8
+|===
+----
+
+Resultado::
+&#32;
+
+[[tabela3]]
+[cols="<20,^30,>50"]
+.Largura das Colunas
+|===
+| Primeira Coluna | Segunda Coluna | Terceira Coluna
+
+| Nota 1          | 9.0            | 10.0
+
+| Nota 2          | 8.5            | 5.5
+
+| Nota 3          | 7.7            | 9.8
+|===
+
+****
+
+<1> Os números especificam, em porcentagem, a largura de cada coluna.
+
+==== Estilo
+
+****
+Código::
+
+[source,asciidoctor]
+----
+[[tabela4]]
+[cols="<20h,^30s,>50e"]
+.Colunas Estilizadas
+|===
+| Primeira Coluna | Segunda Coluna | Terceira Coluna
+
+| Nota 1          | 9.0            | 10.0
+
+| Nota 2          | 8.5            | 5.5
+
+| Nota 3          | 7.7            | 9.8
+|===
+----
+
+Resultado::
+&#32;
+
+[[tabela4]]
+[cols="<20h,^30s,>50e"]
+.Colunas Estilizadas
+|===
+| Primeira Coluna | Segunda Coluna | Terceira Coluna
+
+| Nota 1          | 9.0            | 10.0
+
+| Nota 2          | 8.5            | 5.5
+
+| Nota 3          | 7.7            | 9.8
+|===
+
+****
+
+
+=== Formatação de Células
+
+
+Vimos que é possível alterar configurações acerca do tamanho e estilo das colunas. Mas se quisermos mesclar células, por exemplo? A seguir também veremos exemplos práticos que demonstram essa possibilidade.
+
+
+==== Mesclando Horizontalmente
+
+
+****
+Código::
+
+[source,asciidoctor]
+----
+
+[[tabela5]]
+[cols="<20h,^30s,>50e"]
+.Mesclando Células
+|===
+| Nota         2+^| Valores
+
+| Nota 1          | 9.0            | 10.0
+
+| Nota 2          | 8.5            | 5.5
+
+| Nota 3          | 7.7            | 9.8
+|===
+
+----
+
+Resultado::
+&#32;
+
+[[tabela5]]
+[cols="<20h,^30s,>50e"]
+.Mesclando Células
+|===
+| Nota         2+^| Valores
+
+| Nota 1          | 9.0            | 10.0
+
+| Nota 2          | 8.5            | 5.5
+
+| Nota 3          | 7.7            | 9.8
+|===
+
+****
+
+
+
+
+==== Mesclando Verticalmente
+
+****
+Código::
+
+[source,asciidoctor]
+----
+[[tabela6]]
+[cols="<20h,^30s,>50e"]
+.Mesclando Células Verticais
+|===
+| Nota         2+^| Valores
+
+| Nota 1          | 9.0            | 10.0
+
+.2+^.>| Nota 2    | 8.5            | 5.5
+
+                ^s| 7.7          >e| 9.8
+|===
+----
+
+Resultado::
+&#32;
+
+[[tabela6]]
+[cols="<20h,^30s,>50e"]
+.Mesclando Células Verticais
+|===
+| Nota         2+^| Valores
+
+| Nota 1          | 9.0            | 10.0
+
+.2+^.>| Nota 2    | 8.5            | 5.5
+
+                ^s| 7.7          >e| 9.8
+|===
+
+
+
+****
+
+
+
+=== Formatação de Tamanho
+
+==== Definindo Tamanho
+
+****
+Código::
+
+[source,asciidoctor]
+----
+.Bit-Wise Operators
+[.center,cols="^1,^1",width=40%]
+|===
+|Operator       | Description
+
+|		~		| Negation
+|		&		| And
+|		\|		| Inclusive Or
+|		^		| Exclusive Or
+|		~^		| Exclusive Nor
+|===
+----
+
+Resultado::
+&#32;
+
+.Bit-Wise Operators
+[.center,cols="^1,^1",width=40%]
+|===
+|Operator                       | Description
+
+|		~		| Negation
+|		&		| And
+|		\|		| Inclusive Or
+|		^		| Exclusive Or
+|		~^		| Exclusive Nor
+|===
+
+****
+
+
+==== Ajuste Automático
+
+****
+Código::
+
+[source,asciidoctor]
+----
+.Bit-Wise Operators
+[%autowidth,cols="^1,^1"]
+|===
+|Operator                       | Description
+
+|		~		| Negation
+|		&		| And
+|		\|		| Inclusive Or
+|		^		| Exclusive Or
+|		~^		| Exclusive Nor
+|===
+----
+
+Resultado::
+&#32;
+
+.Bit-Wise Operators
+[%autowidth,cols="^1,^1"]
+|===
+|Operator                       | Description
+
+|		~		| Negation
+|		&		| And
+|		\|		| Inclusive Or
+|		^		| Exclusive Or
+|		~^		| Exclusive Nor
+|===
+
+****
+
+
+
+
+== Fórmulas Matemáticas
+
+Para quem já é habituado à escrita de equações em _latex_, não há nenhuma novidade aqui. Para usar a mesma sintaxe do _latex_ no seu site feito com Asciidoctor, basta desenvolver os seguintes passos:
+
+
+****
+
+Código::
+
+[source,asciidoctor]
+----
+:stem: <1>
+
+A equação latexmath:[E = m \cdot c^2] é bastante conhecida. Mas prefiro a equação <<simples>>:
+
+[[simples]]
+[latexmath]
+.Deslocamento Linear
+++++
+V_{média} = \frac{\Delta S}{\Delta t}
+++++
+----
+
+
+A equação latexmath:[E = m \cdot c^2] é bastante conhecida. Mas prefiro a equação de <<simples>>:
+
+[[simples]]
+[latexmath]
+.Deslocamento Linear
+++++
+V_{média} = \frac{\Delta S}{\Delta t}
+++++
+
+
+****
+
+<1> Inclua esse atributo no início do documento.
+
+
+A referência mais direta sobre a escrita em _latex_ está disponível https://en.wikibooks.org/wiki/LaTeX[aqui^]. Dessa forma, basta inserir as equações da forma especificada acima e seu site poderá conter informações matemáticas com boa aparência e fácil de escrever.

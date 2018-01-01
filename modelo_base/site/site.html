@@ -1,0 +1,2127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 1.5.6.1">
+<meta name="author" content="Felipe Omar">
+<title>Modelo Base Para Sites em Asciidoctor</title>
+<style>
+/* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
+
+@import url(https://fonts.googleapis.com/css?family=Ubuntu);
+@import "asciidoctor.css"; /* Default asciidoc style framework - important */
+
+/* CUSTOMISATIONS */
+/* Change the values in root for quick customisation. If you want even more fine grain... venture further. */
+
+:root{
+--maincolor:#FFFFFF;
+--primarycolor:#159957;
+--secondarycolor:#333333;
+--tertiarycolor: #159957;
+--sidebarbackground:#CCC;
+--highlightcolor:#00c171;
+--linkcolor:#159957;
+--linkcoloralternate:#159957;
+--white:#FFFFFF;
+--black:#606c71;
+}
+
+/* Text styles */
+body{font-family: "Ubuntu",sans-serif;color:var(--black);text-align:justify!important}
+h1,h2,h3,h4,h5,h6{color:var(--primarycolor) !important;font-family:"Ubuntu",sans-serif;}
+.title{color:(--primarycolor) !important;font-family:"Ubuntu",sans-serif;font-style: normal; font-weight: normal;}
+p{font-family: "Ubuntu",sans-serif ! important}
+#toc.toc2 a:link{color:#31e3d6;}
+code{background-color:#f7f7f8 !important;color:var(--black)}
+blockquote{color:#000000 !important}
+.quoteblock blockquote:before{color:var(--linkcoloralternate)}
+mark{background-color: var(--highlightcolor)} /* Text highlighting color */
+.subheader,.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{line-height:1.45;color:#159957;font-weight:400;margin-top:0;margin-bottom:.25em;text-align:center!important}
+/* Table styles */
+th{background-color: var(--tertiarycolor);color:var(--white) !important;}
+#toc.toc2{background-color:#31e3d6;background-color: #159957;background-image: linear-gradient(120deg, #155799, #159957);color:white;}
+#toc.toc2.a{color:#31e3d6;}
+#toctitle{color:#31e3d6;}
+/* Responsiveness fixes */
+video {
+  max-width: 100%;
+}
+@media all and (max-width: 600px) {
+table {
+  width: 55vw!important;
+  font-size: 3vw;
+}
+
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+<style>
+/* Pygments styles disabled. Pygments is not available. */
+</style>
+</head>
+<body class="article toc2 toc-left">
+<div id="header">
+<h1>Modelo Base Para Sites em Asciidoctor</h1>
+<div class="details">
+<span id="author" class="author">Felipe Omar</span><br>
+<span id="email" class="email"><a href="mailto:felipeomar.c@gmail.com">felipeomar.c@gmail.com</a></span><br>
+</div>
+<div id="toc" class="toc2">
+<div id="toctitle">Sumário</div>
+<ul class="sectlevel1">
+<li><a href="#_introdução">1. Introdução</a></li>
+<li><a href="#_formatação_de_texto">2. Formatação de Texto</a>
+<ul class="sectlevel2">
+<li><a href="#_atributos_de_formatação">2.1. Atributos de Formatação</a></li>
+<li><a href="#_sobrescritos_e_subescritos">2.2. Sobrescritos e Subescritos</a></li>
+<li><a href="#_símbolos">2.3. Símbolos</a></li>
+</ul>
+</li>
+<li><a href="#_formatação_de_parágrafos">3. Formatação de Parágrafos</a>
+<ul class="sectlevel2">
+<li><a href="#_parágrafo_normal">3.1. Parágrafo Normal</a></li>
+<li><a href="#_versos">3.2. Versos</a></li>
+<li><a href="#_citações">3.3. Citações</a></li>
+<li><a href="#_advertências">3.4. Advertências</a></li>
+</ul>
+</li>
+<li><a href="#_listas">4. Listas</a>
+<ul class="sectlevel2">
+<li><a href="#_listas_pontuadas">4.1. Listas Pontuadas</a></li>
+<li><a href="#_listas_numeradas">4.2. Listas Numeradas</a></li>
+<li><a href="#_checklists">4.3. CheckLists</a></li>
+<li><a href="#_perguntas_e_respostas">4.4. Perguntas e Respostas</a></li>
+<li><a href="#_notas_de_rodapé">4.5. Notas de Rodapé</a></li>
+<li><a href="#_notas_explicativas">4.6. Notas Explicativas</a></li>
+<li><a href="#_bibliografia">4.7. Bibliografia</a></li>
+</ul>
+</li>
+<li><a href="#_links">5. Links</a>
+<ul class="sectlevel2">
+<li><a href="#_sites">5.1. Sites</a></li>
+<li><a href="#_referências_internas">5.2. Referências Internas</a></li>
+</ul>
+</li>
+<li><a href="#_códigos">6. Códigos</a></li>
+<li><a href="#_imagens">7. Imagens</a>
+<ul class="sectlevel2">
+<li><a href="#_estrutura_padrão">7.1. Estrutura Padrão</a></li>
+<li><a href="#_controlando_tamanho_e_posição">7.2. Controlando Tamanho e Posição</a></li>
+<li><a href="#_imagens_flutuantes">7.3. Imagens Flutuantes</a></li>
+</ul>
+</li>
+<li><a href="#_vídeos">8. Vídeos</a></li>
+<li><a href="#_tabelas">9. Tabelas</a>
+<ul class="sectlevel2">
+<li><a href="#_estrutura_padrão_2">9.1. Estrutura Padrão</a></li>
+<li><a href="#_formatação_de_colunas">9.2. Formatação de Colunas</a></li>
+<li><a href="#_formatação_de_células">9.3. Formatação de Células</a></li>
+<li><a href="#_formatação_de_tamanho">9.4. Formatação de Tamanho</a></li>
+</ul>
+</li>
+<li><a href="#_fórmulas_matemáticas">10. Fórmulas Matemáticas</a></li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="_introdução"><a class="anchor" href="#_introdução"></a>1. Introdução</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>O Asciidoctor é uma ferramenta bastante eficiente para a elaboração de sites <sup class="footnote" id="_footnote_note1">[<a id="_footnoteref_1" class="footnote" href="#_footnote_1" title="View footnote.">1</a>]</sup> sem a necessidade de conhecer linguagens para ambiente web como HTML e CSS. Sua funcionalidade é bastante extendida, englobando desde a formatação de textos e tabelas até a inserção de mídias de áudio e vídeo. Um amplo tutorial é fornecido no <a href="http://asciidoctor.org/docs/user-manual/" target="_blank" rel="noopener">site oficial</a>. No entanto, por abranger tantas informações, às vezes torna-se necessário um material mais conciso, com as funções mais utilizadas. Esse modelo tem o objetivo de fornecer isso, incluindo os elementos mais comuns no dia a dia de criação de sites com o Asciidoctor.</p>
+</div>
+<div class="paragraph">
+<p>Dessa forma, caso uma dúvida simples aconteça, basta verificar esse modelo. Contudo, certamente haverá casos mais complexos que serão solucionados de maneira mais eficiente através da leitura do tutorial oferecido pela equipe do Asciidoctor. Assim como na linguagem Latex, o objetivo do Asciidoctor é trabalhar com conteúdo sem se preocupar com a apresentação, pois a mesma já está pronta para uso. Então, mãos à obra! <span class="icon"><i class="fa fa-laptop"></i></span></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_formatação_de_texto"><a class="anchor" href="#_formatação_de_texto"></a>2. Formatação de Texto</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_atributos_de_formatação"><a class="anchor" href="#_atributos_de_formatação"></a>2.1. Atributos de Formatação</h3>
+<div class="paragraph">
+<p>Imagine que você deseja destacar alguma palavra no seu texto. O Asciidoctor fornece algumas opções para isso, como por exemplo: mudar o tipo de fonte, tamanho e cores. Veja abaixo um exemplo autoexplicativo dessas opções:</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Código</dt>
+</dl>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="asciidoctor">[underline red]#Vermelho Sublinhado#									+ <i class="conum" data-value="1"></i><b>(1)</b>
+[overline yellow-background small]#Letras Pequenas com Fundo Amarelo#	+
+[line-through green big]#Letras Grandes Verdes#							+</code></pre>
+</div>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Resultado</dt>
+<dd>
+<p><span class="underline red">Vermelho Sublinhado</span>                                 <br>
+<span class="overline yellow-background small">Letras Pequenas com Fundo Amarelo</span><br>
+<span class="line-through green big">Letras Grandes Verdes</span>                      <br></p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>O sinal <code>+</code> indica uma quebra de linha.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>As cores suportadas são definidas pelo padrão HTML. Veja mais <a href="http://en.wikipedia.org/wiki/Web_colors#HTML_color_names/" target="_blank" rel="noopener">aqui</a>.</p>
+</div>
+<div class="paragraph">
+<p>Para diferentes fontes, como itálico e negrito, o Asciidoctor define a seguinte sintaxe:</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Código</dt>
+</dl>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="asciidoctor">_Texto em Itálico_.                   +
+*Texto em Negrito*.                   +
+__A__penas primeira letra em itálico. +
+**A**penas primeira letra em negrito. +</code></pre>
+</div>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Resultado</dt>
+<dd>
+<p><em>Texto em Itálico</em>.                  <br>
+<strong>Texto em Negrito</strong>.                  <br>
+<em>A</em>penas primeira letra em itálico.<br>
+<strong>A</strong>penas primeira letra em negrito.<br></p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_sobrescritos_e_subescritos"><a class="anchor" href="#_sobrescritos_e_subescritos"></a>2.2. Sobrescritos e Subescritos</h3>
+<div class="paragraph">
+<p>Quando desejamos inserir Sobrescritos e Subescritos, sem usar os comandos <em>latex</em>, podemos escrever da seguinte forma:</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Código</dt>
+</dl>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="asciidoctor">1000 = 10^3^.                     + <i class="conum" data-value="1"></i><b>(1)</b>
+e^&amp;#960;i^.                       + <i class="conum" data-value="2"></i><b>(2)</b>
+a^_x_^ * a^_y_^ = a^(_x_+_y_)^.   +
+Prof^a^ Maria.                    +
+                                  +
+H~2~O.                            + <i class="conum" data-value="3"></i><b>(3)</b>
+X~k~ = X~k~ + X~k-1~.</code></pre>
+</div>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Resultado</dt>
+<dd>
+<p>1000 = 10<sup>3</sup>.                    <br>
+e<sup>&#960;i</sup>.                      <br>
+a<sup><em>x</em></sup> * a<sup><em>y</em></sup> = a<sup>(<em>x</em>+<em>y</em>)</sup>.  <br>
+Prof<sup>a</sup> Maria.                   <br>
+                                 <br>
+H<sub>2</sub>O.                           <br>
+X<sub>k</sub> = X<sub>k</sub> + X<sub>k-1</sub>.</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>O conteúdo que deve estar no expoente é inserido entre <code>^ ^</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>É possível o uso de caracteres especiais do HTML <a href="http://www.lookuptables.com" target="_blank" rel="noopener"><span class="icon"><i class="fa fa-external-link"></i></span></a>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>A inserção de subescrito é realizada da mesma forma, apenas trocando <code>^ ^</code> por <code>~ ~</code>.</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_símbolos"><a class="anchor" href="#_símbolos"></a>2.3. Símbolos</h3>
+<div class="paragraph">
+<p>Outro recurso oferecido pelo Asciidoctor é a inserção de símbolos e ícones, que pode ser realizada de diferentes formas. As principais são:</p>
+</div>
+<div class="sect3">
+<h4 id="_símbolos_predefinidos"><a class="anchor" href="#_símbolos_predefinidos"></a>2.3.1. Símbolos Predefinidos</h4>
+<div class="paragraph">
+<p>Alguns símbolos são reconhecidos automaticamente através do uso de uma sintaxe simples. Veja a seguir:</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Código</dt>
+</dl>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="asciidoctor">(C)  Copyright           +
+(TM) Trademark           +
+(R)  Registred Trademark +
+-&gt;                       +
+&lt;-                       +
+=&gt;                       +
+&lt;=                       +</code></pre>
+</div>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Resultado</dt>
+<dd>
+<p>&#169;  Copyright          <br>
+&#8482; Trademark          <br>
+&#174;  Registred Trademark<br>
+&#8594;                      <br>
+&#8592;                      <br>
+&#8658;                      <br>
+&#8656;                      <br></p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_símbolos_html"><a class="anchor" href="#_símbolos_html"></a>2.3.2. Símbolos HTML</h4>
+<div class="paragraph">
+<p>Para inserir os símbolos de caracteres definidos na tabela de códigos HTML, a seguinte sintaxe pode ser feita:</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Código</dt>
+</dl>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="asciidoctor">&amp;#36;  +
+&amp;#62;  +
+&amp;#64;  +
+&amp;#182; +</code></pre>
+</div>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Resultado</dt>
+<dd>
+<p>&#36; <br>
+&#62; <br>
+&#64; <br>
+&#182;<br></p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Uma tabela completa de símbolos HTML pode ser encontrada <a href="http://www.lookuptables.com" target="_blank" rel="noopener">aqui</a>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_Ícones"><a class="anchor" href="#_Ícones"></a>2.3.3. Ícones</h4>
+<div class="paragraph">
+<p>É possível adicionar ícones do tipo <em>font</em> nos sites feitos com Asciidoctor. Para isso, basta fazer:</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Código</dt>
+</dl>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="asciidoctor">:icons: font      <i class="conum" data-value="1"></i><b>(1)</b>
+
+icon:laptop[]     +
+icon:leaf[]       +
+icon:home[]       +
+icon:heart[]      +
+icon:file-pdf-o[] +
+icon:gamepad[]    +</code></pre>
+</div>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Resultado</dt>
+<dd>
+<p><span class="icon"><i class="fa fa-laptop"></i></span>    <br>
+<span class="icon"><i class="fa fa-leaf"></i></span>      <br>
+<span class="icon"><i class="fa fa-home"></i></span>      <br>
+<span class="icon"><i class="fa fa-heart"></i></span>     <br>
+<span class="icon"><i class="fa fa-file-pdf-o"></i></span><br>
+<span class="icon"><i class="fa fa-gamepad"></i></span>   <br></p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Este atributo deve ser adicionado no início do arquivo <em>.adoc</em>.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Uma lista completa de ícones pode ser encontrada <a href="http://fontawesome.io/" target="_blank" rel="noopener">aqui</a>.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_formatação_de_parágrafos"><a class="anchor" href="#_formatação_de_parágrafos"></a>3. Formatação de Parágrafos</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_parágrafo_normal"><a class="anchor" href="#_parágrafo_normal"></a>3.1. Parágrafo Normal</h3>
+<div class="paragraph">
+<p>Se você já produziu algum texto em <em>Latex</em>, irá reconhecer imediatamente a estratégia do Asciidoctor. Assim como no <em>Latex</em>, para iniciar um novo parágrafo, basta introduzir uma linha em branco antes de iniciar o texto. Simples <span class="icon"><i class="fa fa-smile-o"></i></span>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_versos"><a class="anchor" href="#_versos"></a>3.2. Versos</h3>
+<div class="paragraph">
+<p>Você está em um dia inspirado, contemplando a natureza e pensando sobre a beleza da vida. Então, decide fazer um poema e divulgar no seu site feito em Asciidoctor. Para isso, basta escrever seu poema da seguinte forma:</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Código</dt>
+</dl>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="asciidoctor">[verse, William Blake, from Auguries of Innocence]
+To see a world in a grain of sand,
+And a heaven in a wild flower,
+Hold infinity in the palm of your hand,
+And eternity in an hour.</code></pre>
+</div>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Resultado</dt>
+</dl>
+</div>
+<div class="verseblock">
+<pre class="content">To see a world in a grain of sand,
+And a heaven in a wild flower,
+Hold infinity in the palm of your hand,
+And eternity in an hour.</pre>
+<div class="attribution">
+&#8212; William Blake<br>
+<cite>from Auguries of Innocence</cite>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_citações"><a class="anchor" href="#_citações"></a>3.3. Citações</h3>
+<div class="paragraph">
+<p>Para citar uma frase célebre, e destacá-la de um modo elegante, pode-se fazer:</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Código</dt>
+</dl>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="asciidoctor">[quote, Bertrand Russel, The World of Mathematics (1956)]
+A good notation has subtlety and suggestiveness wich at times makes it almost seem like a live teacher.</code></pre>
+</div>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Resultado</dt>
+</dl>
+</div>
+<div class="quoteblock">
+<blockquote>
+A good notation has subtlety and suggestiveness wich at times makes it almost seem like a live teacher.
+</blockquote>
+<div class="attribution">
+&#8212; Bertrand Russel<br>
+<cite>The World of Mathematics (1956)</cite>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_advertências"><a class="anchor" href="#_advertências"></a>3.4. Advertências</h3>
+<div class="paragraph">
+<p>Advertências são uma boa forma de chamar atenção do leitor para algum detalhe específico. Podemos inserir advertências incluindo algumas palavras no início do parágrafo. As opções são:</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Código</dt>
+</dl>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="asciidoctor">TIP: Dica.
+
+NOTE: Nota.
+
+WARNING: Importante.
+
+CAUTION: Cuidado.</code></pre>
+</div>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Resultado</dt>
+<dd>
+<p>&#32;</p>
+</dd>
+</dl>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Dica"></i>
+</td>
+<td class="content">
+Dica.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Nota"></i>
+</td>
+<td class="content">
+Nota.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Aviso"></i>
+</td>
+<td class="content">
+Importante.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-caution" title="Cuidado"></i>
+</td>
+<td class="content">
+Cuidado.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_listas"><a class="anchor" href="#_listas"></a>4. Listas</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A utilização de listas no Asciidoctor é bastante simples. A seguir serão demonstrados exemplos de diversos tipos de listas, e você irá notar que o uso é bem trivial e são pequenas as diferenças entre elas.</p>
+</div>
+<div class="sect2">
+<h3 id="_listas_pontuadas"><a class="anchor" href="#_listas_pontuadas"></a>4.1. Listas Pontuadas</h3>
+<div class="sidebarblock">
+<div class="content">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Código</dt>
+</dl>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="asciidoctor">* Item 1
+** Item 2
+*** Item 3
+**** Item 4
+***** Item 5
+****** Item 6</code></pre>
+</div>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Resultado</dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p>Item 1</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Item 2</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Item 3</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Item 4</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Item 5</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_listas_numeradas"><a class="anchor" href="#_listas_numeradas"></a>4.2. Listas Numeradas</h3>
+<div class="sidebarblock">
+<div class="content">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Código</dt>
+</dl>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="asciidoctor">. Item 1
+.. Item 2
+... Item 3
+.... Item 4
+..... Item 5</code></pre>
+</div>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Resultado</dt>
+<dd>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Item 1</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Item 2</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p>Item 3</p>
+<div class="olist upperalpha">
+<ol class="upperalpha" type="A">
+<li>
+<p>Item 4</p>
+<div class="olist upperroman">
+<ol class="upperroman" type="I">
+<li>
+<p>Item 5</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Ainda podemos inserir <em>arabic</em>, <em>decimal</em>, <em>loweralpha</em>, <em>lowerroman</em>, <em>upperalpha</em>, <em>upperroman</em> e <em>lowergreek</em> para definir o estilo de numeração desejada:</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Código</dt>
+</dl>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="asciidoctor">[upperroman]
+. Item 1
+.. Item 2
+... Item 3
+.... Item 4
+[lowergreek]
+..... Item 5</code></pre>
+</div>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Resultado</dt>
+</dl>
+</div>
+<div class="olist upperroman">
+<ol class="upperroman" type="I">
+<li>
+<p>Item 1</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Item 2</p>
+<div class="olist lowerroman">
+<ol class="lowerroman" type="i">
+<li>
+<p>Item 3</p>
+<div class="olist upperalpha">
+<ol class="upperalpha" type="A">
+<li>
+<p>Item 4</p>
+<div class="olist lowergreek">
+<ol class="lowergreek">
+<li>
+<p>Item 5</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_checklists"><a class="anchor" href="#_checklists"></a>4.3. CheckLists</h3>
+<div class="sidebarblock">
+<div class="content">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Código</dt>
+</dl>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="asciidoctor">CheckList Não Interativa::
+
+* [*] Marcado
+* [ ] Não marcado
+
+CheckList Interativa::
+
+[%interactive]
+* [ ] Interativa</code></pre>
+</div>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Resultado</dt>
+<dt class="hdlist1">CheckList Não Interativa</dt>
+<dd>
+<div class="ulist checklist">
+<ul class="checklist">
+<li>
+<p><i class="fa fa-check-square-o"></i> Marcado</p>
+</li>
+<li>
+<p><i class="fa fa-square-o"></i> Não marcado</p>
+</li>
+</ul>
+</div>
+</dd>
+<dt class="hdlist1">CheckList Interativa</dt>
+</dl>
+</div>
+<div class="ulist checklist">
+<ul class="checklist">
+<li>
+<p><input type="checkbox" data-item-complete="0"> Interativa</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_perguntas_e_respostas"><a class="anchor" href="#_perguntas_e_respostas"></a>4.4. Perguntas e Respostas</h3>
+<div class="sidebarblock">
+<div class="content">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Código</dt>
+</dl>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="asciidoctor">[qanda]
+
+Primeira pergunta::
+Essa é a resposta da primeira pergunta.
+
+Segunda pergunta::
+Resposta da segunda pergunta.</code></pre>
+</div>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Resultado</dt>
+</dl>
+</div>
+<div class="qlist qanda">
+<ol>
+<li>
+<p><em>Primeira pergunta</em></p>
+<p>Essa é a resposta da primeira pergunta.</p>
+</li>
+<li>
+<p><em>Segunda pergunta</em></p>
+<p>Resposta da segunda pergunta.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_notas_de_rodapé"><a class="anchor" href="#_notas_de_rodapé"></a>4.5. Notas de Rodapé</h3>
+<div class="paragraph text-jutify">
+<p>Há duas formas de inserir uma nota de rodapé. A primeira forma é usada quando precisamos citar a nota apenas uma vez:</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Código</dt>
+</dl>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="asciidoctor">Eis aqui um exemplo de nota de rodapé footnote:[Um exemplo muito bem feito, por sinal.].</code></pre>
+</div>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Resultado</dt>
+<dd>
+<p>Eis aqui um exemplo de nota de rodapé <sup class="footnote">[<a id="_footnoteref_2" class="footnote" href="#_footnote_2" title="View footnote.">2</a>]</sup>.</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Quando imaginamos que a nota será citada mais de uma vez ao longo do texto, a sintaxe muda um pouco. Veja como fica:</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Código</dt>
+</dl>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="asciidoctor">Mais uma vez, preciso inserir uma nota de rodapé footnoteref:[note3, E o exemplo só melhora...].
+Como prometido, posso citar novamente a nota de rodapé footnoteref:[note3].</code></pre>
+</div>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Resultado</dt>
+<dd>
+<p>Mais uma vez, preciso inserir uma nota de rodapé <sup class="footnote" id="_footnote_note3">[<a id="_footnoteref_3" class="footnote" href="#_footnote_3" title="View footnote.">3</a>]</sup>.
+Como visto antes, posso citar novamente a nota de rodapé <sup class="footnoteref">[<a class="footnote" href="#_footnote_3" title="View footnote.">3</a>]</sup>.</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_notas_explicativas"><a class="anchor" href="#_notas_explicativas"></a>4.6. Notas Explicativas</h3>
+<div class="paragraph">
+<p>Notas Explicativas <sup class="footnote">[<a id="_footnoteref_4" class="footnote" href="#_footnote_4" title="View footnote.">4</a>]</sup> são muito úteis para demonstrar ao leitor detalhes de algum código, etc. Veja o exemplo a seguir:</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Código</dt>
+</dl>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="asciidoctor">                                                                                    +
+[source,c]                                                                          +
+----                                                                                +
+#include &lt;stdio.h&gt;                                                                  +
+                                                                                    +
+int main(){                     // &lt;1&gt;                                              +
+    printf("Hello World! \n");  // &lt;2&gt; &lt;3&gt;                                          +
+    return 0;                   // &lt;4&gt;                                              +
+}                                                                                   +
+----                                                                                +
+                                                                                    +
+&lt;1&gt; Definição do início do programa.                                                +
+&lt;2&gt; A função printf imprime uma mensagem no terminal.                               +
+&lt;3&gt; O caractere \n indica o fim da linha.                                           +
+&lt;4&gt; Se o programa for executado corretamente, sinaliza o fim retornando o valor 0.  +</code></pre>
+</div>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Resultado</dt>
+</dl>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code>#include &lt;stdio.h&gt;
+
+int main(){                     <i class="conum" data-value="1"></i><b>(1)</b>
+    printf("Hello World! \n");  <i class="conum" data-value="2"></i><b>(2)</b> <i class="conum" data-value="3"></i><b>(3)</b>
+    return 0;                   <i class="conum" data-value="4"></i><b>(4)</b>
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Definição do início do programa.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>A função printf imprime uma mensagem no terminal.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>O caractere \n indica o fim da linha.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Se o programa for executado corretamente, sinaliza o fim retornando o valor 0.</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Para ter notas explicativas dentro de códigos incluídos como arquivos, basta lembrar de adicionar os &lt;n&gt; identificadores dentro de comentários no código.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_bibliografia"><a class="anchor" href="#_bibliografia"></a>4.7. Bibliografia</h3>
+<div class="paragraph">
+<p>A adição de referências bibliográficas também se mostra bastante simples. Veja o exemplo:</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Código</dt>
+</dl>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight nowrap"><code data-lang="asciidoctor">Temos a bibliografia &lt;&lt;taoup&gt;&gt; e &lt;&lt;walsh-muellner&gt;&gt;
+
+[bibliography]
+.Título Opcional
+- [[[taoup,1]]] Eric Steven Raymond. ’The Art of UNIX Programming’. Addison-Wesley. ISBN 0-13-142901-9.
+- [[[walsh-muellner,2]]] Norman Walsh &amp; Leonard Muellner. ’DocBook - The Definitive Guide’. O’Reilly &amp; Associates. 1999. ISBN 1-56592-580-7.</code></pre>
+</div>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Resultado</dt>
+<dd>
+<p>Temos a bibliografia <a href="#taoup">[1]</a> e <a href="#walsh-muellner">[2]</a></p>
+</dd>
+</dl>
+</div>
+<div class="ulist bibliography">
+<div class="title">Título Opcional</div>
+<ul class="bibliography">
+<li>
+<p><a id="taoup"></a>[1] Eric Steven Raymond. ’The Art of UNIX Programming’. Addison-Wesley. ISBN 0-13-142901-9.</p>
+</li>
+<li>
+<p><a id="walsh-muellner"></a>[2] Norman Walsh &amp; Leonard Muellner. ’DocBook - The Definitive Guide’. O’Reilly &amp; Associates. 1999. ISBN 1-56592-580-7.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_links"><a class="anchor" href="#_links"></a>5. Links</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Quantas vezes nós precisamos inserir um link que faça referência a um site externo ou a outro tópico do nosso próprio texto não é mesmo? Tendo isso em vista, o Asciidoctor dispõe de maneiras bastante práticas para o trabalho com links e referências internas. Veremos aqui as formas mais simples de criar links, mas caso você deseje mais informações a respeito, basta visitar o <a href="http://asciidoctor.org/docs/user-manual/" target="_blank" rel="noopener">manual</a> do Asciidoctor.</p>
+</div>
+<div class="sect2">
+<h3 id="_sites"><a class="anchor" href="#_sites"></a>5.1. Sites</h3>
+<div class="paragraph">
+<p>O Asciidoctor possui suporte para a criação automática de links com domínio <em>http</em>, <em>ftp</em>, <em>irc</em> e <em>emails</em>. Assim, basta adicionar o link no seu texto que ele será criado. No entanto, muitas vezes não queremos que o link seja o próprio nome do site, e sim que uma palavra ou figura seja o objeto clicável que encaminhará o usuário para um suposto site. A forma de realizar este tipo de modificação pode ser vista abaixo:</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Código</dt>
+</dl>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="asciidoctor">:linkattrs: <i class="conum" data-value="1"></i><b>(1)</b>
+
+Para visitar a homepage do Asciidoctor, clique http://asciidoctor.org/[aqui].              +
+Para visitar a homepage do Asciidoctor em nova aba, clique http://asciidoctor.org/[aqui^]. +
+Para acessar o facebook: https://facebook.com/[icon:facebook[]]</code></pre>
+</div>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Resultado</dt>
+<dd>
+<p>Para visitar a homepage do Asciidoctor, clique <a href="http://asciidoctor.org/">aqui</a>.             <br>
+Para visitar a homepage do Asciidoctor em nova aba, clique <a href="http://asciidoctor.org/" target="_blank" rel="noopener">aqui</a>.<br>
+Para acessar o facebook: <a href="https://facebook.com/" target="_blank" rel="noopener"><span class="icon"><i class="fa fa-facebook"></i></span></a><br></p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Devemos inserir esse atributo no início do documento para habilitar algumas funcionalidades como, por exemplo, abrir o link em nova aba.</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_referências_internas"><a class="anchor" href="#_referências_internas"></a>5.2. Referências Internas</h3>
+<div class="paragraph">
+<p>Referências internas interligam diferentes pontos dentro do texto. No caso de títulos de seções e subseções, os próprios títulos servem para fazer a referência. Já no caso de códigos, figuras, tabelas, fórmulas, etc., é necessário a criação de de uma referência. O procedimento a ser realizado é basicamente o seguinte:</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Código</dt>
+</dl>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="asciidoc">Link para &lt;&lt;Links&gt;&gt;.
+
+
+[[codigo_exemplo]] <i class="conum" data-value="1"></i><b>(1)</b>
+.Código            <i class="conum" data-value="2"></i><b>(2)</b>
+[source,c]         <i class="conum" data-value="3"></i><b>(3)</b>
+----                                +
+#include &lt;stdio.h&gt;                  +
+                                    +
+int main(){                         +
+    printf("Hello World! \n");      +
+    return 0;                       +
+}                                   +
+----                                +
+
+Link para o &lt;&lt;codigo_exemplo,código&gt;&gt;. Outra forma: xref:codigo_exemplo[código] <i class="conum" data-value="4"></i><b>(4)</b></code></pre>
+</div>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Resultado</dt>
+<dd>
+<p>Link para <a href="#_links">Links</a>.</p>
+</dd>
+</dl>
+</div>
+<div id="codigo_exemplo" class="listingblock">
+<div class="title">Listagem 1. Código</div>
+<div class="content">
+<pre class="pygments highlight"><code data-lang="c">----                                +
+#include &lt;stdio.h&gt;                  +
+                                    +
+int main(){                         +
+    printf("Hello World! \n");      +
+    return 0;                       +
+}                                   +
+----                                +</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Link para o <a href="#codigo_exemplo">código</a>. Outra forma: <a href="#codigo_exemplo">código</a></p>
+</div>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Definição do nome que será usado para a referência</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Legenda do bloco.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Definição do bloco. Nesse caso é um bloco de código, mas também pode ser de imagem, vídeo, etc.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Observe como os links podem ser criados.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Como sempre, mais informações podem ser encontradas no <a href="http://asciidoctor.org/docs/user-manual/" target="_blank" rel="noopener">manual</a> do Asciidoctor.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_códigos"><a class="anchor" href="#_códigos"></a>6. Códigos</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A inserção de códigos em um site pode ser realizado de maneira simplista, tratando-se apenas da configuração de um bloco. O código pode ser inserido manualmente, ou através da diretiva <em>include</em>. Veja o exemplo abaixo:</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Código</dt>
+</dl>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="asciidoctor">:source-highlighter: pygments  <i class="conum" data-value="1"></i><b>(1)</b>
+
+[[codigo]]                     <i class="conum" data-value="2"></i><b>(2)</b>
+[source,cpp,options="nowrap"]  <i class="conum" data-value="3"></i><b>(3)</b>
+.Exemplo de código.
+----                           +
+include::./codigos/main.cpp[]  +
+----                           +</code></pre>
+</div>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Resultado</dt>
+</dl>
+</div>
+<div id="codigo" class="listingblock">
+<div class="title">Listagem 2. Exemplo de código.</div>
+<div class="content">
+<pre class="pygments highlight nowrap"><code data-lang="cpp">#include &lt;opencv2/opencv.hpp&gt;
+#include &lt;iostream&gt;
+
+using namespace cv;
+using namespace std;
+
+int main( int argc, char** argv ){
+    Mat image;
+    image = imread(argv[1], CV_LOAD_IMAGE_COLOR);
+
+    namedWindow( "Display window", WINDOW_KEEPRATIO );
+    imshow( "Display window", image );
+
+    waitKey(0);
+    return 0;
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Inserindo esse atributo no início do arquivo <em>.adoc</em>, os códigos terão suas palavras chaves com cores diferentes.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Definição da palavra para referência interna.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>A inclusão do atributo <code>options="nowrap"</code> permite que uma barra de rolagem seja criada no final do bloco de código para os casos em que uma linha de código é maior que a largura da tela do computador.</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_imagens"><a class="anchor" href="#_imagens"></a>7. Imagens</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Imagens, assim como os código vistos na seção anterior, podem ser incluídas através de um simples bloco. Mas outras opçẽs de customização estão disponíveis, como veremos a seguir.</p>
+</div>
+<div class="sect2">
+<h3 id="_estrutura_padrão"><a class="anchor" href="#_estrutura_padrão"></a>7.1. Estrutura Padrão</h3>
+<div class="sidebarblock">
+<div class="content">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Código</dt>
+</dl>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="asciidoctor">:imagesdir: ./imagens                <i class="conum" data-value="1"></i><b>(1)</b>
+
+[[eiffel]]                           <i class="conum" data-value="2"></i><b>(2)</b>
+[.text-center]						 <i class="conum" data-value="3"></i><b>(3)</b>
+.Torre Eiffel                        <i class="conum" data-value="4"></i><b>(4)</b>
+[link=https://www.google.com/eiffel] <i class="conum" data-value="5"></i><b>(5)</b>
+image::eiffel.jpg[]</code></pre>
+</div>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Resultado</dt>
+</dl>
+</div>
+<div id="eiffel" class="imageblock text-center">
+<div class="content">
+<a class="image" href="https://www.google.com/eiffel"><img src="./imagens/eiffel.jpg" alt="eiffel"></a>
+</div>
+<div class="title">Figura 1. Torre Eiffel</div>
+</div>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>A inserção desse atributo facilita a inserção de imagens, pois assim não é necessário oferecer o caminho completo na diretiva <em>include</em>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Definição de um nome para uso em referências internas.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Atributo para definir a posição da imagem no conteúdo.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Título da imagem, que será usado como legenda.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>Caso essa linha seja adicionada, a imagem se comportará como um link quando clicada.</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_controlando_tamanho_e_posição"><a class="anchor" href="#_controlando_tamanho_e_posição"></a>7.2. Controlando Tamanho e Posição</h3>
+<div class="paragraph">
+<p>No exemplo anterior, vimos que a imagem ocupa um espaço considerável. E se você quiser definir o tamanho exato da imagem? O Asciidoctor também oferece a possibilida de definir o tamanho de imagens. Veja:</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Código</dt>
+</dl>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="asciidoctor">[[eiffel2]]
+[.text-center]
+.Torre Eiffel
+image::eiffel.jpg[450,450] <i class="conum" data-value="1"></i><b>(1)</b>
+
+
+[[eiffel3]]
+[.text-center]
+.Torre Eiffel
+image::eiffel.jpg[40%,40%] <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+</div>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Resultado</dt>
+</dl>
+</div>
+<div id="eiffel2" class="imageblock text-center">
+<div class="content">
+<img src="./imagens/eiffel.jpg" alt="450" width="450">
+</div>
+<div class="title">Figura 2. Torre Eiffel</div>
+</div>
+<div id="eiffel3" class="imageblock text-center">
+<div class="content">
+<img src="./imagens/eiffel.jpg" alt="40%" width="40%">
+</div>
+<div class="title">Figura 3. Torre Eiffel</div>
+</div>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Definindo o tamanho exato em pixels, na ordem: largura e altura.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Definindo o tamanho em relação ao tamanho da página, em %.</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_imagens_flutuantes"><a class="anchor" href="#_imagens_flutuantes"></a>7.3. Imagens Flutuantes</h3>
+<div class="paragraph">
+<p>Em todos os casos anteriores, quando a imagem é inserida no site, é reservado um espaço dedicado à imagem, sem a interferência de nenhum texto. Mas, quando for necessário inserir uma imagem como um objeto flutuante junto ao texot, a seguinte estrutura pode ser desenvolvida:</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Código</dt>
+</dl>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="asciidoctor">[[eiffel4]]
+[.right.text-center]
+.Torre Eiffel
+image::eiffel.jpg[eiffel,200,200]
+
+Um texto qualquer repetido várias vezes.</code></pre>
+</div>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Resultado</dt>
+</dl>
+</div>
+<div id="eiffel4" class="imageblock right text-center">
+<div class="content">
+<img src="./imagens/eiffel.jpg" alt="eiffel" width="200" height="200">
+</div>
+<div class="title">Figura 4. Torre Eiffel</div>
+</div>
+<div class="paragraph">
+<p>Um texto qualquer repetido várias vezes. Um texto qualquer repetido várias vezes.Um texto qualquer repetido várias vezes.Um texto qualquer repetido várias vezes.Um texto qualquer repetido várias vezes.Um texto qualquer repetido várias vezes.Um texto qualquer repetido várias vezes.Um texto qualquer repetido várias vezes.Um texto qualquer repetido várias vezes.Um texto qualquer repetido várias vezes.Um texto qualquer repetido várias vezes.Um texto qualquer repetido várias vezes. Um texto qualquer repetido várias vezes. Um texto qualquer repetido várias vezes.Um texto qualquer repetido várias vezes.Um texto qualquer repetido várias vezes.Um texto qualquer repetido várias vezes.Um texto qualquer repetido várias vezes.Um texto qualquer repetido várias vezes.Um texto qualquer repetido várias vezes.Um texto qualquer repetido várias vezes.Um texto qualquer repetido várias vezes.Um texto qualquer repetido várias vezes.Um texto qualquer repetido várias vezes.</p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Com isso, as principais formas de inserção de imagens foram abordadas. Veremos agora outros tipos de mídia.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_vídeos"><a class="anchor" href="#_vídeos"></a>8. Vídeos</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Vídeos são elementos simples para inserir, e amplamente compatíveis com navegadores modernos. A estrutura é basicamente a seguinte:</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Código</dt>
+</dl>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>[[video]]
+[center.text-center]
+.Um vídeo de Teste
+video::rPQoq7ThGAU[poster=eiffel.jpg,width=640,height=480]</pre>
+</div>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Resultado</dt>
+<dd>
+<p>&#32;</p>
+</dd>
+</dl>
+</div>
+<div id="video" class="videoblock text-center">
+<div class="title">Um vídeo de Teste</div>
+<div class="content">
+<video src="/home/felipe/Vídeos/Palehound.mp4" width="640" height="480" poster="./imagens/eiffel.jpg" controls>
+Your browser does not support the video tag.
+</video>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Ainda há outras opções que podem ser incluídas: "autoplay,loop,modest,start,end,theme", entre <a href="https://asciidoctor.org/docs/user-manual/#video/" target="_blank" rel="noopener">outros</a>&#8230;&#8203;</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_tabelas"><a class="anchor" href="#_tabelas"></a>9. Tabelas</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>O uso de tabelas no Asciidoctor é um assunto relativamente amplo. Aqui, irei me restringir aos principais conceitos que são necessários para a criação de tabelas mais simples. Mais detalhes podem ser vistos no manual do Asciidoctor.</p>
+</div>
+<div class="sect2">
+<h3 id="_estrutura_padrão_2"><a class="anchor" href="#_estrutura_padrão_2"></a>9.1. Estrutura Padrão</h3>
+<div class="paragraph">
+<p>Veja a estrutura mais simples possível para a geração de tabelas:</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Código</dt>
+</dl>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="asciidoctor">[[tabela1]]
+.Tabela Simples
+|===
+| Primeira Coluna | Segunda Coluna <i class="conum" data-value="1"></i><b>(1)</b> <i class="conum" data-value="2"></i><b>(2)</b>
+                                   <i class="conum" data-value="3"></i><b>(3)</b>
+| Nota 1          | 9.0
+
+| Nota 2          | 8.5
+
+| Nota 3          | 7.7
+|===</code></pre>
+</div>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Resultado</dt>
+<dd>
+<p>&#32;</p>
+</dd>
+</dl>
+</div>
+<table id="tabela1" class="tableblock frame-all grid-all spread">
+<caption class="title">Tabela 1. Tabela Simples</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Primeira Coluna</th>
+<th class="tableblock halign-left valign-top">Segunda Coluna</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Nota 1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">9.0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Nota 2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8.5</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Nota 3</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">7.7</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Se não deixar uma linha em branco depois de <code>|===</code>, a primeira linha será tratada como cabeçalho.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Para delimitar colunas, usa-se <code>|</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Para pular para outra linha da tabela, deixa-se uma linha em branco.</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_formatação_de_colunas"><a class="anchor" href="#_formatação_de_colunas"></a>9.2. Formatação de Colunas</h3>
+<div class="paragraph">
+<p>Para definir algumas propriedades das colunas, usamos a diretiva <code>cols</code>. Veja alguns exemplos:</p>
+</div>
+<div class="sect3">
+<h4 id="_alinhamento"><a class="anchor" href="#_alinhamento"></a>9.2.1. Alinhamento</h4>
+<div class="sidebarblock">
+<div class="content">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Código</dt>
+</dl>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="asciidoctor">[[tabela2]]
+[cols="&lt;,^,&gt;"]
+.Alinhamento Horizontal
+|===
+| Primeira Coluna | Segunda Coluna | Terceira Coluna
+
+| Nota 1          | 9.0            | 10.0
+
+| Nota 2          | 8.5            | 5.5
+
+| Nota 3          | 7.7            | 9.8
+|===</code></pre>
+</div>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Resultado</dt>
+<dd>
+<p>&#32;</p>
+</dd>
+</dl>
+</div>
+<table id="tabela2" class="tableblock frame-all grid-all spread">
+<caption class="title">Tabela 2. Alinhamento Horizontal</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Primeira Coluna</th>
+<th class="tableblock halign-center valign-top">Segunda Coluna</th>
+<th class="tableblock halign-right valign-top">Terceira Coluna</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Nota 1</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">9.0</p></td>
+<td class="tableblock halign-right valign-top"><p class="tableblock">10.0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Nota 2</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">8.5</p></td>
+<td class="tableblock halign-right valign-top"><p class="tableblock">5.5</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Nota 3</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">7.7</p></td>
+<td class="tableblock halign-right valign-top"><p class="tableblock">9.8</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_largura"><a class="anchor" href="#_largura"></a>9.2.2. Largura</h4>
+<div class="sidebarblock">
+<div class="content">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Código</dt>
+</dl>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="asciidoctor">[[tabela3]]
+[cols="&lt;20,^30,&gt;50"] <i class="conum" data-value="1"></i><b>(1)</b>
+.Largura das Colunas
+|===
+| Primeira Coluna | Segunda Coluna | Terceira Coluna
+
+| Nota 1          | 9.0            | 10.0
+
+| Nota 2          | 8.5            | 5.5
+
+| Nota 3          | 7.7            | 9.8
+|===</code></pre>
+</div>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Resultado</dt>
+<dd>
+<p>&#32;</p>
+</dd>
+</dl>
+</div>
+<table id="tabela3" class="tableblock frame-all grid-all spread">
+<caption class="title">Tabela 3. Largura das Colunas</caption>
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 30%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Primeira Coluna</th>
+<th class="tableblock halign-center valign-top">Segunda Coluna</th>
+<th class="tableblock halign-right valign-top">Terceira Coluna</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Nota 1</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">9.0</p></td>
+<td class="tableblock halign-right valign-top"><p class="tableblock">10.0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Nota 2</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">8.5</p></td>
+<td class="tableblock halign-right valign-top"><p class="tableblock">5.5</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Nota 3</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">7.7</p></td>
+<td class="tableblock halign-right valign-top"><p class="tableblock">9.8</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Os números especificam, em porcentagem, a largura de cada coluna.</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_estilo"><a class="anchor" href="#_estilo"></a>9.2.3. Estilo</h4>
+<div class="sidebarblock">
+<div class="content">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Código</dt>
+</dl>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="asciidoctor">[[tabela4]]
+[cols="&lt;20h,^30s,&gt;50e"]
+.Colunas Estilizadas
+|===
+| Primeira Coluna | Segunda Coluna | Terceira Coluna
+
+| Nota 1          | 9.0            | 10.0
+
+| Nota 2          | 8.5            | 5.5
+
+| Nota 3          | 7.7            | 9.8
+|===</code></pre>
+</div>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Resultado</dt>
+<dd>
+<p>&#32;</p>
+</dd>
+</dl>
+</div>
+<table id="tabela4" class="tableblock frame-all grid-all spread">
+<caption class="title">Tabela 4. Colunas Estilizadas</caption>
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 30%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Primeira Coluna</th>
+<th class="tableblock halign-center valign-top">Segunda Coluna</th>
+<th class="tableblock halign-right valign-top">Terceira Coluna</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Nota 1</p></th>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><strong>9.0</strong></p></td>
+<td class="tableblock halign-right valign-top"><p class="tableblock"><em>10.0</em></p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Nota 2</p></th>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><strong>8.5</strong></p></td>
+<td class="tableblock halign-right valign-top"><p class="tableblock"><em>5.5</em></p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Nota 3</p></th>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><strong>7.7</strong></p></td>
+<td class="tableblock halign-right valign-top"><p class="tableblock"><em>9.8</em></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_formatação_de_células"><a class="anchor" href="#_formatação_de_células"></a>9.3. Formatação de Células</h3>
+<div class="paragraph">
+<p>Vimos que é possível alterar configurações acerca do tamanho e estilo das colunas. Mas se quisermos mesclar células, por exemplo? A seguir também veremos exemplos práticos que demonstram essa possibilidade.</p>
+</div>
+<div class="sect3">
+<h4 id="_mesclando_horizontalmente"><a class="anchor" href="#_mesclando_horizontalmente"></a>9.3.1. Mesclando Horizontalmente</h4>
+<div class="sidebarblock">
+<div class="content">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Código</dt>
+</dl>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="asciidoctor">[[tabela5]]
+[cols="&lt;20h,^30s,&gt;50e"]
+.Mesclando Células
+|===
+| Nota         2+^| Valores
+
+| Nota 1          | 9.0            | 10.0
+
+| Nota 2          | 8.5            | 5.5
+
+| Nota 3          | 7.7            | 9.8
+|===</code></pre>
+</div>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Resultado</dt>
+<dd>
+<p>&#32;</p>
+</dd>
+</dl>
+</div>
+<table id="tabela5" class="tableblock frame-all grid-all spread">
+<caption class="title">Tabela 5. Mesclando Células</caption>
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 30%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Nota</th>
+<th class="tableblock halign-center valign-top" colspan="2">Valores</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Nota 1</p></th>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><strong>9.0</strong></p></td>
+<td class="tableblock halign-right valign-top"><p class="tableblock"><em>10.0</em></p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Nota 2</p></th>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><strong>8.5</strong></p></td>
+<td class="tableblock halign-right valign-top"><p class="tableblock"><em>5.5</em></p></td>
+</tr>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Nota 3</p></th>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><strong>7.7</strong></p></td>
+<td class="tableblock halign-right valign-top"><p class="tableblock"><em>9.8</em></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_mesclando_verticalmente"><a class="anchor" href="#_mesclando_verticalmente"></a>9.3.2. Mesclando Verticalmente</h4>
+<div class="sidebarblock">
+<div class="content">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Código</dt>
+</dl>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="asciidoctor">[[tabela6]]
+[cols="&lt;20h,^30s,&gt;50e"]
+.Mesclando Células Verticais
+|===
+| Nota         2+^| Valores
+
+| Nota 1          | 9.0            | 10.0
+
+.2+^.&gt;| Nota 2    | 8.5            | 5.5
+
+                ^s| 7.7          &gt;e| 9.8
+|===</code></pre>
+</div>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Resultado</dt>
+<dd>
+<p>&#32;</p>
+</dd>
+</dl>
+</div>
+<table id="tabela6" class="tableblock frame-all grid-all spread">
+<caption class="title">Tabela 6. Mesclando Células Verticais</caption>
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 30%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Nota</th>
+<th class="tableblock halign-center valign-top" colspan="2">Valores</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<th class="tableblock halign-left valign-top"><p class="tableblock">Nota 1</p></th>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><strong>9.0</strong></p></td>
+<td class="tableblock halign-right valign-top"><p class="tableblock"><em>10.0</em></p></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-bottom" rowspan="2"><p class="tableblock">Nota 2</p></th>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><strong>8.5</strong></p></td>
+<td class="tableblock halign-right valign-top"><p class="tableblock"><em>5.5</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><strong>7.7</strong></p></td>
+<td class="tableblock halign-right valign-top"><p class="tableblock"><em>9.8</em></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_formatação_de_tamanho"><a class="anchor" href="#_formatação_de_tamanho"></a>9.4. Formatação de Tamanho</h3>
+<div class="sect3">
+<h4 id="_definindo_tamanho"><a class="anchor" href="#_definindo_tamanho"></a>9.4.1. Definindo Tamanho</h4>
+<div class="sidebarblock">
+<div class="content">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Código</dt>
+</dl>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="asciidoctor">.Bit-Wise Operators
+[.center,cols="^1,^1",width=40%]
+|===
+|Operator       | Description
+
+|		~		| Negation
+|		&amp;		| And
+|		\|		| Inclusive Or
+|		^		| Exclusive Or
+|		~^		| Exclusive Nor
+|===</code></pre>
+</div>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Resultado</dt>
+<dd>
+<p>&#32;</p>
+</dd>
+</dl>
+</div>
+<table class="tableblock frame-all grid-all center" style="width: 40%;">
+<caption class="title">Tabela 7. Bit-Wise Operators</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-center valign-top">Operator</th>
+<th class="tableblock halign-center valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">~</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Negation</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">&amp;</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">And</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">|</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Inclusive Or</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">^</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Exclusive Or</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">~^</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Exclusive Nor</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_ajuste_automático"><a class="anchor" href="#_ajuste_automático"></a>9.4.2. Ajuste Automático</h4>
+<div class="sidebarblock">
+<div class="content">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Código</dt>
+</dl>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="asciidoctor">.Bit-Wise Operators
+[%autowidth,cols="^1,^1"]
+|===
+|Operator                       | Description
+
+|		~		| Negation
+|		&amp;		| And
+|		\|		| Inclusive Or
+|		^		| Exclusive Or
+|		~^		| Exclusive Nor
+|===</code></pre>
+</div>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Resultado</dt>
+<dd>
+<p>&#32;</p>
+</dd>
+</dl>
+</div>
+<table class="tableblock frame-all grid-all">
+<caption class="title">Tabela 8. Bit-Wise Operators</caption>
+<colgroup>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-center valign-top">Operator</th>
+<th class="tableblock halign-center valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">~</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Negation</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">&amp;</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">And</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">|</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Inclusive Or</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">^</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Exclusive Or</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">~^</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Exclusive Nor</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_fórmulas_matemáticas"><a class="anchor" href="#_fórmulas_matemáticas"></a>10. Fórmulas Matemáticas</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Para quem já é habituado à escrita de equações em <em>latex</em>, não há nenhuma novidade aqui. Para usar a mesma sintaxe do <em>latex</em> no seu site feito com Asciidoctor, basta desenvolver os seguintes passos:</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Código</dt>
+</dl>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="pygments highlight"><code data-lang="asciidoctor">:stem: <i class="conum" data-value="1"></i><b>(1)</b>
+
+A equação latexmath:[E = m \cdot c^2] é bastante conhecida. Mas prefiro a equação &lt;&lt;simples&gt;&gt;:
+
+[[simples]]
+[latexmath]
+.Deslocamento Linear
+++++
+V_{média} = \frac{\Delta S}{\Delta t}
+++++</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>A equação \(E = m \cdot c^2\) é bastante conhecida. Mas prefiro a equação de <a href="#simples">Deslocamento Linear</a>:</p>
+</div>
+<div id="simples" class="stemblock">
+<div class="title">Deslocamento Linear</div>
+<div class="content">
+\[V_{média} = \frac{\Delta S}{\Delta t}\]
+</div>
+</div>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Inclua esse atributo no início do documento.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>A referência mais direta sobre a escrita em <em>latex</em> está disponível <a href="https://en.wikibooks.org/wiki/LaTeX" target="_blank" rel="noopener">aqui</a>. Dessa forma, basta inserir as equações da forma especificada acima e seu site poderá conter informações matemáticas com boa aparência e fácil de escrever.</p>
+</div>
+</div>
+</div>
+</div>
+<div id="footnotes">
+<hr>
+<div class="footnote" id="_footnote_1">
+<a href="#_footnoteref_1">1</a>. Não apenas sites, mas também documentos PDF  e Manuais Unix.
+</div>
+<div class="footnote" id="_footnote_2">
+<a href="#_footnoteref_2">2</a>. Um exemplo muito bem feito, por sinal.
+</div>
+<div class="footnote" id="_footnote_3">
+<a href="#_footnoteref_3">3</a>. E o exemplo só melhora&#8230;&#8203;
+</div>
+<div class="footnote" id="_footnote_4">
+<a href="#_footnoteref_4">4</a>. No site oficial do Asciidoctor, o nome dado é <em>Callout</em>. A melhor tradução que pensei foi essa&#8230;&#8203; <span class="icon"><i class="fa fa-smile-o"></i></span>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Última atualização 2018-01-01 14:32:41 -03
+</div>
+</div>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  messageStyle: "none",
+  tex2jax: {
+    inlineMath: [["\\(", "\\)"]],
+    displayMath: [["\\[", "\\]"]],
+    ignoreClass: "nostem|nolatexmath"
+  },
+  asciimath2jax: {
+    delimiters: [["\\$", "\\$"]],
+    ignoreClass: "nostem|noasciimath"
+  },
+  TeX: { equationNumbers: { autoNumber: "none" } }
+});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.6.0/MathJax.js?config=TeX-MML-AM_HTMLorMML"></script>
+</body>
+</html>

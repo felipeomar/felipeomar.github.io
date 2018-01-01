@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 1.5.6.1">
+<title>A simple component with SystemVerilog</title>
+<style>
+/* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
+
+@import url(https://fonts.googleapis.com/css?family=Ubuntu);
+@import "asciidoctor.css"; /* Default asciidoc style framework - important */
+
+/* CUSTOMISATIONS */
+/* Change the values in root for quick customisation. If you want even more fine grain... venture further. */
+
+:root{
+--maincolor:#FFFFFF;
+--primarycolor:#159957;
+--secondarycolor:#333333;
+--tertiarycolor: #159957;
+--sidebarbackground:#CCC;
+--highlightcolor:#00c171;
+--linkcolor:#159957;
+--linkcoloralternate:#159957;
+--white:#FFFFFF;
+--black:#606c71;
+}
+
+/* Text styles */
+body{font-family: "Ubuntu",sans-serif;color:var(--black);}
+h1,h2,h3,h4,h5,h6{color:var(--primarycolor) !important;font-family:"Ubuntu",sans-serif;}
+.title{color:(--primarycolor) !important;font-family:"Ubuntu",sans-serif;font-style: normal; font-weight: normal;}
+p{font-family: "Ubuntu",sans-serif ! important}
+#toc.toc2 a:link{color:#31e3d6;}
+code{background-color:#f7f7f8 !important;color:var(--black)}
+blockquote{color:#000000 !important}
+.quoteblock blockquote:before{color:var(--linkcoloralternate)}
+mark{background-color: var(--highlightcolor)} /* Text highlighting color */
+.subheader,.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{line-height:1.45;color:#159957;font-weight:400;margin-top:0;margin-bottom:.25em}
+/* Table styles */
+th{background-color: var(--tertiarycolor);color:var(--white) !important;}
+#toc.toc2{background-color:#31e3d6;background-color: #159957;background-image: linear-gradient(120deg, #155799, #159957);color:white;}
+#toc.toc2.a{color:#31e3d6;}
+#toctitle{color:#31e3d6;}
+/* Responsiveness fixes */
+video {
+  max-width: 100%;
+}
+@media all and (max-width: 600px) {
+table {
+  width: 55vw!important;
+  font-size: 3vw;
+  caption-side: bottom
+}  
+</style>
+</head>
+<body class="article toc2 toc-left">
+<div id="header">
+<h1>A simple component with SystemVerilog</h1>
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_the_and_port_design">The And Port Design</a>
+<ul class="sectlevel2">
+<li><a href="#_defining_inputs_outputs">Defining Inputs/Outputs</a></li>
+<li><a href="#_defining_the_device_s_behavior">Defining the device&#8217;s behavior</a></li>
+</ul>
+</li>
+<li><a href="#_a_simple_testbench_model">A Simple Testbench Model</a>
+<ul class="sectlevel2">
+<li><a href="#_component_instantiation">Component Instantiation</a></li>
+<li><a href="#_inputs_behavior">Inputs Behavior</a></li>
+</ul>
+</li>
+<li><a href="#_modelsim_simulation">Modelsim Simulation</a></li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>This tutorial will show how to describe a component which has the behavior of an AND port. The objective is show some initial points about the SystemVerilog language and the modelsim enviroment. For this, an <em>and_device</em> and an <em>and_testbench</em> will be developed, and tested in a modelsim environment.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_the_and_port_design">The And Port Design</h2>
+<div class="sectionbody">
+<div class="paragraph text-justify">
+<p>A way to describe a and port in SystemVerilog is given by the next code:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code class="language-systemverilog" data-lang="systemverilog">.and_device.sv
+module and_device (a, b, s);
+	input  a;
+	input  b;
+	output s;
+
+	assign s = a &amp; b;
+endmodule</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Any device can be implemented with the information about its inputs/outputs and behavior. The nexts paragraphs will show how to do this in SystemVerilog, while the code above is explained.</p>
+</div>
+<div class="sect2">
+<h3 id="_defining_inputs_outputs">Defining Inputs/Outputs</h3>
+<div class="paragraph text-justify">
+<p>Hardware languages has the objective to describe a digital component, telling us everything about your behavior, interconnections and relationship with another components. So, we can define a component by its inputs/outputs and the relantioship between them. To declare a digital component, we can start with a <strong>module</strong> directive:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code class="language-systemverilog" data-lang="systemverilog">module module_name(); //inputs and outputs goes here
+	//Description goes here
+endmodule</code></pre>
+</div>
+</div>
+<div class="paragraph text-justify">
+<p>After to declarate the module, we have to define which ports are inputs, or outputs. For this, we use the <em class="underline">input</em> and <em class="underline">output</em> statement. In the case of a component that have two inputs (<em>a</em> and <em>b</em>) and one output (<em>s</em>), we can define like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code class="language-systemverilog" data-lang="systemverilog">module and_device(a, b, s);
+	input  a;
+	input  b;
+	output s;
+
+	//Description goes here
+endmodule</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_defining_the_device_s_behavior">Defining the device&#8217;s behavior</h3>
+<div class="paragraph text-justify">
+<p>After to define the inputs/outputs, we have to describe the relantionship between them. In this moment, there are many ways to do this, from a structural descriptions (with logic elements) until behavorial descriptions. One way to do this with the <em>And_device</em> is:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code class="language-systemverilog" data-lang="systemverilog">module and_device(a, b, s);
+	input  a;
+	input  b;
+	output s;
+
+	assign s = a &amp; b;
+endmodule</code></pre>
+</div>
+</div>
+<div class="paragraph text-justify">
+<p>The <em class="underline">assign</em> statement is known like <em>continuous assigment</em>, because any change in the right-hand side, implies in the modification of left-hand side, at same time. So, it is used when we are developing a combinational logic. The <em>And</em> behavior is given by "&amp;" operator. The bit-wise operators in SystemVerilog are the same of C language. We can see more options in the table:</p>
+</div>
+<table class="tableblock frame-all grid-all center" style="width: 50%;">
+<caption class="title">Table 1. Bit-Wise Operators</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-center valign-top">Operator</th>
+<th class="tableblock halign-center valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">~</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Negation</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">&amp;</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">And</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">|</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Inclusive Or</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">^</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Exclusive Or</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">~^</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">Exclusive Nor</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph text-justify">
+<p>So, with this assigment, we are describing the relationship between the output and inputs.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_a_simple_testbench_model">A Simple Testbench Model</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_component_instantiation">Component Instantiation</h3>
+<div class="paragraph text-justify">
+<p>After design the device model, we need to simulate its behavior. To do this, we can describe a top-level design, which will contain a device that we need to test. With this top-level design, we can describe a sequence of signals to be applied in the device.</p>
+</div>
+<div class="paragraph text-justify">
+<p>First, we instantiate the <em>and_device</em> in our testbench model:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code class="language-systemverilog" data-lang="systemverilog">module and_testbench();
+	logic a, b, s;
+
+	and_device and_device0(a, b, s);
+
+endmodule</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Another way to do this, is given by:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight nowrap"><code class="language-systemverilog" data-lang="systemverilog">module and_testbench();
+	logic a, b, s;
+
+	and_device and_device0(.a(a), .b(b), .s(s));
+
+endmodule</code></pre>
+</div>
+</div>
+<div class="paragraph text-justify">
+<p>In the first case, the signals <em>a</em>, <em>b</em> and <em>s</em> must be in the same order of the <em>and_device</em> description. In the second case, the signals are explicitly described by <em class="underline">.port_name(signal_name)</em>.</p>
+</div>
+<div class="paragraph text-justify">
+<p>The signals created in this testbench are <strong><em>logic</em></strong> type. The <em>logic</em> is a 4-state type, what means that there are four possible values to be assigned: '0', '1', 'Z'(high impedance) and 'X'(unknown). SystemVerilog also have 2-state types, like: <em>bit</em>, <em>byte</em> and <em>int</em>. The <em>Logic</em> type, in SystemVerilog, is equivalent to <em>reg</em> type in Verilog.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_inputs_behavior">Inputs Behavior</h3>
+<div class="paragraph text-justify">
+<p>Now, the inputs must be changed to verify the <em>and_device</em>'s behavior. This can be implemented in this way:</p>
+</div>
+<div class="listingblock">
+<div class="title">and_tb.sv</div>
+<div class="content">
+<pre class="highlight nowrap"><code class="language-systemverilog" data-lang="systemverilog">module and_tb ();
+	logic a, b, s;
+
+	and_device and0(a,b,s);
+
+	initial begin
+		a = 0;
+		b = 0;
+		#100;
+
+		a = 0;
+		b = 1;
+		#100;
+
+		a = 1;
+		b = 0;
+		#100;
+
+		a = 1;
+		b = 1;
+		#100;
+	end
+
+endmodule</code></pre>
+</div>
+</div>
+<div class="paragraph text-justify">
+<p>The initial block execute the commands only once, and starts at time 0. The # token means a time delay. So, with this description, we can observe the responses of <em>and_device</em> executing the simulation on  modelsim.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_modelsim_simulation">Modelsim Simulation</h2>
+<div class="sectionbody">
+<div class="paragraph text-justify">
+<p>A modelsim simulation can be implemented by a file with the extention <strong>.do</strong>. In this file, we have to put the modelsim commands for compile and simulate our design. For this project, a file named <em>and_project.do</em> was written, and can be seen bellow:</p>
+</div>
+<div class="listingblock">
+<div class="title">and_project.do</div>
+<div class="content">
+<pre class="highlight nowrap"><code class="language-tcl" data-lang="tcl">#create a logical library
+vlib work
+
+#Mapping the logical work to the physical work directory
+vmap work ./work
+
+#Compile all systemverilog files
+vlog -work work *.sv
+
+#Load the design for simulation
+vsim work.and_tb
+
+#Configure the waveform
+view wave
+add wave -divider inputs
+add wave -color #00FF00 -radix hex a
+add wave -color #00FF00 -radix hex b
+
+add wave -divider outputs
+add wave -color #0000FF -radix hex s
+
+#Run the simulation
+run -all</code></pre>
+</div>
+</div>
+<div class="paragraph text-justify">
+<p>Finally, to run the simulation, save these three files (and_port.sv, and_tb.sv, and_project.do) in the same directory and execute the next command in your terminal:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>vsim -do and_project.do</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Then, the result is showed:</p>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="imageblock" style="text-align: center">
+<div class="content">
+<img src="./images/result_and_device.png" alt="result and device">
+</div>
+<div class="title">Figure 1. Testbench Simulation</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2017-12-22 17:45:08 -03
+</div>
+</div>
+</body>
+</html>
