@@ -7,6 +7,8 @@ Abaixo você pode visualizar o material desenvolvido até o momento:
 
 ## [Modelo de Site em Asciidoctor](modelo_base/site/site.html)
 
+## [Instalações Elétricas](instalacoes_eletricas/instalacoes.html)
+
 # Sobre o Autor
 Felipe Omar é um estudante de Engenharia Elétrica da UFRN. Ele sempre gostou de tópicos relacionados à ciência. Após entrar na universidade, ele descobriu um novo campo de conhecimento: linguagens de programação. Desde então, ele mantém contato com as principais linguagens, como C/C++. Ele também possui afinidade com tópicos relacionados à sistemas digitais, linguagens de descrição de hardware (como VHDL) e microcontroladores PIC.
 

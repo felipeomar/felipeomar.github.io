@@ -1,4 +1,5 @@
 :toc: left
+//:toclevels: 3
 :stylesheet: ubuntu.css
 :author: Felipe Omar
 :email: felipeomar.c@gmail.com
@@ -35,11 +36,87 @@ O desenvolvimento de técnicas no campo da eletricidade foi um dos grandes prest
 No Brasil, a norma que trata sobre as instalações residenciais é a NBR 5410. Os assuntos tratados nesse site terão por objetivo explorar o tema de instalações elétricas residenciais, auxiliando no entendimento da norma e da elaboração de projetos. As devidas referências serão sempre citadas, para a verificação por parte do leitor. Sugestões e críticas nas quais o leitor julgar necessárias, basta comunicar ao email acima. Boa Leitura!
 
 
-== Conteúdo
 
 
-=== Definições
+== Definições
 
+A NBR 5410 possui sua área de atuação, que em conjunto com outras normas cobre a vasta área de instalações elétricas em geral. Dessa forma, é necessário realizar a definição das condições em que ela se aplica e determinar os termos e características que devem ser trabalhados, de forma que o objetivo proposto pela norma seja cumprido.
+
+=== Áreas de Atuação da Norma NBR 5410
+
+A norma NBR 5410 restringe-se à instalações de baixa tensão (tensões abaixo de 1000 V~CA~), tendo como principais áreas de atuação os seguintes casos:
+
+* Edificações residenciais e comerciais em geral;
+* Estabelecimentos industriais;
+* Locais de acampamentos e canteiros de obras;
+* Circuitos com alimentação abaixo de 1000 V~CA~.
+
+Também é importante saber em quais casos a NBR 5410 *não* se aplica. Vejamos alguns casos:
+
+* Instalações de redes e de iluminação pública;
+* Instalação de veículos automotores;
+* Instalações de minas;
+* Instalação de cercas eletrificadas;
+* Instalações para proteção de descargas atmosféricas.
+
+Complementar à NBR 5410, temos as normas 13570, para ambientes públicos (cinemas, teatros, etc.) e NBR 13534, para instalações em estabelecimentos de saúde.
+
+
+=== Instalações e Alimentação
+
+==== Instalações
+
+Instalações elétricas são um conjunto de componentes elétricos, interligados entre si com a finalidade de possibilitar a utilização de energia elétrica de forma segura. Tais componentes serão melhor tratados no próximo tópico. Por hora, vamos observar como as instalações elétricas podem ser classificadas, pois cada tipo de instalação possui suas peculiaridades, que precisam ser analisadas para a melhor elaboração de um projeto. Podemos denominar o tipo de instalação por dois fatores: o nível de tensão de alimentação (eficaz) e sua condição de utilização.
+
+A classificação quanto ao nível de tensão pode ser resumida na seguinte tabela:
+
+[[instalacao-niveis-tensao]]
+[.center,cols="^,^,^",width=80%]
+.Classificação de instalações por níveis de tensão nominal.
+|===
+|Tensão Nominal CA            | Tensão Nominal CC                   | Tipo de instalação
+
+|latexmath:[\le] 50 V         | latexmath:[\le] 120 V               | Extra Baixa Tensão (EBT)
+
+|latexmath:[\le] 1000 V       | latexmath:[\le] 1500 V              | Baixa tensão (BT)
+
+|> 1000                       | > 1500 V                            | Alta tensão (AT)
+
+|===
+
+
+Relembrando, a NBR 5410 aplica-se somente à instalações de baixa e extra baixa tensão.
+
+O uso de energia elétrica é necessário e diversas condições. Basta citar que uma instalação pode ser implementada para o uso domiciliar, onde há pouca dinâmica de modificação da instalação, e também pode ser implementada em um ambiente de reforma, onde é necessário realizar constantes modificações na estrutura da instalação ao decorrer da obra. Com isso, podemos definir tipos de instalações quanto ao seu uso:
+
+* *Instalação Predial*: Constitui em uma instalação contida dentro de um prédio (edificação). Ou seja, refere-se às instalações normalmente encontradas em residências, comércio e ambientes industriais. 
+
+* *Instalação Temporária*: São instalações que duram apenas por um tempo determinado, necessárias para a realização de um serviço específico. Podem ser separadas em três tipos: Instalação de reparos, de trabalho e semipermanente.
+
+** _Instalação de Reparos_: É uma instalação temporária que substitui uma instalação permanente que esteja defeituosa.
+** _Instalação de Trabalho_: É uma instalação temporária que admite reparações ou modificações de uma instalação existente sem interromper seu funcionamento.
+** _Instalação semipermanente_: São instalações destinadas a atividades como contrução ou reforma de edificações e para obras públicas. Podem ser mais facilmente identificadas como _instalações de canteiros de obras_.
+
+
+==== Alimentação
+
+A alimentação de uma instalação elétrica pode ser feita de diversas formas, mas sempre há alguns "pontos-chave" nas quais todos os esquemas de ligação devem ter. Dessa forma, veremos os principais pontos no estabelecimento da alimentação para uma instalação elétrica e definir a localização onde a norma NBR 5410 começa a vigorar.
+
+Quando a energia elétrica é fornecida por uma concessionária, a instalação do consumidor pode ser alimentada diretamente em baixa tensão, ou então em alta tensão através de uma substação própria do consumidor.
+
+[float]
+==== Alimentação em Baixa Tensão
+
+Quando a concessionária fornece a energia elétrica diretamente em baixa tensão, temos dois formatos comumente encontrados: para pequenos consumidores e para edificações de maior porte. O esquema básico de ligação para esses casos é o seguinte:
+
+[[alimentacao-baixa-tensao]]
+[.text-center]
+.Esquema de Ligação em Baixa Tensão.
+image::alimentacao-baixa-tensao.png[50%]
+
+Nessa situação, a concessionária se responsabiliza pela manutenção e operação do sistema até o _ponto de entrega_. A patir do ponto de entrega, torna-se responsabilidade do consumidor a devida instalação dos componentes. Algumas variações da <<alimentacao-baixa-tensao>>podem ser encontradas. Por exemplo, no Rio Grando do Norte, para instalações de baixa tensão, a concessionária estipula o ponto de entrega na entrada do medidor. 
+
+Após o _Ramal de Entrada_, temos o dispositivo de medição em conjunto com os dispositivos de comando e proteção. A saída desse conjunto caracteriza a origem da instalação elétrica. É a partir do ponto de origem que as regras da norma NBR 5410 devem ser aplicadas.
 
 
 == Projetos-Exemplo
