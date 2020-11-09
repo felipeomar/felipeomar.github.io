@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 1.5.6.1">
+<meta name="generator" content="Asciidoctor 2.0.11">
 <meta name="author" content="Felipe Omar">
 <title>Instalações Elétricas</title>
 <style>
@@ -56,10 +56,7 @@ table {
 }
 
 </style>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
-<style>
-/* Pygments styles disabled. Pygments is not available. */
-</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body class="article toc2 toc-left">
 <div id="header">
@@ -74,7 +71,7 @@ table {
 <li><a href="#_introdução">1. Introdução</a></li>
 <li><a href="#_definições">2. Definições</a>
 <ul class="sectlevel2">
-<li><a href="#_Áreas_de_atuação_da_norma_nbr_5410">2.1. Áreas de Atuação da Norma NBR 5410</a></li>
+<li><a href="#_áreas_de_atuação_da_norma_nbr_5410">2.1. Áreas de Atuação da Norma NBR 5410</a></li>
 <li><a href="#_instalações_e_alimentação">2.2. Instalações e Alimentação</a></li>
 </ul>
 </li>
@@ -101,7 +98,7 @@ table {
 <p>A NBR 5410 possui sua área de atuação, que em conjunto com outras normas cobre a vasta área de instalações elétricas em geral. Dessa forma, é necessário realizar a definição das condições em que ela se aplica e determinar os termos e características que devem ser trabalhados, de forma que o objetivo proposto pela norma seja cumprido.</p>
 </div>
 <div class="sect2">
-<h3 id="_Áreas_de_atuação_da_norma_nbr_5410"><a class="anchor" href="#_Áreas_de_atuação_da_norma_nbr_5410"></a>2.1. Áreas de Atuação da Norma NBR 5410</h3>
+<h3 id="_áreas_de_atuação_da_norma_nbr_5410"><a class="anchor" href="#_áreas_de_atuação_da_norma_nbr_5410"></a>2.1. Áreas de Atuação da Norma NBR 5410</h3>
 <div class="paragraph">
 <p>A norma NBR 5410 restringe-se à instalações de baixa tensão (tensões abaixo de 1000 V<sub>CA</sub>), tendo como principais áreas de atuação os seguintes casos:</p>
 </div>
@@ -257,9 +254,7 @@ table {
 <i class="fa icon-warning" title="Aviso"></i>
 </td>
 <td class="content">
-Site em construção&#8230;&#8203;
-  <iframe src="https://www.google.com/maps/d/embed?mid=1ErPkInYvKK8rYKkd4wRgd7r-LN5HzYpx" width="640" height="480"></iframe>
-  
+Site em construção&#8230;&#8203; Alterações Drásticas Por vir&#8230;&#8203;
 </td>
 </tr>
 </table>
@@ -269,7 +264,7 @@ Site em construção&#8230;&#8203;
 </div>
 <div id="footer">
 <div id="footer-text">
-Última atualização 2018-01-02 18:08:06 -03
+Última atualização 2020-11-08 23:06:57 -0300
 </div>
 </div>
 <script type="text/x-mathjax-config">
@@ -285,8 +280,16 @@ MathJax.Hub.Config({
     ignoreClass: "nostem|noasciimath"
   },
   TeX: { equationNumbers: { autoNumber: "none" } }
-});
+})
+MathJax.Hub.Register.StartupHook("AsciiMath Jax Ready", function () {
+  MathJax.InputJax.AsciiMath.postfilterHooks.Add(function (data, node) {
+    if ((node = data.script.parentNode) && (node = node.parentNode) && node.classList.contains("stemblock")) {
+      data.math.root.display = "block"
+    }
+    return data
+  })
+})
 </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.6.0/MathJax.js?config=TeX-MML-AM_HTMLorMML"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js?config=TeX-MML-AM_HTMLorMML"></script>
 </body>
 </html>
